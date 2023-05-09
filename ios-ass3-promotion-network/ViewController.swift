@@ -8,10 +8,27 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    private var realmManager = RealmManager.shared
+    
+    var firstAppUser = AppUser()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        Task {
+            do {
+                try? await realmManager.initalize()
+                firstAppUser.email = "malena@gmail.com"
+                firstAppUser.username = "malena"
+                
+//                if let realm = realmManager.realm{
+//                    try! realm.write{
+//                       realm.add(firstAppUser)
+//                    }
+//                }
+
+            }
+        }
     }
 
 
