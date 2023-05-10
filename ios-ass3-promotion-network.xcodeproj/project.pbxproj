@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48A4FB49A29B3A33522BBCF2 /* libPods-ios-ass3-promotion-network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */; };
 		F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AC2A00F407001F803F /* AppDelegate.swift */; };
 		F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AE2A00F407001F803F /* SceneDelegate.swift */; };
 		F1A579B12A00F407001F803F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B02A00F407001F803F /* ViewController.swift */; };
@@ -17,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ios-ass3-promotion-network.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
+		9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
 		F1A579A92A00F407001F803F /* ios-ass3-promotion-network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-ass3-promotion-network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A579AC2A00F407001F803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A579AE2A00F407001F803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,17 +37,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48A4FB49A29B3A33522BBCF2 /* libPods-ios-ass3-promotion-network.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B56BF47F2E8BB08145412823 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */,
+				6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E8E3B1660AF25747D207E85D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F1A579A02A00F407001F803F = {
 			isa = PBXGroup;
 			children = (
 				F1A579AB2A00F407001F803F /* ios-ass3-promotion-network */,
 				F1A579AA2A00F407001F803F /* Products */,
+				B56BF47F2E8BB08145412823 /* Pods */,
+				E8E3B1660AF25747D207E85D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,9 +102,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1A579C02A00F40B001F803F /* Build configuration list for PBXNativeTarget "ios-ass3-promotion-network" */;
 			buildPhases = (
+				02F54617BE42B1C6F805E726 /* [CP] Check Pods Manifest.lock */,
 				F1A579A52A00F407001F803F /* Sources */,
 				F1A579A62A00F407001F803F /* Frameworks */,
 				F1A579A72A00F407001F803F /* Resources */,
+				3214F2681CFAEBCF3322D7FF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -135,6 +162,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02F54617BE42B1C6F805E726 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ios-ass3-promotion-network-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3214F2681CFAEBCF3322D7FF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F1A579A52A00F407001F803F /* Sources */ = {
@@ -286,6 +355,7 @@
 		};
 		F1A579C12A00F40B001F803F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -313,6 +383,7 @@
 		};
 		F1A579C22A00F40B001F803F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
