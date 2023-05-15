@@ -8,9 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
+		E8EEEF5A2A11F25400D8F5E0 /* CreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF592A11F25400D8F5E0 /* CreateProfileViewController.swift */; };
+		E8EEEF5C2A11F2A700D8F5E0 /* ViewProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF5B2A11F2A700D8F5E0 /* ViewProfileViewController.swift */; };
+		E8EEEF5E2A11F2BF00D8F5E0 /* ViewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF5D2A11F2BF00D8F5E0 /* ViewPostViewController.swift */; };
+		E8EEEF602A11F2CF00D8F5E0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF5F2A11F2CF00D8F5E0 /* SettingsViewController.swift */; };
+		E8EEEF622A11F3A000D8F5E0 /* SearchPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF612A11F3A000D8F5E0 /* SearchPostsViewController.swift */; };
+		E8EEEF642A11F41F00D8F5E0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF632A11F41F00D8F5E0 /* HomeViewController.swift */; };
+		E8EEEF662A11F68F00D8F5E0 /* SearchAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF652A11F68F00D8F5E0 /* SearchAccountsViewController.swift */; };
+		E8EEEF682A11F7C700D8F5E0 /* CreatePostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF672A11F7C700D8F5E0 /* CreatePostsViewController.swift */; };
+		E8EEEF6A2A11F80900D8F5E0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */; };
+		E8EEEF6C2A11F81300D8F5E0 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */; };
 		F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AC2A00F407001F803F /* AppDelegate.swift */; };
 		F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AE2A00F407001F803F /* SceneDelegate.swift */; };
-		F1A579B12A00F407001F803F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B02A00F407001F803F /* ViewController.swift */; };
+		F1A579B12A00F407001F803F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B02A00F407001F803F /* LoginViewController.swift */; };
 		F1A579B42A00F407001F803F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1A579B22A00F407001F803F /* Main.storyboard */; };
 		F1A579B72A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B52A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld */; };
 		F1A579B92A00F40B001F803F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A579B82A00F40B001F803F /* Assets.xcassets */; };
@@ -19,10 +29,20 @@
 
 /* Begin PBXFileReference section */
 		E81746A12A0A34F1002851A7 /* Test.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Test.rtf; sourceTree = "<group>"; };
+		E8EEEF592A11F25400D8F5E0 /* CreateProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileViewController.swift; sourceTree = "<group>"; };
+		E8EEEF5B2A11F2A700D8F5E0 /* ViewProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProfileViewController.swift; sourceTree = "<group>"; };
+		E8EEEF5D2A11F2BF00D8F5E0 /* ViewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPostViewController.swift; sourceTree = "<group>"; };
+		E8EEEF5F2A11F2CF00D8F5E0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E8EEEF612A11F3A000D8F5E0 /* SearchPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostsViewController.swift; sourceTree = "<group>"; };
+		E8EEEF632A11F41F00D8F5E0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E8EEEF652A11F68F00D8F5E0 /* SearchAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccountsViewController.swift; sourceTree = "<group>"; };
+		E8EEEF672A11F7C700D8F5E0 /* CreatePostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostsViewController.swift; sourceTree = "<group>"; };
+		E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		F1A579A92A00F407001F803F /* ios-ass3-promotion-network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-ass3-promotion-network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A579AC2A00F407001F803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A579AE2A00F407001F803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F1A579B02A00F407001F803F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F1A579B02A00F407001F803F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F1A579B32A00F407001F803F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1A579B62A00F407001F803F /* ios_ass3_promotion_network.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios_ass3_promotion_network.xcdatamodel; sourceTree = "<group>"; };
 		F1A579B82A00F40B001F803F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -35,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48A4FB49A29B3A33522BBCF2 /* libPods-ios-ass3-promotion-network.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,19 +64,33 @@
 		B56BF47F2E8BB08145412823 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */,
-				6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		E8E3B1660AF25747D207E85D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8EEEF582A11F02200D8F5E0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F1A579B02A00F407001F803F /* LoginViewController.swift */,
+				E8EEEF592A11F25400D8F5E0 /* CreateProfileViewController.swift */,
+				E8EEEF5B2A11F2A700D8F5E0 /* ViewProfileViewController.swift */,
+				E8EEEF5D2A11F2BF00D8F5E0 /* ViewPostViewController.swift */,
+				E8EEEF5F2A11F2CF00D8F5E0 /* SettingsViewController.swift */,
+				E8EEEF612A11F3A000D8F5E0 /* SearchPostsViewController.swift */,
+				E8EEEF632A11F41F00D8F5E0 /* HomeViewController.swift */,
+				E8EEEF652A11F68F00D8F5E0 /* SearchAccountsViewController.swift */,
+				E8EEEF672A11F7C700D8F5E0 /* CreatePostsViewController.swift */,
+				E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */,
+				E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		F1A579A02A00F407001F803F = {
@@ -81,9 +114,9 @@
 		F1A579AB2A00F407001F803F /* ios-ass3-promotion-network */ = {
 			isa = PBXGroup;
 			children = (
+				E8EEEF582A11F02200D8F5E0 /* Controller */,
 				F1A579AC2A00F407001F803F /* AppDelegate.swift */,
 				F1A579AE2A00F407001F803F /* SceneDelegate.swift */,
-				F1A579B02A00F407001F803F /* ViewController.swift */,
 				F1A579B22A00F407001F803F /* Main.storyboard */,
 				F1A579B82A00F40B001F803F /* Assets.xcassets */,
 				F1A579BA2A00F40B001F803F /* LaunchScreen.storyboard */,
@@ -210,10 +243,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1A579B12A00F407001F803F /* ViewController.swift in Sources */,
+				F1A579B12A00F407001F803F /* LoginViewController.swift in Sources */,
+				E8EEEF5E2A11F2BF00D8F5E0 /* ViewPostViewController.swift in Sources */,
+				E8EEEF5C2A11F2A700D8F5E0 /* ViewProfileViewController.swift in Sources */,
+				E8EEEF622A11F3A000D8F5E0 /* SearchPostsViewController.swift in Sources */,
+				E8EEEF6C2A11F81300D8F5E0 /* LogoutViewController.swift in Sources */,
 				F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */,
+				E8EEEF642A11F41F00D8F5E0 /* HomeViewController.swift in Sources */,
 				F1A579B72A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld in Sources */,
+				E8EEEF5A2A11F25400D8F5E0 /* CreateProfileViewController.swift in Sources */,
 				F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */,
+				E8EEEF662A11F68F00D8F5E0 /* SearchAccountsViewController.swift in Sources */,
+				E8EEEF682A11F7C700D8F5E0 /* CreatePostsViewController.swift in Sources */,
+				E8EEEF6A2A11F80900D8F5E0 /* AboutViewController.swift in Sources */,
+				E8EEEF602A11F2CF00D8F5E0 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +398,6 @@
 		};
 		F1A579C12A00F40B001F803F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -383,7 +425,6 @@
 		};
 		F1A579C22A00F40B001F803F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
