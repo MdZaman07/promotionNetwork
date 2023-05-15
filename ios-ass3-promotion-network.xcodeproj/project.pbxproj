@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48A4FB49A29B3A33522BBCF2 /* libPods-ios-ass3-promotion-network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */; };
+		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
 		F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AC2A00F407001F803F /* AppDelegate.swift */; };
 		F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AE2A00F407001F803F /* SceneDelegate.swift */; };
 		F1A579B12A00F407001F803F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B02A00F407001F803F /* ViewController.swift */; };
@@ -18,9 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ios-ass3-promotion-network.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
-		9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
+		E81746A12A0A34F1002851A7 /* Test.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Test.rtf; sourceTree = "<group>"; };
 		F1A579A92A00F407001F803F /* ios-ass3-promotion-network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-ass3-promotion-network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A579AC2A00F407001F803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A579AE2A00F407001F803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +89,7 @@
 				F1A579BA2A00F40B001F803F /* LaunchScreen.storyboard */,
 				F1A579BD2A00F40B001F803F /* Info.plist */,
 				F1A579B52A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld */,
+				E81746A12A0A34F1002851A7 /* Test.rtf */,
 			);
 			path = "ios-ass3-promotion-network";
 			sourceTree = "<group>";
@@ -157,6 +156,7 @@
 			files = (
 				F1A579BC2A00F40B001F803F /* LaunchScreen.storyboard in Resources */,
 				F1A579B92A00F40B001F803F /* Assets.xcassets in Resources */,
+				E81746A22A0A34F1002851A7 /* Test.rtf in Resources */,
 				F1A579B42A00F407001F803F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
