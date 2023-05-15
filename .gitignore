@@ -2,11 +2,13 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-## User settings
-xcuserdata/
-xcuserdata/**
-
+.DS_Store/**
+.DS_Store/
 .DS_Store
+ios-ass3-promotion-network.xcodeproj/project.xcworkspace/xcuserdata/**
+ios-ass3-promotion-network.xcodeproj/project.xcworkspace/xcuserdata/*
+ios-ass3-promotion-network.xcodeproj/project.xcworkspace/xcuserdata/
+.project.xcworkspace/xcuserdata/
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint
