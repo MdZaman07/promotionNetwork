@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48A4FB49A29B3A33522BBCF2 /* libPods-ios-ass3-promotion-network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */; };
+		BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */; };
+		F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1205B442A10D93A00F87E4D /* AWSManager.swift */; };
 		F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AC2A00F407001F803F /* AppDelegate.swift */; };
 		F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AE2A00F407001F803F /* SceneDelegate.swift */; };
 		F1A579B12A00F407001F803F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B02A00F407001F803F /* ViewController.swift */; };
@@ -18,9 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ios-ass3-promotion-network.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
 		9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
+		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1205B442A10D93A00F87E4D /* AWSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSManager.swift; sourceTree = "<group>"; };
 		F1A579A92A00F407001F803F /* ios-ass3-promotion-network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-ass3-promotion-network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A579AC2A00F407001F803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A579AE2A00F407001F803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48A4FB49A29B3A33522BBCF2 /* libPods-ios-ass3-promotion-network.a in Frameworks */,
+				BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,14 +52,13 @@
 				9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */,
 				6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		E8E3B1660AF25747D207E85D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				07AD0F87B56D478234C9698D /* libPods-ios-ass3-promotion-network.a */,
+				B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -83,6 +84,7 @@
 		F1A579AB2A00F407001F803F /* ios-ass3-promotion-network */ = {
 			isa = PBXGroup;
 			children = (
+				F1F8F76F2A0FD70800437A4A /* Managers */,
 				F1A579AC2A00F407001F803F /* AppDelegate.swift */,
 				F1A579AE2A00F407001F803F /* SceneDelegate.swift */,
 				F1A579B02A00F407001F803F /* ViewController.swift */,
@@ -93,6 +95,14 @@
 				F1A579B52A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld */,
 			);
 			path = "ios-ass3-promotion-network";
+			sourceTree = "<group>";
+		};
+		F1F8F76F2A0FD70800437A4A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F1205B442A10D93A00F87E4D /* AWSManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,6 +117,7 @@
 				F1A579A62A00F407001F803F /* Frameworks */,
 				F1A579A72A00F407001F803F /* Resources */,
 				3214F2681CFAEBCF3322D7FF /* [CP] Copy Pods Resources */,
+				EB16C35110671547CF93E59D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -203,6 +214,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EB16C35110671547CF93E59D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -212,6 +240,7 @@
 			files = (
 				F1A579B12A00F407001F803F /* ViewController.swift in Sources */,
 				F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */,
+				F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */,
 				F1A579B72A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld in Sources */,
 				F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */,
 			);
