@@ -7,39 +7,87 @@
 
 import Foundation
 
-class JSONReader {
+
+// Class for reading the dummy data and processing it similar to a database
+class JSONDummyDataReader {
     var file: Data?
-    var location: String
+    var users: [User] = []
+    var fileURL: URL?
     
-    init(location: String) {
-        self.location = location
-        if let fileURL = Bundle.main.url(forResource: "data", withExtension: "json") {
+    init() {
+        // Get the URL for the Documents directory
+        guard let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Documents directory not found")
+            return
+        }
+        
+        // Initialise DummyData path
+        self.fileURL = documentsDirectoryURL.appendingPathComponent("DummyData.json")
+
+        guard let fileURL = self.fileURL else {return}
+        
+        // Check if the file exists, if it does, put user data into users array variable
+        if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 let jsonData = try Data(contentsOf: fileURL)
                 self.file = jsonData
-                // Process the JSON data
+                let decoder = JSONDecoder()
+                self.users = try decoder.decode([User].self, from: jsonData)
+                printJSON(jsonData: jsonData)
             } catch {
                 print("Error accessing JSON file: \(error)")
+            }
+        } else {
+            // If file doesn't exist, create one with an empty array
+            do {
+                let jsonData = try JSONEncoder().encode(users)
+                try jsonData.write(to: fileURL)
+            } catch {
+                print("Error: \(error)")
             }
         }
     }
     
-    func writeToFile() {
+    func printJSON(jsonData: Data) {
+        // Convert JSON data into a Swift object
+        if let jsonString = String(data: jsonData, encoding: .utf8) {
+             print(jsonString)
+         }
+    }
+    
+    func createUser(newUser: User) {
+        guard let fileURL = self.fileURL else {return}
+        
+        if(users.contains { $0.id == newUser.id }) {
+            print("Username already exists!")
+            return
+        }
+
         do {
-            var jsonObject = try JSONSerialization.jsonObject(with: file!, options: [])
-            if var jsonDictionary = jsonObject as? [String: Any] {
-                // Modify the JSON data as needed
-                jsonDictionary["key"] = "new value"
-                jsonObject = jsonDictionary
-
-                // Convert the updated JSON object back to Data
-                let updatedData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
-
-                // Write the updated data to the file
-                try updatedData.write(to: URL(fileURLWithPath: location))
-            }
+            // Modify the data structure
+            users.append(newUser)
+            
+            // Step 4: Encode the updated data structure back into JSON data
+            let jsonData = try JSONEncoder().encode(users)
+            
+            printJSON(jsonData: jsonData)
+            
+            // Write the JSON data to the file
+            try jsonData.write(to: fileURL)
+            
         } catch {
-            print("Error writing to JSON file: \(error)")
+            print("Error: \(error)")
+        }
+    }
+    
+    func deleteDummyData() {
+        guard let fileURL = self.fileURL else {return}
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: fileURL)
+            print("DummyData.json file deleted")
+        } catch {
+            print("Error deleting file: \(error)")
         }
     }
 }

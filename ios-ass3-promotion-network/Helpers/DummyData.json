@@ -1,0 +1,21 @@
+[
+    {
+        "id": "toannguyen",
+        "firstName": "Toan",
+        "lastName": "Nguyen",
+        "password": "password123",
+        "city": "Sydney",
+        "description": "Test",
+        "posts":
+        [
+            {
+                "text": "Hi hello",
+                "image": "an image url",
+                "address": "The address",
+                "latitude": "-123.123",
+                "longitude": "321.321",
+                "moneySaved": "$5"
+            }
+        ]
+    }
+]

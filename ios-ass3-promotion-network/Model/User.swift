@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User {
+class User: Codable {
     let id: String
     var firstName: String
     var lastName: String
@@ -27,6 +27,7 @@ class User {
     
     // Write to dummy data for now
     func createUser() {
-        
+        var dummyDataReader = JSONDummyDataReader()
+        dummyDataReader.createUser(newUser: self)
     }
 }
