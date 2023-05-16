@@ -8,12 +8,31 @@
 import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-
     @IBOutlet weak var postsTableView: UITableView!
     
+    var loginSession: LoginSession?
     var profilePictureList = [ProfilePicture]()
     
     override func viewDidLoad() {
+        // If there is no login session, push to login screen
+        if let encodedSession = UserDefaults.standard.data(forKey: "loginSession") {
+            do {
+                let decodedSession = try JSONDecoder().decode(LoginSession.self, from: encodedSession)
+
+                // The savedSession is now of type LoginSession and you can use it
+                self.loginSession = decodedSession
+                print("Successfully logged in user: \(self.loginSession!.user)")
+            } catch {
+                print("Error decoding login session: \(error)")
+            }
+
+        } else {
+            // There is no saved login session or the decoding failed
+            print("Login session not found")
+            let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initList()

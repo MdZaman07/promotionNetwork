@@ -55,12 +55,12 @@ class JSONDummyDataReader {
          }
     }
     
-    func createUser(newUser: User) {
-        guard let fileURL = self.fileURL else {return}
+    func createUser(newUser: User) -> Bool {
+        guard let fileURL = self.fileURL else {return false}
         
         if(users.contains { $0.id == newUser.id }) {
             print("Username already exists!")
-            return
+            return false
         }
 
         do {
@@ -69,15 +69,15 @@ class JSONDummyDataReader {
             
             // Step 4: Encode the updated data structure back into JSON data
             let jsonData = try JSONEncoder().encode(users)
-            
-            printJSON(jsonData: jsonData)
-            
+                        
             // Write the JSON data to the file
             try jsonData.write(to: fileURL)
             
         } catch {
             print("Error: \(error)")
         }
+        
+        return true
     }
     
     func deleteDummyData() {

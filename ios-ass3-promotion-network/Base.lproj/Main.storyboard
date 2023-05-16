@@ -117,12 +117,12 @@
             </objects>
             <point key="canvasLocation" x="-1393.1297709923663" y="-1127.4647887323945"/>
         </scene>
-        <!--Home-->
+        <!--HomeViewController-->
         <scene sceneID="dCb-gD-AX6">
             <objects>
-                <viewController id="hEl-1d-2RH" customClass="HomeViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" title="HomeViewController" id="hEl-1d-2RH" customClass="HomeViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ON4-4a-Kfj">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E97-xd-juX">
@@ -445,11 +445,11 @@
             </objects>
             <point key="canvasLocation" x="4277" y="-249"/>
         </scene>
-        <!--TEST-->
+        <!--Tab Bar-->
         <scene sceneID="CmR-e1-zgK">
             <objects>
-                <tabBarController id="N2c-pZ-Aai" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="TEST" id="Dm0-mW-vuj"/>
+                <tabBarController storyboardIdentifier="UITabBarController" id="N2c-pZ-Aai" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Tab Bar" id="Dm0-mW-vuj"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PCq-H8-YXv">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -547,7 +547,7 @@
                                     <color key="baseForegroundColor" systemColor="systemBackgroundColor"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="N2c-pZ-Aai" kind="show" id="PyG-8G-PHF"/>
+                                    <action selector="login:" destination="hx2-qZ-2bJ" eventType="touchUpInside" id="w4r-im-Drs"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gr0-Gr-McD">
@@ -578,6 +578,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="LlE-UP-ZIz"/>
+                    <connections>
+                        <outlet property="loginButton" destination="qHl-pQ-W82" id="ar3-8V-3B6"/>
+                        <outlet property="passwordField" destination="Kj6-XU-44w" id="mdT-Ad-29j"/>
+                        <outlet property="usernameField" destination="47r-mt-1Lr" id="hRb-zq-7L9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e2w-iY-i1Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -588,7 +593,7 @@
             <objects>
                 <viewController id="RtW-Zd-BJs" customClass="ViewProfileViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yst-Mz-yfZ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n33-ey-Z6e">
@@ -711,7 +716,7 @@
             <objects>
                 <viewController id="ciS-Zj-Efq" customClass="SearchPostsViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HnJ-4N-tVS">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username or email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BM9-HE-4N5">
@@ -812,7 +817,7 @@
             <objects>
                 <viewController id="om2-Xb-5RS" customClass="SearchAccountsViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bax-f3-Wfp">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username or email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FTN-3j-ZkJ">
@@ -859,7 +864,7 @@
             <objects>
                 <viewController id="05s-Iz-Obk" customClass="CreatePostViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Kp-Q1-136">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWT-DQ-Ng1">
@@ -884,7 +889,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cCb-SG-e6r"/>
         <segue reference="XJK-aN-P0h"/>
     </inferredMetricsTieBreakers>
     <resources>

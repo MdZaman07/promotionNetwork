@@ -38,7 +38,9 @@ class CreateProfileViewController: UIViewController {
         
         // (Use dummy data for now) add user to database
         let dummydataReader = JSONDummyDataReader()
-        dummydataReader.createUser(newUser: newUser)
+        if(!dummydataReader.createUser(newUser: newUser)) {
+            return
+        }
         
         // Push Login Screen
         let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
