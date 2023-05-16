@@ -1,19 +1,27 @@
-//
-//  ViewController.swift
-//  ios-ass3-promotion-network
-//
-//  Created by Malena Diaz Rio on 2/5/23.
-//
-
 import UIKit
 
 class CreatePostViewController: UIViewController {
-
+    @IBOutlet weak var popUpButton: UIButton!
+    var category: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupPopUpButton()
     }
 
-
+    
+    // Add options to the pop up button menu and a handler to handle selection
+    func setupPopUpButton() {
+        let popUpButtonClosure = { (action: UIAction) in
+            self.category = action.title
+        }
+                
+        popUpButton.menu = UIMenu(children: [
+            UIAction(title: "Food", handler: popUpButtonClosure),
+            UIAction(title: "Drink", handler: popUpButtonClosure)
+        ])
+        
+        popUpButton.showsMenuAsPrimaryAction = true
+    }
 }
 

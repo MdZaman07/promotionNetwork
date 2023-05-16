@@ -26,8 +26,8 @@ class User: Codable {
     
     
     // Write to dummy data for now
-    func createUser() {
+    func createUser() -> Bool {
         var dummyDataReader = JSONDummyDataReader()
-        dummyDataReader.createUser(newUser: self)
+        return dummyDataReader.createUser(newUser: self)
     }
 }

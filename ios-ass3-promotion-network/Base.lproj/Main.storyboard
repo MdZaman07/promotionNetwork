@@ -7,6 +7,7 @@
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -270,6 +271,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="joe-vD-S7r"/>
                     <connections>
                         <outlet property="postsTableView" destination="Bss-M1-nR3" id="0PR-fi-VVB"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="postSegue" id="HPU-Nz-NJu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jj3-rw-pMx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -281,7 +283,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewPostViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUg-xG-Luw">
@@ -314,7 +316,7 @@
                                 <rect key="frame" x="50" y="317" width="13" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xpw-lM-017">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dollarsign" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Xpw-lM-017">
                                 <rect key="frame" x="111" y="316" width="13" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -378,10 +380,22 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="kAb-UC-Pjp"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="6x1-ec-rvH" id="Mka-VR-Xek"/>
+                        <outlet property="categoryLabel" destination="bR0-rC-ewI" id="LQi-bb-r40"/>
+                        <outlet property="descriptionLabel" destination="wRk-c0-nZT" id="ngr-NL-FIa"/>
+                        <outlet property="likesLabel" destination="wqE-3M-G06" id="4v6-eT-8wJ"/>
+                        <outlet property="locationLabel" destination="TLb-XW-sTr" id="CpQ-8q-SFH"/>
+                        <outlet property="nameLabel" destination="SUg-xG-Luw" id="npG-j3-MzW"/>
+                        <outlet property="postImage" destination="bn0-ol-Ecw" id="ARv-jM-mUl"/>
+                        <outlet property="priceLabel" destination="PRT-iM-yn1" id="zuC-vk-PgC"/>
+                        <outlet property="profilePicture" destination="jDf-J3-4Ur" id="pk1-Eo-6Wa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-89" y="439"/>
+            <point key="canvasLocation" x="-89" y="583"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="QUQ-gd-uVq">
@@ -876,16 +890,36 @@
                                     <navigationItem title="Create Post" id="gWx-Fe-3WE"/>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hw-PA-8J2">
+                                <rect key="frame" x="41" y="185" width="75" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dD9-HX-PvD">
+                                <rect key="frame" x="41" y="214" width="75" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <menu key="menu" id="XkV-zw-K5T">
+                                    <children>
+                                        <command title="Food" id="JsQ-c7-Xse"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KF4-cs-QYe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Create Post" image="plus.circle.fill" catalog="system" id="DOI-mP-3Vh"/>
                     <navigationItem key="navigationItem" id="Soi-5y-Guj"/>
+                    <connections>
+                        <outlet property="popUpButton" destination="dD9-HX-PvD" id="pSd-zo-DfP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qBG-aN-7xp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2650" y="-249"/>
+            <point key="canvasLocation" x="2649.6183206106871" y="-249.29577464788733"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -902,7 +936,6 @@
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
         <image name="mappin" catalog="system" width="106" height="128"/>
-        <image name="message" catalog="system" width="128" height="116"/>
         <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <image name="person.circle" catalog="system" width="128" height="123"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>

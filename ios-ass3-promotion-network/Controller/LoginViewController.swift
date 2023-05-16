@@ -39,21 +39,19 @@ class LoginViewController: UIViewController {
         let dummyDataReader = JSONDummyDataReader()
         let users = dummyDataReader.users
         
-        if (!(users.contains { $0.id == username })) {
+        if (!users.contains { $0.id == username }) {
+            print("Username doesn't exist")
             return false
         }
         
         // Get the user and check the password
         let userIndex = users.firstIndex{$0.id == username}
-        if(users[userIndex!].password == password) {
+        if(users[userIndex!].password != password) {
+            print("Passwords don't match")
             return false
         }
         
         return true
-        
     }
-    
-    
-    
 }
 

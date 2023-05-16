@@ -12,7 +12,9 @@ import Foundation
 class JSONDummyDataReader {
     var file: Data?
     var users: [User] = []
-    var fileURL: URL?
+    var posts: [Post] = []
+    var userFileURL: URL!
+    var postsFileURL: URL!
     
     init() {
         // Get the URL for the Documents directory
@@ -22,25 +24,35 @@ class JSONDummyDataReader {
         }
         
         // Initialise DummyData path
-        self.fileURL = documentsDirectoryURL.appendingPathComponent("DummyData.json")
-
-        guard let fileURL = self.fileURL else {return}
+        self.userFileURL = documentsDirectoryURL.appendingPathComponent("UserData.json")
+        self.postsFileURL = documentsDirectoryURL.appendingPathComponent("PostData.json")
         
+        initFile(fileURL: self.userFileURL, type: [User].self)
+        initFile(fileURL: self.postsFileURL, type: [Post].self)
+        print(self.users)
+    }
+    
+    func initFile<T: Codable>(fileURL: URL, type: T.Type) {
         // Check if the file exists, if it does, put user data into users array variable
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
                 let jsonData = try Data(contentsOf: fileURL)
-                self.file = jsonData
                 let decoder = JSONDecoder()
-                self.users = try decoder.decode([User].self, from: jsonData)
-                printJSON(jsonData: jsonData)
+                let decodedData = try decoder.decode(type, from: jsonData)
+                
+                if type is [User].Type {
+                    self.users = decodedData as! [User]
+                } else if type is [Post].Type {
+                    self.posts = decodedData as! [Post]
+                }
             } catch {
                 print("Error accessing JSON file: \(error)")
             }
         } else {
             // If file doesn't exist, create one with an empty array
+            let emptyArray: [User] = []
             do {
-                let jsonData = try JSONEncoder().encode(users)
+                let jsonData = try JSONEncoder().encode(emptyArray)
                 try jsonData.write(to: fileURL)
             } catch {
                 print("Error: \(error)")
@@ -56,7 +68,7 @@ class JSONDummyDataReader {
     }
     
     func createUser(newUser: User) -> Bool {
-        guard let fileURL = self.fileURL else {return false}
+        guard let fileURL = self.userFileURL else {return false}
         
         if(users.contains { $0.id == newUser.id }) {
             print("Username already exists!")
@@ -80,12 +92,20 @@ class JSONDummyDataReader {
         return true
     }
     
-    func deleteDummyData() {
-        guard let fileURL = self.fileURL else {return}
+    func deleteDummyData(fileName: String) {
+        // Get the URL for the Documents directory
+        guard let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Documents directory not found")
+            return
+        }
+        
+        // Initialise DummyData path
+        let deleteFileURL = documentsDirectoryURL.appendingPathComponent(fileName)
+        
         let fileManager = FileManager.default
         do {
-            try fileManager.removeItem(at: fileURL)
-            print("DummyData.json file deleted")
+            try fileManager.removeItem(at: deleteFileURL)
+            print("\(fileName) file deleted")
         } catch {
             print("Error deleting file: \(error)")
         }

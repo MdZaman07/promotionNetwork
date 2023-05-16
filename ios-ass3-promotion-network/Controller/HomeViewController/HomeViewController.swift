@@ -65,5 +65,23 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         return tableViewCell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "postSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "postSegue") {
+            let indexPath = self.postsTableView.indexPathForSelectedRow!
+            
+            let viewPost = segue.destination as? ViewPostViewController
+            let profilePic = profilePictureList[indexPath.row]
+            
+            viewPost!.profilePic = profilePic
+            
+            self.postsTableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
 }
 
