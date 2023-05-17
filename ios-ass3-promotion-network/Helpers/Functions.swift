@@ -8,15 +8,15 @@
 import Foundation
 
 func getLoginSession() -> LoginSession? {
-    if let encodedSession = UserDefaults.standard.data(forKey: "loginSession") {
-        do {
-            let decodedSession = try JSONDecoder().decode(LoginSession.self, from: encodedSession)
-            
-            return(decodedSession)
-        } catch {
-            print("Error decoding login session: \(error)")
-        }
-    }
+//    if let encodedSession = UserDefaults.standard.data(forKey: "loginSession") {
+//        do {
+//            let decodedSession = try JSONDecoder().decode(LoginSession.self, from: encodedSession)
+//
+//            return(decodedSession)
+//        } catch {
+//            print("Error decoding login session: \(error)")
+//        }
+//    }
     return nil
 }
 

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import RealmSwift
+
+class LikedPost:Object, Identifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted(originProperty: "likes") var appUser: LinkingObjects<AppUser>
+    @Persisted(originProperty: "likes") var post: LinkingObjects<Post>
+}

@@ -7,39 +7,54 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-class Post: Codable {
-    let id: String
-    let user: String
-    var text: String
-    var image: Data?
-    var address: String
-    var latitude: String
-    var longitude: String
-    var moneySaved: Double
-    var category: String
+enum Category: String, PersistableEnum, CaseIterable{
+    case foodDrinks = "Food and drinks"
+    case homewear = "Homewear"
+    case personalCare = "Cosmetic/Personal Care"
+    case fashion = "Fashion"
+}
+class Post: Object, Identifiable {
     
-    init(user: String, text: String, image: Data, address: String, latitude: String, longitude: String, moneySaved: Double, category: String) {
+    @Persisted(primaryKey: true) var _id: ObjectId
+//    @Persisted var _id: String
+    @Persisted var text: String
+    @Persisted var image: Data?
+    @Persisted var address: String
+    @Persisted var latitude: String
+    @Persisted var longitude: String
+    @Persisted var moneySaved: Double
+    @Persisted var category: Category
+    @Persisted var imageKey: String
+    @Persisted var date: Date
+    @Persisted(originProperty: "posts") var appUser: LinkingObjects<AppUser>
+    @Persisted var likes: List<LikedPost>
+
+    required convenience init(text: String, image: Data, address: String, latitude: String, longitude: String, moneySaved: Double, category: Category) {
         // Generate random post id (for now)
-        let uuid = UUID()
-        let postID = uuid.uuidString
-        
-        self.id = postID
-        self.user = user
+        self.init()
+//        let uuid = UUID()
+//        let postID = uuid.uuidString
+//
+//        self.id = postID
         self.text = text
         self.image = image
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
         self.moneySaved = moneySaved
-        
         // Not sure if this is meant to be here
         self.category = category
+        self.date = Date.now
+
     }
     
     func createPost() -> Bool {
-        // Save post (dummy data for now)
-        var dummyDataReader = JSONDummyDataReader()
-        return dummyDataReader.createPost(newPost: self)
+//        // Save post (dummy data for now)
+//        var dummyDataReader = JSONDummyDataReader()
+//        return dummyDataReader.createPost(newPost: self)
+//
+        return false
     }
 }

@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import RealmSwift
+
+class UserFollow:Object, Identifiable {
+    @Persisted(primaryKey: true) var _id: ObjectId
+    @Persisted(originProperty: "following") var follower: LinkingObjects<AppUser>
+    @Persisted(originProperty: "followers") var followee: LinkingObjects<AppUser>
+}
+

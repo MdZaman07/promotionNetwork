@@ -36,7 +36,6 @@
 		F1A579B92A00F40B001F803F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A579B82A00F40B001F803F /* Assets.xcassets */; };
 		F1A579BC2A00F40B001F803F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1A579BA2A00F40B001F803F /* LaunchScreen.storyboard */; };
 		F1F236502A1464170000A4FF /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2364F2A1464170000A4FF /* RealmManager.swift */; };
-		F1F236522A1464780000A4FF /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F236512A1464780000A4FF /* AppUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,7 +72,6 @@
 		F1A579BB2A00F40B001F803F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1A579BD2A00F40B001F803F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1F2364F2A1464170000A4FF /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
-		F1F236512A1464780000A4FF /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +112,6 @@
 				E8A7F4202A1200FD003D3D93 /* LikedPost.swift */,
 				E8A7F4222A120109003D3D93 /* Post.swift */,
 				E8A7F4242A120114003D3D93 /* UserFollow.swift */,
-				F1F236512A1464780000A4FF /* AppUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,7 +342,6 @@
 				F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */,
 				E8EEEF642A11F41F00D8F5E0 /* HomeViewController.swift in Sources */,
 				F1A579B72A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld in Sources */,
-				F1F236522A1464780000A4FF /* AppUser.swift in Sources */,
 				E8A7F41D2A1200E9003D3D93 /* User.swift in Sources */,
 				E88AFDAE2A13D7470087024A /* Functions.swift in Sources */,
 				E8EEEF5A2A11F25400D8F5E0 /* CreateProfileViewController.swift in Sources */,
