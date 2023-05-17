@@ -22,8 +22,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
-        let dummyDataReader = JSONDummyDataReader()
-        self.posts = dummyDataReader.posts
+//        let dummyDataReader = JSONDummyDataReader()
+//        self.posts = dummyDataReader.posts
+        self.posts = [Post]()
         print("TOAN")
         print(self.posts)
         print("TOAN")
@@ -44,10 +45,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableViewCell.postContainer.layer.cornerRadius = 10
         tableViewCell.postContainer.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
 
-        tableViewCell.profileName.text = self.posts[indexPath.row].user
+        tableViewCell.profileName.text = self.posts[indexPath.row].appUser.first?.firstName ?? ""
         //tableViewCell.profileImage
         tableViewCell.locationField.text = self.posts[indexPath.row].address // Change this later to suburb/city
-        tableViewCell.categoryLabel.text = self.posts[indexPath.row].category
+        tableViewCell.categoryLabel.text = self.posts[indexPath.row].category.rawValue
         tableViewCell.descriptionLabel.text = self.posts[indexPath.row].text
         //tableViewCell.likesLabel
         tableViewCell.moneySavedLabel.text = "$\(self.posts[indexPath.row].moneySaved)"
@@ -72,9 +73,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             let post = posts[indexPath.row]
             let viewPost = segue.destination as! ViewPostViewController
-            viewPost.name = post.user
+            viewPost.name = post.appUser.first?.firstName
             viewPost.location = post.address
-            viewPost.category = post.category
+            viewPost.category = post.category.rawValue
             viewPost.desc = post.text
             viewPost.price = String(post.moneySaved)
             viewPost.address = post.address

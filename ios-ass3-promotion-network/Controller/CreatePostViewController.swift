@@ -11,6 +11,8 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var createButton: UIBarButtonItem!
     var category: String!
     
+    private var realmManager = RealmManager.shared
+    
     override func viewDidLoad() {
         // Only allow numbers in money saved field
         moneySavedField.delegate = self
@@ -57,7 +59,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         guard let image = postImage.image else {return}
         guard let address = addressField.text else {return}
         guard let moneySaved = moneySavedField.text else {return}
-        guard let userId = getLoginSession()?.user else {return}
+        guard let appUser = getLoginSession()?.appUser.first else {return}
         guard let imageData = image.pngData() else {return}
         
         // For now fake the latitude and longitude until we implement maps
@@ -65,7 +67,9 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         let longitude = "0"
         
 
-        let newPost = Post(user: userId, text: text, image: imageData, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: chosenCategory)
+        let newPost = Post(text: text, image: imageData, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category.fashion) //fix category
+        
+        appUser.posts.append(newPost)
         
         if(newPost.createPost()) {
             self.performSegue(withIdentifier: "postCreateSegue", sender: self)
@@ -82,11 +86,12 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         guard let image = postImage.image else {return}
         guard let address = addressField.text else {return}
         guard let moneySaved = moneySavedField.text else {return}
-        guard let userId = getLoginSession()?.user else {return}
+        guard let user = getLoginSession()?.appUser.first else {return}
+        
         
         if (segue.identifier == "postCreateSegue") {
             let viewPost = segue.destination as! ViewPostViewController
-            viewPost.name = userId
+            viewPost.name = user.id 
             viewPost.category = chosenCategory
             viewPost.desc = text
             viewPost.image = image

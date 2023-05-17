@@ -27,13 +27,13 @@ class CreateProfileViewController: UIViewController {
         guard let description = descriptionField.text else {return}
 
         // Create new user instance
-        let newUser = NetUser(id: username, firstName: firstName, lastName: lastName, password: password, city: city, description: description)
+        let newUser = AppUser(id: username, firstName: firstName, lastName: lastName, email:"", password: password, city: city, bio: description)
         
-        // (Use dummy data for now) add user to database
-        let dummydataReader = JSONDummyDataReader()
-        if(!dummydataReader.createUser(newUser: newUser)) {
-            return
-        }
+//        // (Use dummy data for now) add user to database
+//        let dummydataReader = JSONDummyDataReader()
+//        if(!dummydataReader.createUser(newUser: newUser)) {
+//            return
+//        }
         
         // Push Login Screen
         let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController

@@ -36,9 +36,9 @@ class LoginViewController: UIViewController {
     
     func validateLogin(username: String, password: String) -> Bool {
         // (using dummy data for now) get the users from db, validate the user
-        let dummyDataReader = JSONDummyDataReader()
-        let users = dummyDataReader.users
-        
+//        let dummyDataReader = JSONDummyDataReader()
+//        let users = dummyDataReader.users
+        let users = [AppUser]()
         if (!users.contains { $0.id == username }) {
             print("Username doesn't exist")
             return false
