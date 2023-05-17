@@ -92,6 +92,26 @@ class JSONDummyDataReader {
         return true
     }
     
+    func createPost(newPost: Post) -> Bool {
+        guard let fileURL = self.postsFileURL else {return false}
+    
+        do {
+            // Modify the data structure
+            posts.append(newPost)
+            
+            // Step 4: Encode the updated data structure back into JSON data
+            let jsonData = try JSONEncoder().encode(posts)
+                        
+            // Write the JSON data to the file
+            try jsonData.write(to: fileURL)
+            
+        } catch {
+            print("Error: \(error)")
+        }
+        
+        return true
+    }
+    
     func deleteDummyData(fileName: String) {
         // Get the URL for the Documents directory
         guard let documentsDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {

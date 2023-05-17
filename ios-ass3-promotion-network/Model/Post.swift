@@ -6,25 +6,40 @@
 //
 
 import Foundation
+import UIKit
 
 class Post: Codable {
     let id: String
     let user: String
     var text: String
-    var image: String
+    var image: Data?
     var address: String
     var latitude: String
     var longitude: String
-    var money_saved: Double
+    var moneySaved: Double
+    var category: String
     
-    init(id: String, user: String, text: String, image: String, address: String, latitude: String, longitude: String, money_saved: Double) {
-        self.id = id
+    init(user: String, text: String, image: Data, address: String, latitude: String, longitude: String, moneySaved: Double, category: String) {
+        // Generate random post id (for now)
+        let uuid = UUID()
+        let postID = uuid.uuidString
+        
+        self.id = postID
         self.user = user
         self.text = text
         self.image = image
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
-        self.money_saved = money_saved
+        self.moneySaved = moneySaved
+        
+        // Not sure if this is meant to be here
+        self.category = category
+    }
+    
+    func createPost() -> Bool {
+        // Save post (dummy data for now)
+        var dummyDataReader = JSONDummyDataReader()
+        return dummyDataReader.createPost(newPost: self)
     }
 }

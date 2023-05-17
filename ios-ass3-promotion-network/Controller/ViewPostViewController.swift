@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewPostViewController: UIViewController {
-    var profilePic: ProfilePicture!
-    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var profilePicture: UIImageView!
@@ -20,9 +19,27 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    var name: String!
+    var location: String!
+    var profileImage: UIImage?
+    var image: UIImage?
+    var price: String!
+    var likes: String?
+    var category: String!
+    var address: String!
+    var desc: String!
+    
+    
     override func viewDidLoad() {
-        nameLabel.text = profilePic.name
-        profilePicture.image = UIImage(named: profilePic.imageName)
+        nameLabel.text = name
+        locationLabel.text = location
+        profilePicture.image = profileImage ?? nil
+        postImage.image = image ?? nil
+        priceLabel.text = price
+        likesLabel.text = likes ?? nil
+        categoryLabel.text = category
+        addressLabel.text = address
+        descriptionLabel.text = desc
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.

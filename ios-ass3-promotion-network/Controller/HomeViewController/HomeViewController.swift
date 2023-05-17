@@ -11,57 +11,53 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var postsTableView: UITableView!
     
     var loginSession: LoginSession?
-    var profilePictureList = [ProfilePicture]()
+    var posts: [Post] = []
     
     override func viewDidLoad() {
         // If there is no login session, push to login screen
-        if let encodedSession = UserDefaults.standard.data(forKey: "loginSession") {
-            do {
-                let decodedSession = try JSONDecoder().decode(LoginSession.self, from: encodedSession)
-
-                // The savedSession is now of type LoginSession and you can use it
-                self.loginSession = decodedSession
-                print("Successfully logged in user: \(self.loginSession!.user)")
-            } catch {
-                print("Error decoding login session: \(error)")
-            }
-
-        } else {
+        if !isLoginSessionExists() {
             // There is no saved login session or the decoding failed
             print("Login session not found")
             let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
             self.navigationController?.pushViewController(vc, animated: true)
         }
-    
+        
+        let dummyDataReader = JSONDummyDataReader()
+        self.posts = dummyDataReader.posts
+        print("TOAN")
+        print(self.posts)
+        print("TOAN")
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        initList()
     }
     
-    func initList() {
-        let profilePicCirc = ProfilePicture(id: "0", name: "Circle", imageName: "circle")
-        profilePictureList.append(profilePicCirc)
-        let profilePicTri = ProfilePicture(id: "1", name: "Triangle", imageName: "triangle")
-        profilePictureList.append(profilePicTri)
-        let profilePicSquare = ProfilePicture(id: "0", name: "Square", imageName: "square")
-        profilePictureList.append(profilePicSquare)
-    }
-    
+    // Amount of rows to render
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return profilePictureList.count
+        self.posts.count
     }
     
+    // Rendering each cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Style the posts
         let tableViewCell = postsTableView.dequeueReusableCell(withIdentifier: "homeTableViewCell") as! TableViewCellPosts
-        
-        let thisPic = profilePictureList[indexPath.row]
-        tableViewCell.profileName.text = thisPic.id + " " + thisPic.name
-        tableViewCell.profileImage.image = UIImage(named: thisPic.imageName)
-        
         tableViewCell.postContainer.layer.borderWidth = 1
         tableViewCell.postContainer.layer.cornerRadius = 10
         tableViewCell.postContainer.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
 
+        tableViewCell.profileName.text = self.posts[indexPath.row].user
+        //tableViewCell.profileImage
+        tableViewCell.locationField.text = self.posts[indexPath.row].address // Change this later to suburb/city
+        tableViewCell.categoryLabel.text = self.posts[indexPath.row].category
+        tableViewCell.descriptionLabel.text = self.posts[indexPath.row].text
+        //tableViewCell.likesLabel
+        tableViewCell.moneySavedLabel.text = "$\(self.posts[indexPath.row].moneySaved)"
+        tableViewCell.addressLabel.text = self.posts[indexPath.row].address
+        
+        if let imageData = posts[indexPath.row].image {
+            let image = UIImage(data: imageData)
+            tableViewCell.postImage.image = image
+        }
+        
         
         return tableViewCell
     }
@@ -74,10 +70,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (segue.identifier == "postSegue") {
             let indexPath = self.postsTableView.indexPathForSelectedRow!
             
-            let viewPost = segue.destination as? ViewPostViewController
-            let profilePic = profilePictureList[indexPath.row]
-            
-            viewPost!.profilePic = profilePic
+            let post = posts[indexPath.row]
+            let viewPost = segue.destination as! ViewPostViewController
+            viewPost.name = post.user
+            viewPost.location = post.address
+            viewPost.category = post.category
+            viewPost.desc = post.text
+            viewPost.price = String(post.moneySaved)
+            viewPost.address = post.address
             
             self.postsTableView.deselectRow(at: indexPath, animated: true)
         }
