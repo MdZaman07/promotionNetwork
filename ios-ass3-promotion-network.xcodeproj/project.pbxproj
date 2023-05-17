@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */; };
-		F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1205B442A10D93A00F87E4D /* AWSManager.swift */; };
-		42C57DFA5D2BAF20D539F8E5 /* libPods-ios-ass3-promotion-network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4309B25D7BCBAC4A609204 /* libPods-ios-ass3-promotion-network.a */; };
 		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
 		E88AFDAE2A13D7470087024A /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AFDAD2A13D7470087024A /* Functions.swift */; };
 		E89517302A126B9800F111E7 /* TableViewCellPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895172F2A126B9800F111E7 /* TableViewCellPosts.swift */; };
@@ -29,6 +27,7 @@
 		E8EEEF682A11F7C700D8F5E0 /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF672A11F7C700D8F5E0 /* CreatePostViewController.swift */; };
 		E8EEEF6A2A11F80900D8F5E0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */; };
 		E8EEEF6C2A11F81300D8F5E0 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */; };
+		F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1205B442A10D93A00F87E4D /* AWSManager.swift */; };
 		F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AC2A00F407001F803F /* AppDelegate.swift */; };
 		F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AE2A00F407001F803F /* SceneDelegate.swift */; };
 		F1A579B12A00F407001F803F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B02A00F407001F803F /* LoginViewController.swift */; };
@@ -36,15 +35,14 @@
 		F1A579B72A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B52A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld */; };
 		F1A579B92A00F40B001F803F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1A579B82A00F40B001F803F /* Assets.xcassets */; };
 		F1A579BC2A00F40B001F803F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1A579BA2A00F40B001F803F /* LaunchScreen.storyboard */; };
+		F1F236502A1464170000A4FF /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F2364F2A1464170000A4FF /* RealmManager.swift */; };
+		F1F236522A1464780000A4FF /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F236512A1464780000A4FF /* AppUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
-		9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
-		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F1205B442A10D93A00F87E4D /* AWSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSManager.swift; sourceTree = "<group>"; };
 		0EE2948C5A3404688EBC2388 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
 		54DA7B9E4A6CD99B3E119824 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
+		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E81746A12A0A34F1002851A7 /* Test.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Test.rtf; sourceTree = "<group>"; };
 		E88AFDAD2A13D7470087024A /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		E895172F2A126B9800F111E7 /* TableViewCellPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPosts.swift; sourceTree = "<group>"; };
@@ -64,6 +62,7 @@
 		E8EEEF672A11F7C700D8F5E0 /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
+		F1205B442A10D93A00F87E4D /* AWSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSManager.swift; sourceTree = "<group>"; };
 		F1A579A92A00F407001F803F /* ios-ass3-promotion-network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-ass3-promotion-network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A579AC2A00F407001F803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A579AE2A00F407001F803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,7 +72,8 @@
 		F1A579B82A00F40B001F803F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1A579BB2A00F40B001F803F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1A579BD2A00F40B001F803F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA4309B25D7BCBAC4A609204 /* libPods-ios-ass3-promotion-network.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ios-ass3-promotion-network.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1F2364F2A1464170000A4FF /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		F1F236512A1464780000A4FF /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */,
-				42C57DFA5D2BAF20D539F8E5 /* libPods-ios-ass3-promotion-network.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +114,7 @@
 				E8A7F4202A1200FD003D3D93 /* LikedPost.swift */,
 				E8A7F4222A120109003D3D93 /* Post.swift */,
 				E8A7F4242A120114003D3D93 /* UserFollow.swift */,
+				F1F236512A1464780000A4FF /* AppUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -132,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */,
-				FA4309B25D7BCBAC4A609204 /* libPods-ios-ass3-promotion-network.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				F1205B442A10D93A00F87E4D /* AWSManager.swift */,
+				F1F2364F2A1464170000A4FF /* RealmManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -345,12 +345,14 @@
 				F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */,
 				E8EEEF642A11F41F00D8F5E0 /* HomeViewController.swift in Sources */,
 				F1A579B72A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld in Sources */,
+				F1F236522A1464780000A4FF /* AppUser.swift in Sources */,
 				E8A7F41D2A1200E9003D3D93 /* User.swift in Sources */,
 				E88AFDAE2A13D7470087024A /* Functions.swift in Sources */,
 				E8EEEF5A2A11F25400D8F5E0 /* CreateProfileViewController.swift in Sources */,
 				E8A7F41F2A1200F2003D3D93 /* LoginSession.swift in Sources */,
 				F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */,
 				E8EEEF662A11F68F00D8F5E0 /* SearchAccountsViewController.swift in Sources */,
+				F1F236502A1464170000A4FF /* RealmManager.swift in Sources */,
 				E8EEEF682A11F7C700D8F5E0 /* CreatePostViewController.swift in Sources */,
 				E8A7F4232A120109003D3D93 /* Post.swift in Sources */,
 				E8A7F4282A12034A003D3D93 /* JSONDummyDataReader.swift in Sources */,

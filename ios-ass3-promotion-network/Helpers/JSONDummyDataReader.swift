@@ -11,7 +11,7 @@ import Foundation
 // Class for reading the dummy data and processing it similar to a database
 class JSONDummyDataReader {
     var file: Data?
-    var users: [User] = []
+    var users: [NetUser] = []
     var posts: [Post] = []
     var userFileURL: URL!
     var postsFileURL: URL!
@@ -27,7 +27,7 @@ class JSONDummyDataReader {
         self.userFileURL = documentsDirectoryURL.appendingPathComponent("UserData.json")
         self.postsFileURL = documentsDirectoryURL.appendingPathComponent("PostData.json")
         
-        initFile(fileURL: self.userFileURL, type: [User].self)
+        initFile(fileURL: self.userFileURL, type: [NetUser].self)
         initFile(fileURL: self.postsFileURL, type: [Post].self)
         print(self.users)
     }
@@ -40,8 +40,8 @@ class JSONDummyDataReader {
                 let decoder = JSONDecoder()
                 let decodedData = try decoder.decode(type, from: jsonData)
                 
-                if type is [User].Type {
-                    self.users = decodedData as! [User]
+                if type is [NetUser].Type {
+                    self.users = decodedData as! [NetUser]
                 } else if type is [Post].Type {
                     self.posts = decodedData as! [Post]
                 }
@@ -50,7 +50,7 @@ class JSONDummyDataReader {
             }
         } else {
             // If file doesn't exist, create one with an empty array
-            let emptyArray: [User] = []
+            let emptyArray: [NetUser] = []
             do {
                 let jsonData = try JSONEncoder().encode(emptyArray)
                 try jsonData.write(to: fileURL)
@@ -67,7 +67,7 @@ class JSONDummyDataReader {
          }
     }
     
-    func createUser(newUser: User) -> Bool {
+    func createUser(newUser: NetUser) -> Bool {
         guard let fileURL = self.userFileURL else {return false}
         
         if(users.contains { $0.id == newUser.id }) {
