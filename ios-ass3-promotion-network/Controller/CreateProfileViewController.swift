@@ -27,7 +27,7 @@ class CreateProfileViewController: UIViewController {
         guard let description = descriptionField.text else {return}
 
         // Create new user instance
-        let newUser = AppUser(id: username, firstName: firstName, lastName: lastName, email:"", password: password, city: city, bio: description)
+        let newUser = AppUser(userName: username, firstName: firstName, lastName: lastName, email:"", password: password, city: city, bio: description)
         
 //        // (Use dummy data for now) add user to database
 //        let dummydataReader = JSONDummyDataReader()

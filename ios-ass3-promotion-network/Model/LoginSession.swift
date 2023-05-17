@@ -12,15 +12,15 @@ import RealmSwift
 // I'm not sure how we're going to do login sessions but I'll use my dummy data method for now
 class LoginSession: Object, Identifiable {
     
-    @Persisted(primaryKey: true) var _DBid: ObjectId
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted(originProperty: "loginSessions") var appUser: LinkingObjects<AppUser>
     @Persisted var deviceId: String
     
-    init(userId: String) {
+    required convenience init(userId: String) {
+        self.init()
+
         // Generate unique login session id
         let uuid = UUID()
-        id = uuid.uuidString
         deviceId = UIDevice.current.identifierForVendor!.uuidString
 //        saveLoginSession()
     }

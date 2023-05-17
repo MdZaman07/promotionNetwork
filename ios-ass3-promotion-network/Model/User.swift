@@ -10,8 +10,9 @@ import RealmSwift
 
 class AppUser:Object, Identifiable {
     
-    @Persisted(primaryKey: true) var _DBid: ObjectId
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var _id: ObjectId
+//    @Persisted var id: String
+    @Persisted var userName: String
     @Persisted var firstName: String
     @Persisted var lastName: String
     @Persisted var email: String
@@ -25,8 +26,9 @@ class AppUser:Object, Identifiable {
     @Persisted var following: List<UserFollow>
     @Persisted var loginSessions: List<LoginSession>
 
-    init(id: String, firstName: String, lastName: String, email:String, password: String, city: String, bio: String) {
-        self.id = id
+    required convenience init(userName: String, firstName: String, lastName: String, email:String, password: String, city: String, bio: String) {
+        self.init()
+        self.userName = userName
         self.firstName =  firstName
         self.lastName = lastName
         self.email = email

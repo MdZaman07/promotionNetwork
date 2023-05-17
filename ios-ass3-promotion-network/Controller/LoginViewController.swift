@@ -11,9 +11,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
-    
+    private var realmManager = RealmManager.shared
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        Task {
+            do {
+                try? await realmManager.initalize()
+            }
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -39,13 +45,13 @@ class LoginViewController: UIViewController {
 //        let dummyDataReader = JSONDummyDataReader()
 //        let users = dummyDataReader.users
         let users = [AppUser]()
-        if (!users.contains { $0.id == username }) {
+        if (!users.contains { $0.userName == username }) {
             print("Username doesn't exist")
             return false
         }
         
         // Get the user and check the password
-        let userIndex = users.firstIndex{$0.id == username}
+        let userIndex = users.firstIndex{$0.userName == username}
         if(users[userIndex!].password != password) {
             print("Passwords don't match")
             return false

@@ -91,7 +91,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         
         if (segue.identifier == "postCreateSegue") {
             let viewPost = segue.destination as! ViewPostViewController
-            viewPost.name = user.id 
+            viewPost.name = user.firstName
             viewPost.category = chosenCategory
             viewPost.desc = text
             viewPost.image = image

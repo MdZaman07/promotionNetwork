@@ -17,8 +17,8 @@ enum Category: String, PersistableEnum, CaseIterable{
 }
 class Post: Object, Identifiable {
     
-    @Persisted(primaryKey: true) var _DBid: ObjectId
-    @Persisted var id: String
+    @Persisted(primaryKey: true) var _id: ObjectId
+//    @Persisted var _id: String
     @Persisted var text: String
     @Persisted var image: Data?
     @Persisted var address: String
@@ -31,12 +31,13 @@ class Post: Object, Identifiable {
     @Persisted(originProperty: "posts") var appUser: LinkingObjects<AppUser>
     @Persisted var likes: List<LikedPost>
 
-    init(text: String, image: Data, address: String, latitude: String, longitude: String, moneySaved: Double, category: Category) {
+    required convenience init(text: String, image: Data, address: String, latitude: String, longitude: String, moneySaved: Double, category: Category) {
         // Generate random post id (for now)
-        let uuid = UUID()
-        let postID = uuid.uuidString
-    
-        self.id = postID
+        self.init()
+//        let uuid = UUID()
+//        let postID = uuid.uuidString
+//
+//        self.id = postID
         self.text = text
         self.image = image
         self.address = address
