@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */; };
+		F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1205B442A10D93A00F87E4D /* AWSManager.swift */; };
 		42C57DFA5D2BAF20D539F8E5 /* libPods-ios-ass3-promotion-network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4309B25D7BCBAC4A609204 /* libPods-ios-ass3-promotion-network.a */; };
 		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
 		E88AFDAE2A13D7470087024A /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AFDAD2A13D7470087024A /* Functions.swift */; };
@@ -37,6 +39,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6008880787DBBF419B70C458 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
+		9DD802925A18982423408CE1 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
+		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1205B442A10D93A00F87E4D /* AWSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSManager.swift; sourceTree = "<group>"; };
 		0EE2948C5A3404688EBC2388 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
 		54DA7B9E4A6CD99B3E119824 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
 		E81746A12A0A34F1002851A7 /* Test.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Test.rtf; sourceTree = "<group>"; };
@@ -75,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */,
 				42C57DFA5D2BAF20D539F8E5 /* libPods-ios-ass3-promotion-network.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +131,7 @@
 		E8E3B1660AF25747D207E85D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */,
 				FA4309B25D7BCBAC4A609204 /* libPods-ios-ass3-promotion-network.a */,
 			);
 			name = Frameworks;
@@ -168,6 +176,7 @@
 		F1A579AB2A00F407001F803F /* ios-ass3-promotion-network */ = {
 			isa = PBXGroup;
 			children = (
+				F1F8F76F2A0FD70800437A4A /* Managers */,
 				E8A7F4262A120337003D3D93 /* Helpers */,
 				E8A7F41B2A1200D5003D3D93 /* Model */,
 				E8EEEF582A11F02200D8F5E0 /* Controller */,
@@ -183,6 +192,14 @@
 			path = "ios-ass3-promotion-network";
 			sourceTree = "<group>";
 		};
+		F1F8F76F2A0FD70800437A4A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F1205B442A10D93A00F87E4D /* AWSManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -195,6 +212,7 @@
 				F1A579A62A00F407001F803F /* Frameworks */,
 				F1A579A72A00F407001F803F /* Resources */,
 				3214F2681CFAEBCF3322D7FF /* [CP] Copy Pods Resources */,
+				EB16C35110671547CF93E59D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -292,6 +310,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EB16C35110671547CF93E59D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -307,6 +342,7 @@
 				E8EEEF622A11F3A000D8F5E0 /* SearchPostsViewController.swift in Sources */,
 				E8EEEF6C2A11F81300D8F5E0 /* LogoutViewController.swift in Sources */,
 				F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */,
+				F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */,
 				E8EEEF642A11F41F00D8F5E0 /* HomeViewController.swift in Sources */,
 				F1A579B72A00F407001F803F /* ios_ass3_promotion_network.xcdatamodeld in Sources */,
 				E8A7F41D2A1200E9003D3D93 /* User.swift in Sources */,

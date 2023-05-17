@@ -1,4 +1,7 @@
 PODS:
+  - AWSCore (2.32.0)
+  - AWSS3 (2.32.0):
+    - AWSCore (= 2.32.0)
   - GoogleMaps (7.4.0):
     - GoogleMaps/Maps (= 7.4.0)
   - GoogleMaps/Base (7.4.0)
@@ -6,15 +9,20 @@ PODS:
     - GoogleMaps/Base
 
 DEPENDENCIES:
+  - AWSS3
   - GoogleMaps (= 7.4.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - AWSCore
+    - AWSS3
     - GoogleMaps
 
 SPEC CHECKSUMS:
+  AWSCore: 03703209f169d6a3007a77597a1a28938e39b064
+  AWSS3: f77723426b6d3be17041ff0d019a2603f5a5f0c2
   GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
 
-PODFILE CHECKSUM: 8236f0d5161c4a492017afb60758c1e971ebe0bd
+PODFILE CHECKSUM: 372157664215cad4cb5b9f456ceaa0fafc350a50
 
 COCOAPODS: 1.12.1
