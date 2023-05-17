@@ -7,15 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
-    private var realmManager = RealmManager.shared
-    
-    var firstAppUser = AppUser()
-    
+class AboutViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        Task {
+/*         Task {
             do {
                 try? await realmManager.initalize()
                 firstAppUser.email = "malena@gmail.com"
@@ -28,7 +24,7 @@ class ViewController: UIViewController {
 //                }
 
             }
-        }
+        } */
     }
 
 
