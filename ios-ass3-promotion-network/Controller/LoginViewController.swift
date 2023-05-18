@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
@@ -20,7 +21,23 @@ class LoginViewController: UIViewController {
                 try? await realmManager.initalize()
             }
         }
-        // Do any additional setup after loading the view.
+        
+        // Check if device is already logged in, push to home screen if so
+        var deviceId = UIDevice.current.identifierForVendor!.uuidString
+        if let loginSession = queryLoginSession(deviceId: deviceId) {
+            pushToHomeViewController()
+        }
+    }
+    
+    // Query Realm LoginSessions for device ID
+    func queryLoginSession(deviceId: String) -> LoginSession? {
+        do {
+            let realm = try Realm()
+            let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
+            return loginSession
+        } catch {
+            return nil
+        }
     }
 
     @IBAction func login(_ sender: Any) {
@@ -29,35 +46,52 @@ class LoginViewController: UIViewController {
         guard let password = passwordField.text else {return}
 
         //Validate login
-        if (validateLogin(username: username, password: password)) {
-            var _ = LoginSession(userId: username)
+        if let user = validateLogin(username: username, password: password) {
             
-            // Push To Tab Bar Which Pushes to Home Screen
-            let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
-            self.navigationController?.pushViewController(vc, animated: true)
+            // Create new login session and add to Realm db
+            _ = LoginSession(appUser: user)
+            
+            // Push to Home Screen
+            pushToHomeViewController()
         } else {
             print("Invalid login")
         }
     }
     
-    func validateLogin(username: String, password: String) -> Bool {
-        // (using dummy data for now) get the users from db, validate the user
-//        let dummyDataReader = JSONDummyDataReader()
-//        let users = dummyDataReader.users
-        let users = [AppUser]()
-        if (!users.contains { $0.userName == username }) {
-            print("Username doesn't exist")
-            return false
+    // Push To Tab Bar Which Pushes to Home Screen
+    func pushToHomeViewController() {
+        let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // Validate text input fields with database
+    func validateLogin(username: String, password: String) -> AppUser? {
+        // Check if user exists otherwise return nil
+        guard let user = getUserByUsername(username: username) else {
+            print("User '\(username)' doesn't exist")
+            return nil
         }
         
-        // Get the user and check the password
-        let userIndex = users.firstIndex{$0.userName == username}
-        if(users[userIndex!].password != password) {
-            print("Passwords don't match")
-            return false
+        // Check if passwords match otherwise return nil
+        if user.password != password {
+            print("Incorrect password")
+            return nil
         }
         
-        return true
+        return user
+    }
+    
+    // Query Realm db for an AppUser that matches the username
+    func getUserByUsername(username: String) -> AppUser? {
+        do {
+            let realm = try Realm()
+            if let user = realm.objects(AppUser.self).filter("userName == %@", username).first {
+                return user
+            }
+        } catch {
+            print("Get user failed, reason: \(error)")
+        }
+        return nil
     }
 }
 

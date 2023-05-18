@@ -25,15 +25,16 @@ class CreateProfileViewController: UIViewController {
         guard let password = passwordField.text else {return}
         guard let city = cityField.text else {return}
         guard let description = descriptionField.text else {return}
+        guard let email = emailField.text else {return}
 
         // Create new user instance
-        let newUser = AppUser(userName: username, firstName: firstName, lastName: lastName, email:"", password: password, city: city, bio: description)
+        let newUser = AppUser(userName: username, firstName: firstName, lastName: lastName, email: email, password: password, city: city, bio: description)
         
-//        // (Use dummy data for now) add user to database
-//        let dummydataReader = JSONDummyDataReader()
-//        if(!dummydataReader.createUser(newUser: newUser)) {
-//            return
-//        }
+        // Add user to realm db, if result is false, don't push to login screen
+        if(!newUser.createUser()) {
+            print("Error creating user")
+            return
+        }
         
         // Push Login Screen
         let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
