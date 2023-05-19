@@ -15,6 +15,7 @@ class LoginSession: Object, Identifiable {
     @Persisted(originProperty: "loginSessions") var appUser: LinkingObjects<AppUser>
     @Persisted var deviceId: String
     var loggedInUser: AppUser!
+    private var realmManager = RealmManager.shared
     
     required convenience init(appUser: AppUser) {
         self.init()
@@ -26,16 +27,7 @@ class LoginSession: Object, Identifiable {
     }
     
     func saveLoginSession() {
-        do {
-            let realm = try Realm()
-
-            try realm.write {
-                // Append to AppUser's LoginSession list
-                loggedInUser.loginSessions.append(self)
-                realm.add(self)
-            }            
-        } catch {
-            print("Error saving login session, reason: \(error)")
-        }
+        guard let _ = realmManager.realm else {return}
+        realmManager.addObjectToList(object: self, list: loggedInUser.loginSessions)
     }
 }

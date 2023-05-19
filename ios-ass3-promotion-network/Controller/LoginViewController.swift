@@ -18,28 +18,18 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         Task {
             do {
-                try? await realmManager.initalize()
+                try! await realmManager.initalize()
+                
+                // Check if device is already logged in, push to home screen if so
+                let deviceId = UIDevice.current.identifierForVendor!.uuidString
+                if let _ = queryLoginSession(deviceId: deviceId) {
+                    pushToHomeViewController()
+                }
             }
-        }
-        
-        // Check if device is already logged in, push to home screen if so
-        var deviceId = UIDevice.current.identifierForVendor!.uuidString
-        if let loginSession = queryLoginSession(deviceId: deviceId) {
-            pushToHomeViewController()
         }
     }
     
-    // Query Realm LoginSessions for device ID
-    func queryLoginSession(deviceId: String) -> LoginSession? {
-        do {
-            let realm = try Realm()
-            let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
-            return loginSession
-        } catch {
-            return nil
-        }
-    }
-
+    // When login button is pressed
     @IBAction func login(_ sender: Any) {
         // Unwrap optionals
         guard let username = usernameField.text else {return}
@@ -56,6 +46,13 @@ class LoginViewController: UIViewController {
         } else {
             print("Invalid login")
         }
+    }
+    
+    // Query Realm LoginSessions for device ID
+    func queryLoginSession(deviceId: String) -> LoginSession? {
+        guard let realm = realmManager.realm else {return nil}
+        let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
+        return loginSession
     }
     
     // Push To Tab Bar Which Pushes to Home Screen
@@ -83,14 +80,13 @@ class LoginViewController: UIViewController {
     
     // Query Realm db for an AppUser that matches the username
     func getUserByUsername(username: String) -> AppUser? {
-        do {            
-            let realm = try Realm()
+        guard let realm = realmManager.realm else {
+            print("Failed to establish connection to realm")
+            return nil
+        }
             if let user = realm.objects(AppUser.self).filter("userName == %@", username).first {
                 return user
             }
-        } catch {
-            print("Get user failed, reason: \(error)")
-        }
         return nil
     }
 }

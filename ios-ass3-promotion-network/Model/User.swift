@@ -23,6 +23,7 @@ class AppUser:Object, Identifiable {
     @Persisted var followers: List<UserFollow>
     @Persisted var following: List<UserFollow>
     @Persisted var loginSessions: List<LoginSession>
+    private var realmManager = RealmManager.shared
 
     required convenience init(userName: String, firstName: String, lastName: String, email:String, password: String, city: String, bio: String) {
         self.init()
@@ -37,44 +38,37 @@ class AppUser:Object, Identifiable {
     }
     
     func createUser(profilePicture: UIImage?) -> Bool {
-        do {
-            let realm = try Realm()
-            
-            // Check if username already exists
-            let usernameQueryResult = realm.objects(AppUser.self).filter("userName == %@", self.userName).first
-            if(usernameQueryResult != nil) {
-                print("Username already exists")
-                return false
-            }
-            
-            // Check if email already exists
-            let emailQueryResult = realm.objects(AppUser.self).filter("email == %@", self.email).first
-            
-            if(emailQueryResult != nil) {
-                print("Email already exists")
-                return false
-            }
-            
-            // If profile picture is selected in create user view
-            if let uploadProfilePicture = profilePicture {
-                if( uploadProfilePictureToS3(uploadProfilePicture) ) {
-                    print("Uploaded profile picture successfully to S3!")
-                } else {
-                    print("Something went wrong uploading profile picture")
-                    return false
-                }
-            }
-            
-            // Write new user to database
-            try realm.write {
-                realm.add(self)
-            }
-            
-            return true
-        } catch {
-            print("Couldn't create user, reason: \(error)")
+        guard let realm = realmManager.realm else {return false}
+        
+        // Check if username already exists
+        let usernameQueryResult = realm.objects(AppUser.self).filter("userName == %@", self.userName).first
+        if(usernameQueryResult != nil) {
+            print("Username already exists")
             return false
         }
+        
+        // Check if email already exists
+        let emailQueryResult = realm.objects(AppUser.self).filter("email == %@", self.email).first
+        
+        if(emailQueryResult != nil) {
+            print("Email already exists")
+            return false
+        }
+        
+        // If profile picture is selected in create user view
+        if let uploadProfilePicture = profilePicture {
+            if( uploadProfilePictureToS3(uploadProfilePicture) ) {
+                print("Uploaded profile picture successfully to S3!")
+            } else {
+                print("Something went wrong uploading profile picture")
+                return false
+            }
+        }
+        
+        // Write new user to database
+        realmManager.createObject(object: self)
+        
+        return true
     }
     
     func uploadProfilePictureToS3(_ profilePicture: UIImage) -> Bool {
