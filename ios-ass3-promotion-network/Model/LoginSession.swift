@@ -30,4 +30,19 @@ class LoginSession: Object, Identifiable {
         guard let _ = realmManager.realm else {return}
         realmManager.addObjectToList(object: self, list: loggedInUser.loginSessions)
     }
+    
+    // Delete login session
+    func logout() {
+        guard let _ = realmManager.realm else {return}
+        realmManager.removeObject(object: self)
+    }
+    
+    // Static function to query Realm for a login session of the current device if it exists
+    static func getLoginSession() -> LoginSession? {
+        let realmManager = RealmManager.shared
+        guard let realm = realmManager.realm else {return nil}
+        let deviceId = UIDevice.current.identifierForVendor!.uuidString
+        let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
+        return loginSession
+    }
 }

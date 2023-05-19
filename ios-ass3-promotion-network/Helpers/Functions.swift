@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 func getLoginSession() -> LoginSession? {
 //    if let encodedSession = UserDefaults.standard.data(forKey: "loginSession") {
@@ -25,4 +26,10 @@ func isLoginSessionExists() -> Bool {
         return true
     }
     return false
+}
+
+func textFieldErrorAction(field: UITextField, msg: String) {
+    print(msg)
+    field.layer.borderWidth = 1
+    field.layer.borderColor = UIColor.red.cgColor
 }

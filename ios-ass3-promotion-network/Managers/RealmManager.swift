@@ -77,4 +77,12 @@ class RealmManager: ObservableObject{
             try! realm.commitWrite()
         }
     }
+    
+    func removeObject(object: Object) {
+        if let realm=realm {
+            realm.beginWrite()
+            realm.delete(object)
+            try! realm.commitWrite()
+        }
+    }
 }
