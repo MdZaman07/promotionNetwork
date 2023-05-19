@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
                 try! await realmManager.initalize()
                 
                 if let session = LoginSession.getLoginSession() {
-                    // session.logout()
+                    //session.logout()
                     pushToHomeViewController()
                 }
             }

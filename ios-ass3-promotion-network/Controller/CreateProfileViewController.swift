@@ -1,6 +1,6 @@
 import UIKit
 
-class CreateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var profilePictureField: UIImageView!
 
     @IBOutlet weak var createButton: UIButton!
@@ -18,20 +18,26 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         let uiTapGR = UITapGestureRecognizer(target: self, action: #selector(self.showImagePicker))
         profilePictureField.addGestureRecognizer(uiTapGR)
         profilePictureField.isUserInteractionEnabled = true
-                
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
     @IBAction func createProfile(_ sender: Any) {
         // Unwrap optionals
-        guard let username = usernameField.text, !username.isEmpty else {return}
-        guard let firstName = firstNameField.text, !firstName.isEmpty else {return}
-        guard let lastName = lastNameField.text, !lastName.isEmpty else {return}
-        guard let password = passwordField.text, !password.isEmpty else {return}
-        guard let city = cityField.text, !city.isEmpty else {return}
-        guard let description = descriptionField.text, !description.isEmpty else {return}
-        guard let email = emailField.text, !email.isEmpty else {return}
+        guard let username = usernameField.text, !username.isEmpty else { textFieldErrorAction(field: usernameField, msg: "Can't be empty"); return }
+        guard let firstName = firstNameField.text, !firstName.isEmpty else { textFieldErrorAction(field: firstNameField, msg: "Can't be empty"); return }
+        guard let lastName = lastNameField.text, !lastName.isEmpty else { textFieldErrorAction(field: lastNameField, msg: "Can't be empty"); return }
+        guard let email = emailField.text, !email.isEmpty else { textFieldErrorAction(field: emailField, msg: "Can't be empty"); return }
+        guard let city = cityField.text, !city.isEmpty else { textFieldErrorAction(field: cityField, msg: "Can't be empty"); return }
+        guard let password = passwordField.text, !password.isEmpty else { textFieldErrorAction(field: passwordField, msg: "Can't be empty"); return }
+        guard let description = descriptionField.text, !description.isEmpty else { textFieldErrorAction(field: descriptionField, msg: "Can't be empty"); return }
+
+        
+        // Validate text fields after checking mandatory fields
+        if(!validateTextFields()) {
+            return
+        }
         
         var uploadProfilePicture: UIImage?
         
@@ -72,5 +78,49 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         profilePictureField.image = image
         dismiss(animated: true)
     }
+    
+    func textFieldErrorAction(field: UITextField, msg: String) {
+        print(msg)
+        field.layer.borderWidth = 1
+        field.layer.borderColor = UIColor.red.cgColor
+        
+    }
+    
+    func validateTextFields() -> Bool {
+        // Check if names have numbers
+        guard let firstName = firstNameField.text, regularExpressionValidator(regex: "^[a-zA-Z]+$", compareString: firstName) else {
+            textFieldErrorAction(field: firstNameField, msg: "Name can only consist of letters")
+            return false
+        }
+        
+        guard let lastName = lastNameField.text, regularExpressionValidator(regex: "^[a-zA-Z]+$", compareString: lastName) else {
+            textFieldErrorAction(field: lastNameField, msg: "Name can only consist of letters")
+            return false
+        }
+        
+        // Check if email is valid
+        guard let email = emailField.text, regularExpressionValidator(regex: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}", compareString: email) else {
+            textFieldErrorAction(field: emailField, msg: "Invalid email format")
+            return false
+        }
+        
+        // Check if city has numbers
+        guard let city = cityField.text, regularExpressionValidator(regex: "^[a-zA-Z]+$", compareString: city) else {
+            textFieldErrorAction(field: cityField, msg: "City can only consist of letters")
+            return false
+        }
+        
+        // Check if confirm password matches
+        guard let confirmPassword = confirmPasswordField.text, let password = passwordField.text, confirmPassword == password else { textFieldErrorAction(field: confirmPasswordField, msg: "Passwords don't match"); return false}
+
+        
+        return true
+    }
+    
+    func regularExpressionValidator(regex: String, compareString: String) -> Bool {
+        let comparisonPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return comparisonPredicate.evaluate(with: compareString)
+    }
+    
 }
 
