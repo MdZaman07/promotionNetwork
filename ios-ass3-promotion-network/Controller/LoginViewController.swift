@@ -20,9 +20,8 @@ class LoginViewController: UIViewController {
             do {
                 try! await realmManager.initalize()
                 
-                // Check if device is already logged in, push to home screen if so
-                let deviceId = UIDevice.current.identifierForVendor!.uuidString
-                if let _ = queryLoginSession(deviceId: deviceId) {
+                if let session = LoginSession.getLoginSession() {
+                    //session.logout()
                     pushToHomeViewController()
                 }
             }
@@ -31,9 +30,9 @@ class LoginViewController: UIViewController {
     
     // When login button is pressed
     @IBAction func login(_ sender: Any) {
-        // Unwrap optionals
-        guard let username = usernameField.text else {return}
-        guard let password = passwordField.text else {return}
+        // Validate text fields
+        guard let username = usernameField.text, !username.isEmpty else {textFieldErrorAction(field: usernameField, msg: "Username can't empty"); return}
+        guard let password = passwordField.text, !password.isEmpty else {textFieldErrorAction(field: passwordField, msg: "Password can't empty"); return}
 
         //Validate login
         if let user = validateLogin(username: username, password: password) {
@@ -48,13 +47,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    // Query Realm LoginSessions for device ID
-    func queryLoginSession(deviceId: String) -> LoginSession? {
-        guard let realm = realmManager.realm else {return nil}
-        let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
-        return loginSession
-    }
-    
     // Push To Tab Bar Which Pushes to Home Screen
     func pushToHomeViewController() {
         let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
@@ -65,13 +57,14 @@ class LoginViewController: UIViewController {
     func validateLogin(username: String, password: String) -> AppUser? {
         // Check if user exists otherwise return nil
         guard let user = getUserByUsername(username: username) else {
-            print("User '\(username)' doesn't exist")
+            // Change textfield border color, add error message
+            textFieldErrorAction(field: usernameField, msg: "User '\(username)' doesn't exist")
             return nil
         }
         
         // Check if passwords match otherwise return nil
         if user.password != password {
-            print("Incorrect password")
+            textFieldErrorAction(field: passwordField, msg: "Incorrect password")
             return nil
         }
         
