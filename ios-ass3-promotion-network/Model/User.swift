@@ -80,10 +80,4 @@ class AppUser:Object, Identifiable {
         
         return true
     }
-    
-    func logout() {
-        guard let realm = realmManager.realm else {return}
-        
-        
-    }
 }
