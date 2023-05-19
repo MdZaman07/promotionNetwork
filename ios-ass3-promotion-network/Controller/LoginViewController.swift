@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
@@ -17,47 +18,76 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         Task {
             do {
-                try? await realmManager.initalize()
+                try! await realmManager.initalize()
+                
+                // Check if device is already logged in, push to home screen if so
+                let deviceId = UIDevice.current.identifierForVendor!.uuidString
+                if let _ = queryLoginSession(deviceId: deviceId) {
+                    pushToHomeViewController()
+                }
             }
         }
-        // Do any additional setup after loading the view.
     }
-
+    
+    // When login button is pressed
     @IBAction func login(_ sender: Any) {
         // Unwrap optionals
         guard let username = usernameField.text else {return}
         guard let password = passwordField.text else {return}
 
         //Validate login
-        if (validateLogin(username: username, password: password)) {
-            var _ = LoginSession(userId: username)
+        if let user = validateLogin(username: username, password: password) {
             
-            // Push To Tab Bar Which Pushes to Home Screen
-            let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
-            self.navigationController?.pushViewController(vc, animated: true)
+            // Create new login session and add to Realm db
+            _ = LoginSession(appUser: user)
+            
+            // Push to Home Screen
+            pushToHomeViewController()
         } else {
             print("Invalid login")
         }
     }
     
-    func validateLogin(username: String, password: String) -> Bool {
-        // (using dummy data for now) get the users from db, validate the user
-//        let dummyDataReader = JSONDummyDataReader()
-//        let users = dummyDataReader.users
-        let users = [AppUser]()
-        if (!users.contains { $0.userName == username }) {
-            print("Username doesn't exist")
-            return false
+    // Query Realm LoginSessions for device ID
+    func queryLoginSession(deviceId: String) -> LoginSession? {
+        guard let realm = realmManager.realm else {return nil}
+        let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
+        return loginSession
+    }
+    
+    // Push To Tab Bar Which Pushes to Home Screen
+    func pushToHomeViewController() {
+        let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // Validate text input fields with database
+    func validateLogin(username: String, password: String) -> AppUser? {
+        // Check if user exists otherwise return nil
+        guard let user = getUserByUsername(username: username) else {
+            print("User '\(username)' doesn't exist")
+            return nil
         }
         
-        // Get the user and check the password
-        let userIndex = users.firstIndex{$0.userName == username}
-        if(users[userIndex!].password != password) {
-            print("Passwords don't match")
-            return false
+        // Check if passwords match otherwise return nil
+        if user.password != password {
+            print("Incorrect password")
+            return nil
         }
         
-        return true
+        return user
+    }
+    
+    // Query Realm db for an AppUser that matches the username
+    func getUserByUsername(username: String) -> AppUser? {
+        guard let realm = realmManager.realm else {
+            print("Failed to establish connection to realm")
+            return nil
+        }
+            if let user = realm.objects(AppUser.self).filter("userName == %@", username).first {
+                return user
+            }
+        return nil
     }
 }
 

@@ -9,29 +9,25 @@ import Foundation
 import UIKit
 import RealmSwift
 
-// I'm not sure how we're going to do login sessions but I'll use my dummy data method for now
 class LoginSession: Object, Identifiable {
     
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted(originProperty: "loginSessions") var appUser: LinkingObjects<AppUser>
     @Persisted var deviceId: String
+    var loggedInUser: AppUser!
+    private var realmManager = RealmManager.shared
     
-    required convenience init(userId: String) {
+    required convenience init(appUser: AppUser) {
         self.init()
-
-        // Generate unique login session id
-        let uuid = UUID()
+        loggedInUser = appUser
+        
+        // Get current device id (used for auto-login to check if device has already logged in previously)
         deviceId = UIDevice.current.identifierForVendor!.uuidString
-//        saveLoginSession()
+        saveLoginSession()
     }
     
-//    func saveLoginSession() {
-//        do {
-//            let encodedSession = try JSONEncoder().encode(self)
-//            UserDefaults.standard.set(encodedSession, forKey: "loginSession")
-//            print("Login session saved successfully")
-//        } catch {
-//            print("Error saving login session: \(error)")
-//        }
-//    }
+    func saveLoginSession() {
+        guard let _ = realmManager.realm else {return}
+        realmManager.addObjectToList(object: self, list: loggedInUser.loginSessions)
+    }
 }
