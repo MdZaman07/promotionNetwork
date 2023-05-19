@@ -47,7 +47,7 @@ class RealmManager: ObservableObject{
 
         }, rerunOnOpen: true)
 
-        realm = try! await Realm(configuration: configuration!, downloadBeforeOpen: .always)
+        realm = try! await Realm(configuration: configuration!, downloadBeforeOpen: .once)
     }
     
     func getObject(type:Object.Type ,pK: Any)->Object{
@@ -69,5 +69,12 @@ class RealmManager: ObservableObject{
             try! realm.commitWrite()
         }
     }
-
+    
+    func addObjectToList<T: Object>(object: T, list: List<T>) {
+        if let realm=realm {
+            realm.beginWrite()
+            list.append(object)
+            try! realm.commitWrite()
+        }
+    }
 }

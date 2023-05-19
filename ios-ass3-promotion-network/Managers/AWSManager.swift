@@ -93,12 +93,12 @@ class AWSManager{
        }
     
     //uploadImage given a UIImage =>STILL have to try when view controller is done but it looks like it should work
-    func uploadImage(image: UIImage, progress: progressBlock?, completion: completionBlock?) {
+    func uploadImage(image: UIImage, progress: progressBlock?, completion: completionBlock?, pathAndFileName: String) -> Bool {
         
         guard let imageData = image.jpegData(compressionQuality: 1.0) else { //COMPRESS
             let error = NSError(domain:"", code:402, userInfo:[NSLocalizedDescriptionKey: "invalid image"])
             completion?(nil, error)
-            return
+            return false
         }
         
         let tmpPath = NSTemporaryDirectory() as String //Store it in local directory to upload it
@@ -108,11 +108,19 @@ class AWSManager{
         
         do {
             try imageData.write(to: fileUrl) //upload it to the bucket
-            self.uploadfile(fileUrl: fileUrl, fileName: fileName, contenType: "image", progress: progress, completion: completion)
+            
+            // Use pathAndFileName to set the path and name of the S3 file (e.g. for profile pic it's <username>/profilePicture)
+            self.uploadfile(fileUrl: fileUrl, fileName: pathAndFileName, contenType: "image", progress: progress, completion: completion)
         } catch {
+            // Print the error for debugging
+            print("Couldn't upload file: \(error)")
             let error = NSError(domain:"", code:402, userInfo:[NSLocalizedDescriptionKey: "invalid image"])
             completion?(nil, error)
+            return false
         }
+        
+        // Return true to use with validation
+        return true
     }
     
     //upload a file to the bucket
