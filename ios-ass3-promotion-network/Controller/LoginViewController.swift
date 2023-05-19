@@ -20,9 +20,8 @@ class LoginViewController: UIViewController {
             do {
                 try! await realmManager.initalize()
                 
-                // Check if device is already logged in, push to home screen if so
-                let deviceId = UIDevice.current.identifierForVendor!.uuidString
-                if let _ = queryLoginSession(deviceId: deviceId) {
+                if let session = LoginSession.getLoginSession() {
+                    // session.logout()
                     pushToHomeViewController()
                 }
             }
@@ -46,13 +45,6 @@ class LoginViewController: UIViewController {
         } else {
             print("Invalid login")
         }
-    }
-    
-    // Query Realm LoginSessions for device ID
-    func queryLoginSession(deviceId: String) -> LoginSession? {
-        guard let realm = realmManager.realm else {return nil}
-        let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
-        return loginSession
     }
     
     // Push To Tab Bar Which Pushes to Home Screen
