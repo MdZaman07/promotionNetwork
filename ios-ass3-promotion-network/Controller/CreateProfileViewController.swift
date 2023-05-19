@@ -1,6 +1,7 @@
 import UIKit
 
 class CreateProfileViewController: UIViewController {
+    @IBOutlet weak var profilePictureField: UIImageView!
 
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var descriptionField: UITextField!
