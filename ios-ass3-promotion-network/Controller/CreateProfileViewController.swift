@@ -79,13 +79,6 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         dismiss(animated: true)
     }
     
-    func textFieldErrorAction(field: UITextField, msg: String) {
-        print(msg)
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.red.cgColor
-        
-    }
-    
     func validateTextFields() -> Bool {
         // Check if names have numbers
         guard let firstName = firstNameField.text, regularExpressionValidator(regex: "^[a-zA-Z]+$", compareString: firstName) else {
