@@ -83,7 +83,7 @@ class LoginViewController: UIViewController {
     
     // Query Realm db for an AppUser that matches the username
     func getUserByUsername(username: String) -> AppUser? {
-        do {
+        do {            
             let realm = try Realm()
             if let user = realm.objects(AppUser.self).filter("userName == %@", username).first {
                 return user

@@ -36,7 +36,7 @@ class AppUser:Object, Identifiable {
         self.loginSessions = List<LoginSession>()
     }
     
-    func createUser() -> Bool {
+    func createUser(profilePicture: UIImage?) -> Bool {
         do {
             let realm = try Realm()
             
@@ -55,6 +55,16 @@ class AppUser:Object, Identifiable {
                 return false
             }
             
+            // If profile picture is selected in create user view
+            if let uploadProfilePicture = profilePicture {
+                if( uploadProfilePictureToS3(uploadProfilePicture) ) {
+                    print("Uploaded profile picture successfully to S3!")
+                } else {
+                    print("Something went wrong uploading profile picture")
+                    return false
+                }
+            }
+            
             // Write new user to database
             try realm.write {
                 realm.add(self)
@@ -65,5 +75,15 @@ class AppUser:Object, Identifiable {
             print("Couldn't create user, reason: \(error)")
             return false
         }
+    }
+    
+    func uploadProfilePictureToS3(_ profilePicture: UIImage) -> Bool {
+        let awsManager = AWSManager()
+        
+        if( !awsManager.uploadImage(image: profilePicture, progress: nil , completion: nil, pathAndFileName: "\(userName)/profilePicture") ) {
+            return false
+        }
+        
+        return true
     }
 }
