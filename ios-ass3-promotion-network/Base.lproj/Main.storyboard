@@ -119,6 +119,7 @@
                         <outlet property="firstNameField" destination="Y6t-Kt-A7u" id="d2j-E0-M5e"/>
                         <outlet property="lastNameField" destination="BJx-de-94L" id="bte-gY-4WJ"/>
                         <outlet property="passwordField" destination="w1v-Rr-SJY" id="ryb-Qu-A1v"/>
+                        <outlet property="profilePictureField" destination="4VJ-Z2-ST5" id="S3O-TL-6U1"/>
                         <outlet property="usernameField" destination="l95-HS-FE2" id="RWr-rN-lir"/>
                     </connections>
                 </viewController>
