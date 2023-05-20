@@ -14,12 +14,17 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var firstNameField: UITextField!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         // Register tap gesture on profile picture field to open up image picker
         let uiTapGR = UITapGestureRecognizer(target: self, action: #selector(self.showImagePicker))
         profilePictureField.addGestureRecognizer(uiTapGR)
         profilePictureField.isUserInteractionEnabled = true
         
-        super.viewDidLoad()
+        // Mas password fields
+        passwordField.isSecureTextEntry = true
+        confirmPasswordField.isSecureTextEntry = true
+        
         // Do any additional setup after loading the view.
         applyBorderStylingToTextFields(fields: [descriptionField, confirmPasswordField,
                                           passwordField, cityField, emailField, usernameField, lastNameField, firstNameField])

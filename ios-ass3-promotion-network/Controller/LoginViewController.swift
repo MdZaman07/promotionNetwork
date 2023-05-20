@@ -18,6 +18,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         applyBorderStylingToTextFields(fields: [usernameField, passwordField])
         
+        // Mask password
+        passwordField.isSecureTextEntry = true
+        
         // Change corner radius of sign up button later
         
         Task {
