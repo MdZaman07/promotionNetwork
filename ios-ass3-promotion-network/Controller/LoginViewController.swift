@@ -16,13 +16,17 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyBorderStylingToTextFields(fields: [usernameField, passwordField])
+        
+        // Change corner radius of sign up button later
+        
         Task {
             do {
                 try! await realmManager.initalize()
                 
                 if let session = LoginSession.getLoginSession() {
-                    //session.logout()
-                    pushToHomeViewController()
+                    session.logout()
+                    //pushToHomeViewController()
                 }
             }
         }

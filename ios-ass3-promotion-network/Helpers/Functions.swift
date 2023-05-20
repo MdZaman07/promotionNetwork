@@ -33,3 +33,14 @@ func textFieldErrorAction(field: UITextField, msg: String) {
     field.layer.borderWidth = 1
     field.layer.borderColor = UIColor.red.cgColor
 }
+    
+
+// Helper function to make text fields grey and add corner radius
+func applyBorderStylingToTextFields(fields: [UITextField]) {
+    for field in fields {
+        field.layer.cornerRadius = 10
+        field.layer.borderWidth = 1.0
+        field.layer.borderColor = UIColor.lightGray.cgColor
+        field.layer.masksToBounds = true
+    }
+}

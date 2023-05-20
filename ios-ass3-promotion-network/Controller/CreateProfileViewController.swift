@@ -21,6 +21,8 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        applyBorderStylingToTextFields(fields: [descriptionField, confirmPasswordField,
+                                          passwordField, cityField, emailField, usernameField, lastNameField, firstNameField])
     }
     
     @IBAction func createProfile(_ sender: Any) {
