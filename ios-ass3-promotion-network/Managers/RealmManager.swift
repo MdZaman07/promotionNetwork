@@ -22,42 +22,58 @@ class RealmManager: ObservableObject{
 
     @MainActor
     func initalize() async throws{
-
         //authentication
-        user = try await app.login(credentials:Credentials.anonymous)
+        do {
+            user = try await app.login(credentials:Credentials.anonymous)
 
-        self.configuration = user?.flexibleSyncConfiguration(initialSubscriptions: { subs in
-            if let _ = subs.first(named:"all-appUsers"){} else{
-                subs.append(QuerySubscription<AppUser>(name:"all-appUsers"))
-            }
-            if let _ = subs.first(named:"loginSessions") {}else{
-                subs.append(QuerySubscription<LoginSession>(name:"loginSessions"))
-            }
-            if let _ = subs.first(named:"likedPosts") {} else{
-                subs.append(QuerySubscription<LikedPost>(name:"likedPosts"))
-            }
-            if let _ = subs.first(named:"posts") {} else{
-                subs.append(QuerySubscription<Post>(name:"posts"))
-            }
-            if let _ = subs.first(named:"userFollows") {} else{
-                subs.append(QuerySubscription<UserFollow>(name:"userFollows"))
-            }
-            
-            return
+            self.configuration = user?.flexibleSyncConfiguration(clientResetMode: .recoverOrDiscardUnsyncedChanges(), initialSubscriptions: { subs in
+                if let _ = subs.first(named:"all-appUsers"){} else{
+                    subs.append(QuerySubscription<AppUser>(name:"all-appUsers"))
+                }
+                if let _ = subs.first(named:"loginSessions") {}else{
+                    subs.append(QuerySubscription<LoginSession>(name:"loginSessions"))
+                }
+                if let _ = subs.first(named:"likedPosts") {} else{
+                    subs.append(QuerySubscription<LikedPost>(name:"likedPosts"))
+                }
+                if let _ = subs.first(named:"posts") {} else{
+                    subs.append(QuerySubscription<Post>(name:"posts"))
+                }
+                if let _ = subs.first(named:"userFollows") {} else{
+                    subs.append(QuerySubscription<UserFollow>(name:"userFollows"))
+                }
+                
+                return
 
-        }, rerunOnOpen: true)
-
-        realm = try! await Realm(configuration: configuration!, downloadBeforeOpen: .once)
+            },  rerunOnOpen: true)
+            realm = try await Realm(configuration: configuration!, downloadBeforeOpen: .always)
+        }
+        catch  let syncError as SyncError{ //if this does not work, copy and paste it on the login view controller
+           switch syncError.code {
+           case .clientResetError:
+               if let (path, clientResetToken) = syncError.clientResetInfo() {
+                   SyncSession.immediatelyHandleError(clientResetToken, syncManager: self.app.syncManager)
+               }
+           default:
+               print(syncError.localizedDescription)
+           }
+        }
+        catch{
+            print(error.localizedDescription)
+        }
     }
     
-    func getObject(type:Object.Type ,pK: Any)->Object{
+    //example use like :
+    //user = getObject(AppUser.self, field:"city", value:"Vitoria"
+    func getObject(type:Object.Type ,field: String, value:String)->Object?{
         guard let realm = realm else{
             return Object()
         }
-        guard let object = realm.object(ofType: type, forPrimaryKey:pK ) else{
-            return Object()
+        let DbQuery = "\(field) contains '\(value)' "
+        guard let result = realm.objects(type).filter(DbQuery).first else{
+            return nil
         }
-        return object
+        return result
     }
     
     
