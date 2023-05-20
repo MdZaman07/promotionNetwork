@@ -25,15 +25,17 @@ class LoginViewController: UIViewController {
         
         Task {
             do {
-                try! await realmManager.initalize()
-                
+                try await realmManager.initalize()
+
                 if let session = LoginSession.getLoginSession() {
-                    session.logout()
-                    //pushToHomeViewController()
+                    //session.logout()
+                   
+                    pushToHomeViewController()
                 }
-            }
+                }
+            }//if the initialization does not work paste the catch of realmManager HERE
         }
-    }
+    
     
     // When login button is pressed
     @IBAction func login(_ sender: Any) {
