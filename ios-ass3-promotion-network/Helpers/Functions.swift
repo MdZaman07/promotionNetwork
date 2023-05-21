@@ -29,7 +29,22 @@ func isLoginSessionExists() -> Bool {
 }
 
 func textFieldErrorAction(field: UITextField, msg: String) {
-    print(msg)
+    field.text = ""
     field.layer.borderWidth = 1
     field.layer.borderColor = UIColor.red.cgColor
+    field.attributedPlaceholder = NSAttributedString(
+        string: msg,
+        attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
+    )
+}
+    
+
+// Helper function to make text fields grey and add corner radius
+func applyBorderStylingToTextFields(fields: [UITextField]) {
+    for field in fields {
+        field.layer.cornerRadius = 10
+        field.layer.borderWidth = 1.0
+        field.layer.borderColor = UIColor.lightGray.cgColor
+        field.layer.masksToBounds = true
+    }
 }

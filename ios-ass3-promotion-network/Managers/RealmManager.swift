@@ -76,9 +76,9 @@ class RealmManager: ObservableObject{
         return result
     }
     
-    
+    // Example use:
+    // realmManager.createObject(object: self)
     func createObject(object:Object){
-        // Save your object
         if let realm=realm{
             realm.beginWrite()
             realm.add(object)
@@ -86,6 +86,8 @@ class RealmManager: ObservableObject{
         }
     }
     
+    // Example use:
+    // realmManager.addObjectToList(object: self, list: loggedInUser.loginSessions)
     func addObjectToList<T: Object>(object: T, list: List<T>) {
         if let realm=realm {
             realm.beginWrite()
@@ -94,6 +96,8 @@ class RealmManager: ObservableObject{
         }
     }
     
+    // Example use:
+    // realmManager.removeObject(object: self)
     func removeObject(object: Object) {
         if let realm=realm {
             realm.beginWrite()

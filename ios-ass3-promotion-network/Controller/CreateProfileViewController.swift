@@ -14,24 +14,35 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var firstNameField: UITextField!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         // Register tap gesture on profile picture field to open up image picker
         let uiTapGR = UITapGestureRecognizer(target: self, action: #selector(self.showImagePicker))
         profilePictureField.addGestureRecognizer(uiTapGR)
         profilePictureField.isUserInteractionEnabled = true
         
-        super.viewDidLoad()
+        // Make profile picture field a circle
+        profilePictureField.layer.cornerRadius = profilePictureField.frame.size.width / 2
+        profilePictureField.clipsToBounds = true
+        
+        // Mas password fields
+        passwordField.isSecureTextEntry = true
+        confirmPasswordField.isSecureTextEntry = true
+        
         // Do any additional setup after loading the view.
+        applyBorderStylingToTextFields(fields: [descriptionField, confirmPasswordField,
+                                          passwordField, cityField, emailField, usernameField, lastNameField, firstNameField])
     }
     
     @IBAction func createProfile(_ sender: Any) {
         // Unwrap optionals
-        guard let username = usernameField.text, !username.isEmpty else { textFieldErrorAction(field: usernameField, msg: "Can't be empty"); return }
-        guard let firstName = firstNameField.text, !firstName.isEmpty else { textFieldErrorAction(field: firstNameField, msg: "Can't be empty"); return }
-        guard let lastName = lastNameField.text, !lastName.isEmpty else { textFieldErrorAction(field: lastNameField, msg: "Can't be empty"); return }
-        guard let email = emailField.text, !email.isEmpty else { textFieldErrorAction(field: emailField, msg: "Can't be empty"); return }
-        guard let city = cityField.text, !city.isEmpty else { textFieldErrorAction(field: cityField, msg: "Can't be empty"); return }
-        guard let password = passwordField.text, !password.isEmpty else { textFieldErrorAction(field: passwordField, msg: "Can't be empty"); return }
-        guard let description = descriptionField.text, !description.isEmpty else { textFieldErrorAction(field: descriptionField, msg: "Can't be empty"); return }
+        guard let username = usernameField.text, !username.isEmpty else { textFieldErrorAction(field: usernameField, msg: "Username can't be empty"); return }
+        guard let firstName = firstNameField.text, !firstName.isEmpty else { textFieldErrorAction(field: firstNameField, msg: "Name can't be empty"); return }
+        guard let lastName = lastNameField.text, !lastName.isEmpty else { textFieldErrorAction(field: lastNameField, msg: "Name can't be empty"); return }
+        guard let email = emailField.text, !email.isEmpty else { textFieldErrorAction(field: emailField, msg: "Email can't be empty"); return }
+        guard let city = cityField.text, !city.isEmpty else { textFieldErrorAction(field: cityField, msg: "City can't be empty"); return }
+        guard let password = passwordField.text, !password.isEmpty else { textFieldErrorAction(field: passwordField, msg: "Password an't be empty"); return }
+        guard let description = descriptionField.text, !description.isEmpty else { textFieldErrorAction(field: descriptionField, msg: "Description can't be empty"); return }
 
         
         // Validate text fields after checking mandatory fields
@@ -77,9 +88,19 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         guard let image = info[.editedImage] as? UIImage else {return}
         profilePictureField.image = image
         dismiss(animated: true)
+        
+        // Fit image in container
+        profilePictureField.contentMode = .scaleAspectFit
+        profilePictureField.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func validateTextFields() -> Bool {
+        // Check if username is alphanumeric
+        guard let username = usernameField.text, regularExpressionValidator(regex: "^[a-zA-Z0-9]+$", compareString: username) else {
+            textFieldErrorAction(field: usernameField, msg: "Username can only be alphanumeric")
+            return false
+        }
+        
         // Check if names have numbers
         guard let firstName = firstNameField.text, regularExpressionValidator(regex: "^[a-zA-Z]+$", compareString: firstName) else {
             textFieldErrorAction(field: firstNameField, msg: "Name can only consist of letters")
@@ -110,6 +131,7 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         return true
     }
     
+    // Test regular expression with supplied string
     func regularExpressionValidator(regex: String, compareString: String) -> Bool {
         let comparisonPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return comparisonPredicate.evaluate(with: compareString)

@@ -42,7 +42,8 @@ class LoginSession: Object, Identifiable {
         let realmManager = RealmManager.shared
         guard let realm = realmManager.realm else {return nil}
         let deviceId = UIDevice.current.identifierForVendor!.uuidString
-        let loginSession = realm.objects(LoginSession.self).filter("deviceId == %@", deviceId).first
+
+        let loginSession = realmManager.getObject(type: LoginSession.self, field: "deviceId", value: deviceId) as? LoginSession
         return loginSession
     }
 }

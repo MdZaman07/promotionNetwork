@@ -55,48 +55,52 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y6t-Kt-A7u">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="GhQ-uz-SMq">
                                         <rect key="frame" x="0.0" y="52.999999999999972" width="295.66666666666669" height="42.333333333333343"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-de-94L">
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y6t-Kt-A7u">
+                                                <rect key="frame" x="0.0" y="0.0" width="145.33333333333334" height="42.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BJx-de-94L">
+                                                <rect key="frame" x="150.33333333333331" y="0.0" width="145.33333333333331" height="42.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bif-WK-tdq">
                                         <rect key="frame" x="0.0" y="105.33333333333334" width="295.66666666666669" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bif-WK-tdq">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bL6-tG-ZV5">
                                         <rect key="frame" x="0.0" y="157.33333333333334" width="295.66666666666669" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bL6-tG-ZV5">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w1v-Rr-SJY">
                                         <rect key="frame" x="0.0" y="209.33333333333334" width="295.66666666666669" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w1v-Rr-SJY">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gxF-9R-LZ7">
                                         <rect key="frame" x="0.0" y="261.33333333333337" width="295.66666666666669" height="42.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gxF-9R-LZ7">
-                                        <rect key="frame" x="0.0" y="313.66666666666663" width="295.66666666666669" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="line" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2iW-9n-k4H">
-                                        <rect key="frame" x="0.0" y="365.66666666666663" width="295.66666666666669" height="55.333333333333314"/>
+                                        <rect key="frame" x="0.0" y="313.66666666666663" width="295.66666666666669" height="107.33333333333331"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Y6t-Kt-A7u" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" id="1hc-8O-xpN"/>
                                     <constraint firstItem="l95-HS-FE2" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" constant="1" id="3gv-Bc-Cdy"/>
+                                    <constraint firstItem="GhQ-uz-SMq" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" id="3k3-fh-jBW"/>
                                     <constraint firstItem="Bif-WK-tdq" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" id="8vA-p9-i3c"/>
                                     <constraint firstItem="gxF-9R-LZ7" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" id="DE9-Zu-1UF"/>
-                                    <constraint firstItem="BJx-de-94L" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" id="Qao-uI-bdF"/>
                                     <constraint firstItem="w1v-Rr-SJY" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" id="it1-7j-WX7"/>
                                     <constraint firstItem="bL6-tG-ZV5" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" id="jrk-Dp-tEJ"/>
                                 </constraints>
@@ -614,14 +618,6 @@
                                 <rect key="frame" x="49" y="731" width="295" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Sign Up"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <real key="value" value="0.5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="M65-oq-gL3" kind="show" id="cCb-SG-e6r"/>
                                 </connections>
@@ -675,6 +671,7 @@
                     <connections>
                         <outlet property="loginButton" destination="qHl-pQ-W82" id="ar3-8V-3B6"/>
                         <outlet property="passwordField" destination="Kj6-XU-44w" id="mdT-Ad-29j"/>
+                        <outlet property="signUpButton" destination="SR4-PD-l6A" id="Btc-ls-sVa"/>
                         <outlet property="usernameField" destination="47r-mt-1Lr" id="hRb-zq-7L9"/>
                     </connections>
                 </viewController>
