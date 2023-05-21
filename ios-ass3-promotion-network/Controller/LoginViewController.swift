@@ -64,8 +64,8 @@ class LoginViewController: UIViewController {
     
     // Validate text input fields with database
     func validateLogin(username: String, password: String) -> AppUser? {
-        // Check if user exists otherwise return nil
-        guard let user = getUserByUsername(username: username) else {
+        // Check if user exists otherwise return nil. Ternary operater to determine if username input is email or username
+        guard let user = username.contains("@") ? getUserByEmail(email: username) : getUserByUsername(username: username) else {
             // Change textfield border color, add error message
             textFieldErrorAction(field: usernameField, msg: "User '\(username)' doesn't exist")
             return nil
@@ -82,14 +82,24 @@ class LoginViewController: UIViewController {
     
     // Query Realm db for an AppUser that matches the username
     func getUserByUsername(username: String) -> AppUser? {
-        guard let realm = realmManager.realm else {
+        guard let _ = realmManager.realm else {
             print("Failed to establish connection to realm")
             return nil
         }
-            if let user = realm.objects(AppUser.self).filter("userName == %@", username).first {
-                return user
-            }
-        return nil
+        
+        let user = realmManager.getObject(type: AppUser.self, field: "userName", value: username) as? AppUser
+        return user
+    }
+    
+    // Query Realm db for an AppUser that matches the email
+    func getUserByEmail(email: String) -> AppUser? {
+        guard let _ = realmManager.realm else {
+            print("Failed to establish connection to realm")
+            return nil
+        }
+        
+        let user = realmManager.getObject(type: AppUser.self, field: "email", value: email) as? AppUser
+        return user
     }
 }
 

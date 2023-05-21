@@ -87,6 +87,12 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
     }
     
     func validateTextFields() -> Bool {
+        // Check if username is alphanumeric
+        guard let username = usernameField.text, regularExpressionValidator(regex: "^[a-zA-Z0-9]+$", compareString: username) else {
+            textFieldErrorAction(field: usernameField, msg: "Username can only be alphanumeric")
+            return false
+        }
+        
         // Check if names have numbers
         guard let firstName = firstNameField.text, regularExpressionValidator(regex: "^[a-zA-Z]+$", compareString: firstName) else {
             textFieldErrorAction(field: firstNameField, msg: "Name can only consist of letters")
