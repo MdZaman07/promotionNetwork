@@ -31,14 +31,12 @@ class LoginViewController: UIViewController {
                 try await realmManager.initalize()
 
                 // Automatically log the user in if a login session already exists for the current device
-                if let session = LoginSession.getLoginSession() {
-                    //session.logout()
-                   
+                if let _ = LoginSession.getLoginSession() {
                     pushToHomeViewController()
                 }
-                }
-            }//if the initialization does not work paste the catch of realmManager HERE
-        }
+            }
+        }//if the initialization does not work paste the catch of realmManager HERE
+    }
     
     
     // When login button is pressed
