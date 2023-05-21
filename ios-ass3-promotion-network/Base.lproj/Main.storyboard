@@ -591,14 +591,6 @@
                                 <rect key="frame" x="49" y="731" width="295" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Sign Up"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <real key="value" value="0.5"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="M65-oq-gL3" kind="show" id="cCb-SG-e6r"/>
                                 </connections>
@@ -652,6 +644,7 @@
                     <connections>
                         <outlet property="loginButton" destination="qHl-pQ-W82" id="ar3-8V-3B6"/>
                         <outlet property="passwordField" destination="Kj6-XU-44w" id="mdT-Ad-29j"/>
+                        <outlet property="signUpButton" destination="SR4-PD-l6A" id="Btc-ls-sVa"/>
                         <outlet property="usernameField" destination="47r-mt-1Lr" id="hRb-zq-7L9"/>
                     </connections>
                 </viewController>
