@@ -22,7 +22,9 @@ class LoginViewController: UIViewController {
         // Mask password
         passwordField.isSecureTextEntry = true
         
-        // Change corner radius of sign up button later
+        // Change corner radius of sign up button
+        signUpButton.layer.borderWidth = 1
+        signUpButton.layer.cornerRadius = 5
         
         Task {
             do {
