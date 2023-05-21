@@ -74,9 +74,11 @@ class AppUser:Object, Identifiable {
     func uploadProfilePictureToS3(_ profilePicture: UIImage) -> Bool {
         let awsManager = AWSManager()
         
-        if( !awsManager.uploadImage(image: profilePicture, progress: nil , completion: nil, pathAndFileName: "\(userName)/profilePicture") ) {
+        if( !awsManager.uploadImage(image: profilePicture, progress: nil , completion: nil, pathAndFileName: self.profileImageKey) ) {
             return false
         }
+        
+        self.profileImageKey = "\(userName)/profilePicture"
         
         return true
     }
