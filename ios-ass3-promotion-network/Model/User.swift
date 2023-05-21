@@ -41,14 +41,15 @@ class AppUser:Object, Identifiable {
         guard let realm = realmManager.realm else {return false}
         
         // Check if username already exists
-        let usernameQueryResult = realm.objects(AppUser.self).filter("userName == %@", self.userName).first
+        let usernameQueryResult = realmManager.getObject(type: AppUser.self, field: "userName", value: self.userName) as? AppUser
+
         if(usernameQueryResult != nil) {
             print("Username already exists")
             return false
         }
         
         // Check if email already exists
-        let emailQueryResult = realm.objects(AppUser.self).filter("email == %@", self.email).first
+        let emailQueryResult = realmManager.getObject(type: AppUser.self, field: "email", value: self.email) as? AppUser
         
         if(emailQueryResult != nil) {
             print("Email already exists")
