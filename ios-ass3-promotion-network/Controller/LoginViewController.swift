@@ -27,6 +27,7 @@ class LoginViewController: UIViewController {
             do {
                 try await realmManager.initalize()
 
+                // Automatically log the user in if a login session already exists for the current device
                 if let session = LoginSession.getLoginSession() {
                     //session.logout()
                    

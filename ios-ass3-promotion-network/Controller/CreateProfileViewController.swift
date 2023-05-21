@@ -21,6 +21,10 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         profilePictureField.addGestureRecognizer(uiTapGR)
         profilePictureField.isUserInteractionEnabled = true
         
+        // Make profile picture field a circle
+        profilePictureField.layer.cornerRadius = profilePictureField.frame.size.width / 2
+        profilePictureField.clipsToBounds = true
+        
         // Mas password fields
         passwordField.isSecureTextEntry = true
         confirmPasswordField.isSecureTextEntry = true
@@ -84,6 +88,10 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         guard let image = info[.editedImage] as? UIImage else {return}
         profilePictureField.image = image
         dismiss(animated: true)
+        
+        // Fit image in container
+        profilePictureField.contentMode = .scaleAspectFit
+        profilePictureField.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func validateTextFields() -> Bool {
@@ -123,6 +131,7 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         return true
     }
     
+    // Test regular expression with supplied string
     func regularExpressionValidator(regex: String, compareString: String) -> Bool {
         let comparisonPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return comparisonPredicate.evaluate(with: compareString)
