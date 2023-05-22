@@ -28,10 +28,8 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
             self.category = action.title
         }
                 
-        popUpButton.menu = UIMenu(children: [
-            UIAction(title: "Food", handler: popUpButtonClosure),
-            UIAction(title: "Drink", handler: popUpButtonClosure)
-        ])
+        popUpButton.menu = UIMenu(children: Category.allCases.map{
+            UIAction(title: $0.rawValue, handler: popUpButtonClosure)})
         
         popUpButton.showsMenuAsPrimaryAction = true
     }
@@ -67,7 +65,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         let longitude = "0"
         
 
-        let newPost = Post(text: text, image: imageData, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category.fashion) //fix category
+        let newPost = Post(text: text, image: imageData, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!)
         
         appUser.posts.append(newPost)
         
