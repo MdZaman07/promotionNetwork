@@ -19,6 +19,7 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    var post: Post?
     var name: String!
     var location: String!
     var profileImage: UIImage?

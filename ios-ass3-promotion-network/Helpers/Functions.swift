@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 func getLoginSession() -> LoginSession? {
 //    if let encodedSession = UserDefaults.standard.data(forKey: "loginSession") {
@@ -57,4 +58,25 @@ func applyBorderStylingToTextFields(fields: [UITextField]) {
         field.layer.borderColor = UIColor.lightGray.cgColor
         field.layer.masksToBounds = true
     }
+}
+
+// Helper function to make btoton fields grey and add corner radius
+func applyBorderStylingToButton(buttons: [UIButton]) {
+    for button in buttons {
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.masksToBounds = true
+    }
+}
+
+func getCurrentUser() -> LinkingObjects<AppUser>?{
+    let realmManager = RealmManager.shared
+    guard let _ = realmManager.realm else {return nil}
+    let deviceId = UIDevice.current.identifierForVendor!.uuidString
+    
+    if let loginSession = realmManager.getObject(type: LoginSession.self, field: "deviceId", value: deviceId) as? LoginSession{
+        return loginSession.appUser
+    }
+    return nil
 }

@@ -1,24 +1,34 @@
 import UIKit
+import GoogleMaps
 
 class CreatePostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
-    @IBOutlet weak var popUpButton: UIButton!
+
     @IBOutlet weak var uploadButton: UIButton!
+    @IBOutlet weak var popUpButton: UIButton!
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var moneySavedField: UITextField!
-    @IBOutlet weak var addressField: UITextField!
     @IBOutlet weak var descriptionField: UITextField!
-    
+    @IBOutlet weak var addressField: UITextField!
     @IBOutlet weak var createButton: UIBarButtonItem!
     var category: String!
     
     private var realmManager = RealmManager.shared
     
+    var latitude: String = ""
+    var longitude: String = ""
+    var address: String = ""
+    var createdPost: Post?
+
     override func viewDidLoad() {
         // Only allow numbers in money saved field
         moneySavedField.delegate = self
-        
         super.viewDidLoad()
         setupPopUpButton()
+        addressField.isEnabled=false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        addressField.text = address
     }
 
     
@@ -30,8 +40,9 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
                 
         popUpButton.menu = UIMenu(children: Category.allCases.map{
             UIAction(title: $0.rawValue, handler: popUpButtonClosure)})
-        
         popUpButton.showsMenuAsPrimaryAction = true
+        applyBorderStylingToButton(buttons:[popUpButton])
+
     }
     
     
@@ -50,51 +61,46 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         dismiss(animated: true)
     }
     
+
+    @IBAction func selectAddressPressed(_ sender: Any) {
+        pushToMapSearchViewController()
+    }
+    
+    func pushToMapSearchViewController(){
+        let vc = storyboard?.instantiateViewController(identifier: "MapSearchViewController") as! MapSearchViewController
+        vc.vc = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // Create post and save it into database (using dummy data for now)
     @IBAction func createButton(_ sender: Any) {
-        guard let chosenCategory = category else {return}
-        guard let text = descriptionField.text else {return}
-        guard let image = postImage.image else {return}
-        guard let address = addressField.text else {return}
-        guard let moneySaved = moneySavedField.text else {return}
-        guard let appUser = getLoginSession()?.appUser.first else {return}
-        guard let imageData = image.pngData() else {return}
-        
-        // For now fake the latitude and longitude until we implement maps
-        let latitude = "0"
-        let longitude = "0"
-        
+        guard let chosenCategory = category else {textFieldErrorAction(field: descriptionField, msg: "Category can't be empty"); return}
+        guard let text = descriptionField.text else {textFieldErrorAction(field: descriptionField, msg: "Description can't be empty"); return}
+        guard let address = descriptionField.text else {textFieldErrorAction(field: descriptionField, msg: "Address can't be empty"); return}
+        guard let moneySaved = moneySavedField.text else {textFieldErrorAction(field: descriptionField, msg: "Money saved can't be empty"); return}
 
-        let newPost = Post(text: text, image: imageData, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!)
+        let image = postImage.image?.pngData() ?? nil
         
-        appUser.posts.append(newPost)
+        let newPost = Post(text: text, image: image, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!) //create new post
+        
         
         if(newPost.createPost()) {
+            createdPost = newPost
             self.performSegue(withIdentifier: "postCreateSegue", sender: self)
+        }
+        else{
+            textFieldErrorAction(field: descriptionField, msg: "Error creating the post")
         }
     }
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let chosenCategory = category else {return}
-        guard let text = descriptionField.text else {return}
-        guard let image = postImage.image else {return}
-        guard let address = addressField.text else {return}
-        guard let moneySaved = moneySavedField.text else {return}
-        guard let user = getLoginSession()?.appUser.first else {return}
-        
+       
+        let image = postImage.image //image is not mandatory
         
         if (segue.identifier == "postCreateSegue") {
             let viewPost = segue.destination as! ViewPostViewController
-            viewPost.name = user.firstName
-            viewPost.category = chosenCategory
-            viewPost.desc = text
-            viewPost.image = image
-            viewPost.address = address
-            viewPost.price = moneySaved
+            viewPost.post = createdPost ?? nil
         }
     }
     
