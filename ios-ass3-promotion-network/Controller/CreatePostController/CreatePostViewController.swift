@@ -1,45 +1,54 @@
 import UIKit
 import GoogleMaps
 
-class CreatePostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class CreatePostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var popUpButton: UIButton!
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var moneySavedField: UITextField!
-    @IBOutlet weak var descriptionField: UITextField!
+    @IBOutlet weak var createButton: UIButton!
+    
+
+    @IBOutlet weak var descriptionField: UITextView!
+    
     @IBOutlet weak var addressField: UITextField!
-    @IBOutlet weak var createButton: UIBarButtonItem!
     var category: String!
     
     private var realmManager = RealmManager.shared
     
     var latitude: String = ""
     var longitude: String = ""
-    var address: String = ""
+    var address: String?
     var createdPost: Post?
+    let textViewPlaceholder = "Explain the details and any useful tip to get the best deal. The first sentence will be the title of the post! "
 
     override func viewDidLoad() {
         // Only allow numbers in money saved field
         moneySavedField.delegate = self
         super.viewDidLoad()
         setupPopUpButton()
-        addressField.isEnabled=false
+        addressField.isEnabled = false
+        descriptionField.text = textViewPlaceholder
+        descriptionField.textColor = UIColor.lightGray
+        descriptionField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         addressField.text = address
-    }
 
+    }
     
     // Add options to the pop up button menu and a handler to handle selection
     func setupPopUpButton() {
         let popUpButtonClosure = { (action: UIAction) in
             self.category = action.title
         }
-                
         popUpButton.menu = UIMenu(children: Category.allCases.map{
             UIAction(title: $0.rawValue, handler: popUpButtonClosure)})
+        self.category = popUpButton.menu?.children.first?.title ?? ""
+        
         popUpButton.showsMenuAsPrimaryAction = true
         applyBorderStylingToButton(buttons:[popUpButton])
 
@@ -61,6 +70,19 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         dismiss(animated: true)
     }
     
+    internal func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    internal func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = textViewPlaceholder
+            textView.textColor = UIColor.lightGray
+        }
+    }
 
     @IBAction func selectAddressPressed(_ sender: Any) {
         pushToMapSearchViewController()
@@ -71,25 +93,24 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         vc.vc = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    // Create post and save it into database (using dummy data for now)
-    @IBAction func createButton(_ sender: Any) {
-        guard let chosenCategory = category else {textFieldErrorAction(field: descriptionField, msg: "Category can't be empty"); return}
-        guard let text = descriptionField.text else {textFieldErrorAction(field: descriptionField, msg: "Description can't be empty"); return}
-        guard let address = descriptionField.text else {textFieldErrorAction(field: descriptionField, msg: "Address can't be empty"); return}
-        guard let moneySaved = moneySavedField.text else {textFieldErrorAction(field: descriptionField, msg: "Money saved can't be empty"); return}
+ 
+    @IBAction func createButtonPressed(_ sender: Any) {
+        guard let chosenCategory = category else {return}
+        guard let text = descriptionField.text else {return}
+        guard let address = address else {textFieldErrorAction(field: addressField, msg: "Address can't be empty"); return}
+        
+        guard let moneySaved = moneySavedField.text  else { return}
 
         let image = postImage.image?.pngData() ?? nil
         
         let newPost = Post(text: text, image: image, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!) //create new post
-        
         
         if(newPost.createPost()) {
             createdPost = newPost
             self.performSegue(withIdentifier: "postCreateSegue", sender: self)
         }
         else{
-            textFieldErrorAction(field: descriptionField, msg: "Error creating the post")
+            print("There was an error creating the post.")
         }
     }
     

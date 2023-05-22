@@ -48,6 +48,13 @@ func textFieldErrorAction(field: UITextField, msg: String) {
         attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
     )
 }
+
+func textViewErrorAction(field: UITextView, msg: String) {
+    field.text = ""
+    field.layer.borderWidth = 1
+    field.layer.borderColor = UIColor.red.cgColor
+    field.text = msg
+}
     
 
 // Helper function to make text fields grey and add corner radius
@@ -70,13 +77,13 @@ func applyBorderStylingToButton(buttons: [UIButton]) {
     }
 }
 
-func getCurrentUser() -> LinkingObjects<AppUser>?{
+func getCurrentUser() -> AppUser?{
     let realmManager = RealmManager.shared
     guard let _ = realmManager.realm else {return nil}
     let deviceId = UIDevice.current.identifierForVendor!.uuidString
     
     if let loginSession = realmManager.getObject(type: LoginSession.self, field: "deviceId", value: deviceId) as? LoginSession{
-        return loginSession.appUser
+        return loginSession.appUser.first
     }
     return nil
 }

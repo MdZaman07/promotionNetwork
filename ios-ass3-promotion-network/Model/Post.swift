@@ -46,30 +46,33 @@ class Post: Object, Identifiable {
     }
     
     func createPost() -> Bool {
-        guard let appUser = getLoginSession()?.appUser.first else {return false}
-        appUser.posts.append(self)
+        guard let appUser = getCurrentUser() else {return false}
+
         if let _ = image { //upload image if it exists
-            guard uploadPostImage() else { return false}
+            guard uploadPostImage(appUser:appUser) else { return false}
         }
+        
         let realmManager = RealmManager.shared
-        realmManager.createObject(object: self)
+        realmManager.addObjectToList(object: self, list: appUser.posts)
+        
+
         return true
     }
     
-    func getPostImageName() ->String{
+    func getPostImageName(appUser:AppUser) ->String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YY_M_d_HH:mm:ss"
         let dateString = dateFormatter.string(from:date)
-        return "\(appUser.first?.userName ?? "")/post/\(dateString)"
+        return "\(appUser.userName)/post/\(dateString)"
     }
     
-    func uploadPostImage() -> Bool{
+    func uploadPostImage(appUser:AppUser) -> Bool{
         let awsManager = AWSManager()
         
         guard let imageData = image else {return false}
         guard let uploadImage = UIImage(data: imageData) else {return false}
         
-        let pathAndFileName = getPostImageName()
+        let pathAndFileName = getPostImageName(appUser:appUser)
         
         if( !awsManager.uploadImage(image: uploadImage, progress: nil , completion: nil, pathAndFileName: pathAndFileName) ) {
             return false
