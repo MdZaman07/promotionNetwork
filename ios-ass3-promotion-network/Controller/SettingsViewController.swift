@@ -20,8 +20,25 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        // Styling
+        
+        // Style borders
+        profileContainerView.layer.borderWidth = 1
+        profileContainerView.layer.cornerRadius = 10
+        profileContainerView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        logoutButton.layer.borderWidth = 1
+        logoutButton.layer.cornerRadius = 10
+        logoutButton.layer.borderColor = UIColor.lightGray.cgColor
+        
+        aboutButton.layer.borderWidth = 1
+        aboutButton.layer.cornerRadius = 10
+        aboutButton.layer.borderColor = UIColor.lightGray.cgColor
+        
+        profilePictureField.layer.cornerRadius = 10
+        
     }
-
     
     @IBAction func aboutButtonHandler(_ sender: Any) {
     }
