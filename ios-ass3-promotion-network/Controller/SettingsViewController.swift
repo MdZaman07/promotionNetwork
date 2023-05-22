@@ -44,6 +44,11 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func logoutButtonHandler(_ sender: Any) {
+        var loginSession = LoginSession.getLoginSession()
+        loginSession?.logout()
+        
+        // Push to beginning
+        
     }
 }
 
