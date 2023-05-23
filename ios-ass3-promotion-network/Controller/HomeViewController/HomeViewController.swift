@@ -28,7 +28,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard let realm = realmManager.realm else { return }
         posts = Array(realm.objects(Post.self))
 
-        // Order them to display post of followed users first
+        // TODO: Order them to display post of followed users first
+        
         
         super.viewDidLoad()
         tableView.dataSource = self
@@ -44,15 +45,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         postCell.populate(post: posts[indexPath.row])
         return postCell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "postSegue", sender: posts[indexPath.row])
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "postSegue") {
-            let indexPath = self.tableView.indexPathForSelectedRow!
-            
-            let post = posts[indexPath.row]
+            let post = sender as! Post
             let viewPost = segue.destination as! ViewPostViewController
-            viewPost.post = post            
-            self.tableView.deselectRow(at: indexPath, animated: true)
+            viewPost.post = post
         }
     }
 }

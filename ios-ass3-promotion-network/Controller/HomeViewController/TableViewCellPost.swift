@@ -27,11 +27,25 @@ class TableViewCellPost: UITableViewCell {
         
         selectionStyle = .none
 
-        // Todo
-        let profileImage: UIImage? = nil
-        let postImage: UIImage? = nil
+        if !user.profileImageKey.elementsEqual("") {
+            AWSManager.shared.getOneImage(key: user.profileImageKey){ [weak self] result in
+                switch result{
+                case .success (let image):
+                    DispatchQueue.main.async {
+                        self?.profileImageView.contentMode = .scaleAspectFit
+                        self?.profileImageView.image = image
+                    }
+                case .failure(let error):
+                    self?.profileImageView.image = UIImage(systemName: "person.fill")
+                    print(error)
+                }
+            }
+        } else {
+            profileImageView.image = UIImage(systemName: "person.fill")
+        }
         
-        if postImage == nil {
+        
+        if post.imageKey.elementsEqual("") {
             // Render Google Map
             let mapView = GMSMapView()
             
@@ -54,17 +68,49 @@ class TableViewCellPost: UITableViewCell {
             
             mapView.translatesAutoresizingMaskIntoConstraints = false
             
+            for view in imageContainer.subviews {
+                view.removeFromSuperview()
+            }
+            
             imageContainer.addSubview(mapView)
+            imageContainer.backgroundColor = .none
             
-            guard let mapSuperview = mapView.superview else { return }
-            
-            mapView.topAnchor.constraint(equalTo: mapSuperview.topAnchor).isActive = true
-            mapView.bottomAnchor.constraint(equalTo: mapSuperview.bottomAnchor).isActive = true
-            mapView.trailingAnchor.constraint(equalTo: mapSuperview.trailingAnchor).isActive = true
-            mapView.leadingAnchor.constraint(equalTo: mapSuperview.leadingAnchor).isActive = true
-            
+            addConstraintsForSuperview(element: mapView)
         } else {
             // Pull image from AWS S3 bucket
+            AWSManager.shared.getOneImage(key: post.imageKey){ [weak self] result in
+                switch result{
+                case .success (let image):
+                    DispatchQueue.main.async {
+                        let imageView = UIImageView()
+                        imageView.image = image
+                        imageView.contentMode = .scaleAspectFit
+                        imageView.translatesAutoresizingMaskIntoConstraints = false
+                        
+                        for view in self!.imageContainer.subviews {
+                            view.removeFromSuperview()
+                        }
+                        
+                        self?.imageContainer.addSubview(imageView)
+                        self?.imageContainer.backgroundColor = .none
+                        self?.addConstraintsForSuperview(element: imageView)
+                    }
+                case .failure(let error):
+                    for view in self!.imageContainer.subviews {
+                        view.removeFromSuperview()
+                    }
+                    print(error)
+                }
+            }
         }
+    }
+    
+    func addConstraintsForSuperview(element: UIView){
+        guard let elementSuperview = element.superview else { return }
+        
+        element.topAnchor.constraint(equalTo: elementSuperview.topAnchor).isActive = true
+        element.bottomAnchor.constraint(equalTo: elementSuperview.bottomAnchor).isActive = true
+        element.trailingAnchor.constraint(equalTo: elementSuperview.trailingAnchor).isActive = true
+        element.leadingAnchor.constraint(equalTo: elementSuperview.leadingAnchor).isActive = true
     }
 }
