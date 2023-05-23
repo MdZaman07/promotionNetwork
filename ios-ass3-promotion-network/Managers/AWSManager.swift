@@ -16,7 +16,7 @@ class AWSManager{
     
     var s3:AWSS3?
     let bucketName = "ios-promnet"
-    var image:UIImage = UIImage()
+    var image:UIImage?
     let configuration:AWSServiceConfiguration?
     
     init(){ //initializes AWSS3 bucket
@@ -46,17 +46,23 @@ class AWSManager{
          }
     }
     
-    func getOneImage(){ //gets one image given the key of the image
+    func getOneImage(key:String) -> UIImage?{ //gets one image given the key of the image
         let getObjectRequest: AWSS3GetObjectRequest = AWSS3GetObjectRequest()
         getObjectRequest.bucket = bucketName
-        getObjectRequest.key = "ice_Cream.jpeg"
+        getObjectRequest.key = key
         
-        s3?.getObject(getObjectRequest).continueWith{(task) -> AnyObject? in
-            print("Object result = \(String(describing: task.result ?? nil))")
-            print("Object contents = \(String(describing: task.result?.body))")
-            
-            return nil
+        let image = s3?.getObject(getObjectRequest).continueWith{(task) -> AnyObject? in
+            guard let error = task.error else{
+                print("Error getting the image.")
+                return
+            }
+            if var data = task.result?.body as? Data{
+                self.image = UIImage(data: data)
+            }
+            return
         }
+        
+        return self.image
     }
     
     func writeImage(){ //dumb function I created to check that upload actually works => DELETE

@@ -20,32 +20,37 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     
     var post: Post?
-    var name: String!
-    var location: String!
-    var profileImage: UIImage?
-    var image: UIImage?
-    var price: String!
-    var likes: String?
-    var category: String!
-    var address: String!
-    var desc: String!
-    
-    
+
     override func viewDidLoad() {
-        nameLabel.text = name
-        locationLabel.text = location
-        profilePicture.image = profileImage ?? nil
-        postImage.image = image ?? nil
-        priceLabel.text = price
-        likesLabel.text = likes ?? nil
-        categoryLabel.text = category
-        addressLabel.text = address
-        descriptionLabel.text = desc
+        if let post = post{
+            nameLabel.text = post.appUser.first?.userName
+            locationLabel.text = post.address
+            priceLabel.text = String(post.moneySaved)
+            likesLabel.text = String(post.likes.count)
+            categoryLabel.text = post.category.rawValue
+            addressLabel.text = post.address
+            descriptionLabel.text = post.description
+            if let image = post.image{
+                self.postImage.image = UIImage(data: image)
+            }
+            //getPostImage(key:post.imageKey)
+            //setMapLayout()
+        }
+
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
+    
+//    func getPostImage(key:String){
+//        let aws3 = AWSManager()
+//        if let image = aws3.getOneImage(key: key){
+//            self.postImage.image = image
+//        }
+//    }
+    
+//    func setMapLayout(){
+//
+//    }
 }
 
