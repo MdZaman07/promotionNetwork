@@ -30,7 +30,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         setupPopUpButton()
         addressField.isEnabled = false
         descriptionField.text = textViewPlaceholder
-        descriptionField.textColor = UIColor.lightGray
+        descriptionField.textColor = UIColor.darkGray
         descriptionField.delegate = self
     }
     
@@ -71,7 +71,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     internal func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
+        if textView.textColor == UIColor.darkGray {
             textView.text = nil
             textView.textColor = UIColor.black
         }
@@ -80,7 +80,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     internal func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = textViewPlaceholder
-            textView.textColor = UIColor.lightGray
+            textView.textColor = UIColor.darkGray
         }
     }
 
@@ -96,16 +96,16 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
  
     @IBAction func createButtonPressed(_ sender: Any) {
         guard let chosenCategory = category else {return}
-        guard let text = descriptionField.text else {return}
+        guard var text = descriptionField.text  else {return}
+        if descriptionField.textColor == UIColor.darkGray{ text = ""} //placeholder
         guard let address = address else {textFieldErrorAction(field: addressField, msg: "Address can't be empty"); return}
         
         guard let moneySaved = moneySavedField.text  else { return}
 
-        let image = postImage.image?.pngData() ?? nil
         
-        let newPost = Post(text: text, image: image, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!) //create new post
+        let newPost = Post(text: text, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!) //create new post
         
-        if(newPost.createPost()) {
+        if(newPost.createPost(image:postImage.image)) {
             createdPost = newPost
             self.performSegue(withIdentifier: "postCreateSegue", sender: self)
         }

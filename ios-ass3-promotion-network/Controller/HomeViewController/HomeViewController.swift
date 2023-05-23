@@ -73,13 +73,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             let post = posts[indexPath.row]
             let viewPost = segue.destination as! ViewPostViewController
-            viewPost.name = post.appUser.first?.firstName
-            viewPost.location = post.address
-            viewPost.category = post.category.rawValue
-            viewPost.desc = post.text
-            viewPost.price = String(post.moneySaved)
-            viewPost.address = post.address
-            
+            viewPost.post = post            
             self.postsTableView.deselectRow(at: indexPath, animated: true)
         }
     }

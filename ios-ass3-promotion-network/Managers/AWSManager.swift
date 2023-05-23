@@ -12,12 +12,16 @@ import AWSS3
 typealias progressBlock = (_ progress: Double) -> Void //2
 typealias completionBlock = (_ response: Any?, _ error: Error?) -> Void
 
-class AWSManager{
+
+class AWSManager {
+    
+    static let shared = AWSManager()
     
     var s3:AWSS3?
     let bucketName = "ios-promnet"
     var image:UIImage?
     let configuration:AWSServiceConfiguration?
+    
     
     init(){ //initializes AWSS3 bucket
         let myIdentityPoolId = "ap-southeast-2:f13b2ffa-6edd-4ca6-89b9-d21bec0fdf95"
@@ -46,47 +50,23 @@ class AWSManager{
          }
     }
     
-    func getOneImage(key:String) -> UIImage?{ //gets one image given the key of the image
+
+    
+    func getOneImage(key:String, completion: @escaping (Result<UIImage, Error>) -> Void){ //gets one image given the key of the image
         let getObjectRequest: AWSS3GetObjectRequest = AWSS3GetObjectRequest()
         getObjectRequest.bucket = bucketName
         getObjectRequest.key = key
         
-        let image = s3?.getObject(getObjectRequest).continueWith{(task) -> AnyObject? in
-            guard let error = task.error else{
-                print("Error getting the image.")
-                return
+        s3?.getObject(getObjectRequest).continueWith(executor: AWSExecutor.mainThread()){(task) -> Void in
+            if let _ = task.error{
+                completion(.failure(task.error!))
             }
-            if var data = task.result?.body as? Data{
-                self.image = UIImage(data: data)
-            }
-            return
+            let data: Data? = task.result?.body as? Data
+            guard let data = data else { return }
+            guard let image = UIImage(data:data) else {return}
+            completion(.success(image))
         }
         
-        return self.image
-    }
-    
-    func writeImage(){ //dumb function I created to check that upload actually works => DELETE
-        let remote_name = "MyFileName_" + UUID().uuidString + ".png"
-        let awsTransferUtility = AWSS3TransferUtility.default()
-        let fileURL = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first?.appending(component: "ice-cream.png") //change this with a local file
-        let imageData = try! Data(contentsOf: fileURL!)
-        let _ = UIImage(data: imageData) //how to store as image
-
-        let _ = awsTransferUtility.uploadFile( fileURL!,
-                                                  bucket: bucketName,
-                                                  key: remote_name,
-                                                  contentType: "image/png",
-                                                  expression: nil,
-                                                  completionHandler:nil)
-            .continueWith(block: { (task) -> Any? in
-                if let error = task.error  {
-                    print("Error: \(error.localizedDescription)")
-                }
-                if let result = task.result {
-                    print("Result: \(result)")
-                }
-                return nil
-            }) as! AWSTask<AWSS3TransferUtilityUploadTask>
     }
     
     // the next code is from

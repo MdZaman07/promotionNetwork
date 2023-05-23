@@ -14,11 +14,12 @@ enum Category: String, PersistableEnum, CaseIterable{
     case homewear = "Homewear"
     case personalCare = "Cosmetic/Personal Care"
     case fashion = "Fashion"
+    case other = "Other"
 }
+
 class Post: Object, Identifiable {
     
     @Persisted(primaryKey: true) var _id: ObjectId
-//    @Persisted var _id: String
     @Persisted var text: String
     @Persisted var image: Data?
     @Persisted var address: String
@@ -31,30 +32,27 @@ class Post: Object, Identifiable {
     @Persisted(originProperty: "posts") var appUser: LinkingObjects<AppUser>
     @Persisted var likes: List<LikedPost>
 
-    required convenience init(text: String, image: Data?, address: String, latitude: String, longitude: String, moneySaved: Double, category: Category) {
+    required convenience init(text: String, address: String, latitude: String, longitude: String, moneySaved: Double, category: Category) {
 
         self.init()
         self.text = text
-        self.image = image
         self.address = address
         self.latitude = latitude
         self.longitude = longitude
         self.moneySaved = moneySaved
         self.category = category
         self.date = Date.now
-        
     }
     
-    func createPost() -> Bool {
+    func createPost(image:UIImage?) -> Bool {
         guard let appUser = getCurrentUser() else {return false}
-
-        if let _ = image { //upload image if it exists
-            guard uploadPostImage(appUser:appUser) else { return false}
+                
+        if let image = image{
+            guard uploadPostImage(appUser:appUser, image:image) else { return false}
         }
         
         let realmManager = RealmManager.shared
         realmManager.addObjectToList(object: self, list: appUser.posts)
-        
 
         return true
     }
@@ -66,10 +64,11 @@ class Post: Object, Identifiable {
         return "\(appUser.userName)/post/\(dateString)"
     }
     
-    func uploadPostImage(appUser:AppUser) -> Bool{
-        let awsManager = AWSManager()
+    func uploadPostImage(appUser:AppUser, image:UIImage) -> Bool{
         
-        guard let imageData = image else {return false}
+        let awsManager = AWSManager.shared
+        
+        guard let imageData = image.pngData() else {return false}
         guard let uploadImage = UIImage(data: imageData) else {return false}
         
         let pathAndFileName = getPostImageName(appUser:appUser)
