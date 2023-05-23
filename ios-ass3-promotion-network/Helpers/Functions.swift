@@ -67,6 +67,15 @@ func applyBorderStylingToTextFields(fields: [UITextField]) {
     }
 }
 
+func applyBorderStylingToTextViews(fields: [UITextView]) {
+    for field in fields {
+        field.layer.cornerRadius = 10
+        field.layer.borderWidth = 1.0
+        field.layer.borderColor = UIColor.lightGray.cgColor
+        field.layer.masksToBounds = true
+    }
+}
+
 // Helper function to make btoton fields grey and add corner radius
 func applyBorderStylingToButton(buttons: [UIButton]) {
     for button in buttons {

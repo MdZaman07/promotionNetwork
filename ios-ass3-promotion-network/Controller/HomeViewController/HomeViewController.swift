@@ -44,5 +44,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         postCell.populate(post: posts[indexPath.row])
         return postCell
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "postSegue") {
+            let indexPath = self.tableView.indexPathForSelectedRow!
+            
+            let post = posts[indexPath.row]
+            let viewPost = segue.destination as! ViewPostViewController
+            viewPost.post = post            
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
 }
 
