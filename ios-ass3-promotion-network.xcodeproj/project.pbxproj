@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06EBB0962A1D8D790066C06C /* TableViewCellUserAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBB0952A1D8D790066C06C /* TableViewCellUserAccounts.swift */; };
 		BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */; };
 		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
 		E88AFDAE2A13D7470087024A /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AFDAD2A13D7470087024A /* Functions.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06EBB0952A1D8D790066C06C /* TableViewCellUserAccounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellUserAccounts.swift; sourceTree = "<group>"; };
 		0EE2948C5A3404688EBC2388 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
 		54DA7B9E4A6CD99B3E119824 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
 		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06EBB0942A1D8CE40066C06C /* SearchAccountsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E8EEEF652A11F68F00D8F5E0 /* SearchAccountsViewController.swift */,
+				06EBB0952A1D8D790066C06C /* TableViewCellUserAccounts.swift */,
+			);
+			path = SearchAccountsViewController;
+			sourceTree = "<group>";
+		};
 		B56BF47F2E8BB08145412823 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +147,7 @@
 		E8EEEF582A11F02200D8F5E0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				06EBB0942A1D8CE40066C06C /* SearchAccountsViewController */,
 				E89517342A12776900F111E7 /* HomeViewController */,
 				F1A579B02A00F407001F803F /* LoginViewController.swift */,
 				E8EEEF592A11F25400D8F5E0 /* CreateProfileViewController.swift */,
@@ -143,7 +155,6 @@
 				E8EEEF5D2A11F2BF00D8F5E0 /* ViewPostViewController.swift */,
 				E8EEEF5F2A11F2CF00D8F5E0 /* SettingsViewController.swift */,
 				E8EEEF612A11F3A000D8F5E0 /* SearchPostsViewController.swift */,
-				E8EEEF652A11F68F00D8F5E0 /* SearchAccountsViewController.swift */,
 				E8EEEF672A11F7C700D8F5E0 /* CreatePostViewController.swift */,
 				E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */,
 				E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */,
@@ -347,6 +358,7 @@
 				E8EEEF5A2A11F25400D8F5E0 /* CreateProfileViewController.swift in Sources */,
 				E8A7F41F2A1200F2003D3D93 /* LoginSession.swift in Sources */,
 				F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */,
+				06EBB0962A1D8D790066C06C /* TableViewCellUserAccounts.swift in Sources */,
 				E8EEEF662A11F68F00D8F5E0 /* SearchAccountsViewController.swift in Sources */,
 				F1F236502A1464170000A4FF /* RealmManager.swift in Sources */,
 				E8EEEF682A11F7C700D8F5E0 /* CreatePostViewController.swift in Sources */,
