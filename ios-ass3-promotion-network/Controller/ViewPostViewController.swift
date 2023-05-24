@@ -49,6 +49,7 @@ class ViewPostViewController: UIViewController {
 
         
         super.viewDidLoad()
+        navigationItem.backButtonTitle = "Back"
         // Do any additional setup after loading the view.
     }
     
@@ -87,6 +88,27 @@ class ViewPostViewController: UIViewController {
         marker.position = CLLocationCoordinate2D(latitude:latitude,longitude: longitude)
         marker.title = "Selected location"
         marker.map = mapView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let navigationController = self.navigationController {
+            var controllers = navigationController.viewControllers
+            
+            controllers = controllers.filter { controller in
+                return !(controller is LoginViewController)
+            }
+            
+            navigationController.topViewController?.navigationItem.title = "View Post"
+            navigationController.viewControllers = controllers
+            navigationController.setNavigationBarHidden(false, animated: animated)
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 }
 
