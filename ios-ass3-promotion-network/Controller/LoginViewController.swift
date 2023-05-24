@@ -61,6 +61,8 @@ class LoginViewController: UIViewController {
     // Push To Tab Bar Which Pushes to Home Screen
     func pushToHomeViewController() {
         let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
+        vc.navigationController?.navigationItem.title = "Back"
+        vc.navigationController?.navigationBar.topItem?.backButtonTitle = "Back"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -47,14 +47,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "postSegue", sender: posts[indexPath.row])
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "postSegue") {
-            let post = sender as! Post
-            let viewPost = segue.destination as! ViewPostViewController
-            viewPost.post = post
+        let viewPostViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewPostViewController") as! ViewPostViewController
+        viewPostViewController.post = posts[indexPath.row]
+        
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(viewPostViewController, animated: true)
         }
     }
 }
