@@ -66,6 +66,11 @@ class SearchPostsViewController: UIViewController, UITableViewDataSource, UITabl
             return true
         }
         
+        // Order by date
+        searchPosts.sort {
+            $0.date > $1.date
+        }
+        
         posts = searchPosts
         tableView.reloadData()
     }
