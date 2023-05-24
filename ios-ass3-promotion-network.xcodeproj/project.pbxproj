@@ -10,7 +10,7 @@
 		BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */; };
 		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
 		E88AFDAE2A13D7470087024A /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AFDAD2A13D7470087024A /* Functions.swift */; };
-		E89517302A126B9800F111E7 /* TableViewCellPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895172F2A126B9800F111E7 /* TableViewCellPosts.swift */; };
+		E89517302A126B9800F111E7 /* TableViewCellPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E895172F2A126B9800F111E7 /* TableViewCellPost.swift */; };
 		E8A7F41D2A1200E9003D3D93 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7F41C2A1200E9003D3D93 /* User.swift */; };
 		E8A7F41F2A1200F2003D3D93 /* LoginSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7F41E2A1200F2003D3D93 /* LoginSession.swift */; };
 		E8A7F4212A1200FD003D3D93 /* LikedPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7F4202A1200FD003D3D93 /* LikedPost.swift */; };
@@ -28,6 +28,9 @@
 		E8EEEF6A2A11F80900D8F5E0 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */; };
 		E8EEEF6C2A11F81300D8F5E0 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */; };
 		F1205B452A10D93A00F87E4D /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1205B442A10D93A00F87E4D /* AWSManager.swift */; };
+		F13173762A1B05E400B38C61 /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13173752A1B05E400B38C61 /* MapSearchViewController.swift */; };
+		F13173782A1B0C4200B38C61 /* GoogleMapsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13173772A1B0C4200B38C61 /* GoogleMapsManager.swift */; };
+		F19A0AE92A1B005800DEBA9C /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19A0AE82A1B005800DEBA9C /* ResultsViewController.swift */; };
 		F1A579AD2A00F407001F803F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AC2A00F407001F803F /* AppDelegate.swift */; };
 		F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579AE2A00F407001F803F /* SceneDelegate.swift */; };
 		F1A579B12A00F407001F803F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A579B02A00F407001F803F /* LoginViewController.swift */; };
@@ -44,7 +47,7 @@
 		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E81746A12A0A34F1002851A7 /* Test.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Test.rtf; sourceTree = "<group>"; };
 		E88AFDAD2A13D7470087024A /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		E895172F2A126B9800F111E7 /* TableViewCellPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPosts.swift; sourceTree = "<group>"; };
+		E895172F2A126B9800F111E7 /* TableViewCellPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellPost.swift; sourceTree = "<group>"; };
 		E8A7F41C2A1200E9003D3D93 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E8A7F41E2A1200F2003D3D93 /* LoginSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSession.swift; sourceTree = "<group>"; };
 		E8A7F4202A1200FD003D3D93 /* LikedPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedPost.swift; sourceTree = "<group>"; };
@@ -62,6 +65,9 @@
 		E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		F1205B442A10D93A00F87E4D /* AWSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSManager.swift; sourceTree = "<group>"; };
+		F13173752A1B05E400B38C61 /* MapSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchViewController.swift; sourceTree = "<group>"; };
+		F13173772A1B0C4200B38C61 /* GoogleMapsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapsManager.swift; sourceTree = "<group>"; };
+		F19A0AE82A1B005800DEBA9C /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		F1A579A92A00F407001F803F /* ios-ass3-promotion-network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-ass3-promotion-network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1A579AC2A00F407001F803F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1A579AE2A00F407001F803F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				E8EEEF632A11F41F00D8F5E0 /* HomeViewController.swift */,
-				E895172F2A126B9800F111E7 /* TableViewCellPosts.swift */,
+				E895172F2A126B9800F111E7 /* TableViewCellPost.swift */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -136,6 +142,7 @@
 		E8EEEF582A11F02200D8F5E0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F13173792A1B3E3A00B38C61 /* CreatePostController */,
 				E89517342A12776900F111E7 /* HomeViewController */,
 				F1A579B02A00F407001F803F /* LoginViewController.swift */,
 				E8EEEF592A11F25400D8F5E0 /* CreateProfileViewController.swift */,
@@ -144,11 +151,20 @@
 				E8EEEF5F2A11F2CF00D8F5E0 /* SettingsViewController.swift */,
 				E8EEEF612A11F3A000D8F5E0 /* SearchPostsViewController.swift */,
 				E8EEEF652A11F68F00D8F5E0 /* SearchAccountsViewController.swift */,
-				E8EEEF672A11F7C700D8F5E0 /* CreatePostViewController.swift */,
 				E8EEEF692A11F80900D8F5E0 /* AboutViewController.swift */,
 				E8EEEF6B2A11F81300D8F5E0 /* LogoutViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		F13173792A1B3E3A00B38C61 /* CreatePostController */ = {
+			isa = PBXGroup;
+			children = (
+				E8EEEF672A11F7C700D8F5E0 /* CreatePostViewController.swift */,
+				F19A0AE82A1B005800DEBA9C /* ResultsViewController.swift */,
+				F13173752A1B05E400B38C61 /* MapSearchViewController.swift */,
+			);
+			path = CreatePostController;
 			sourceTree = "<group>";
 		};
 		F1A579A02A00F407001F803F = {
@@ -193,6 +209,7 @@
 			children = (
 				F1205B442A10D93A00F87E4D /* AWSManager.swift */,
 				F1F2364F2A1464170000A4FF /* RealmManager.swift */,
+				F13173772A1B0C4200B38C61 /* GoogleMapsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -332,7 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1A579B12A00F407001F803F /* LoginViewController.swift in Sources */,
-				E89517302A126B9800F111E7 /* TableViewCellPosts.swift in Sources */,
+				E89517302A126B9800F111E7 /* TableViewCellPost.swift in Sources */,
 				E8EEEF5E2A11F2BF00D8F5E0 /* ViewPostViewController.swift in Sources */,
 				E8A7F4212A1200FD003D3D93 /* LikedPost.swift in Sources */,
 				E8EEEF5C2A11F2A700D8F5E0 /* ViewProfileViewController.swift in Sources */,
@@ -349,9 +366,12 @@
 				F1A579AF2A00F407001F803F /* SceneDelegate.swift in Sources */,
 				E8EEEF662A11F68F00D8F5E0 /* SearchAccountsViewController.swift in Sources */,
 				F1F236502A1464170000A4FF /* RealmManager.swift in Sources */,
+				F19A0AE92A1B005800DEBA9C /* ResultsViewController.swift in Sources */,
+				F13173762A1B05E400B38C61 /* MapSearchViewController.swift in Sources */,
 				E8EEEF682A11F7C700D8F5E0 /* CreatePostViewController.swift in Sources */,
 				E8A7F4232A120109003D3D93 /* Post.swift in Sources */,
 				E8A7F4282A12034A003D3D93 /* JSONDummyDataReader.swift in Sources */,
+				F13173782A1B0C4200B38C61 /* GoogleMapsManager.swift in Sources */,
 				E8A7F4252A120114003D3D93 /* UserFollow.swift in Sources */,
 				E8EEEF6A2A11F80900D8F5E0 /* AboutViewController.swift in Sources */,
 				E8EEEF602A11F2CF00D8F5E0 /* SettingsViewController.swift in Sources */,

@@ -7,4 +7,5 @@ target 'ios-ass3-promotion-network' do
   pod 'AWSS3' 
   pod 'GoogleMaps', '7.4.0'
   pod 'RealmSwift'
+  pod 'GooglePlaces'
 end
