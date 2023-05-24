@@ -23,17 +23,48 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        // Retrieve list of posts
-        guard let realm = realmManager.realm else { return }
-        posts = Array(realm.objects(Post.self))
-
-        // TODO: Order them to display post of followed users first
-        
-        
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Retrieve list of posts
+        guard let realm = realmManager.realm else { return }
+        var allPosts = Array(realm.objects(Post.self))
+        
+        guard let user = LoginSession.currentUser else {
+            posts = allPosts
+            print("No logged in user")
+            return
+        }
+
+        // Order by date
+        allPosts.sort {
+            $0.date > $1.date
+        }
+        
+        // Create two arrays, one for storing followed accounts' posts, one for the rest
+        var followedPosts: [Post] = []
+        var rest: [Post] = []
+        
+        for post in allPosts {
+            if user.following.contains(where: { userFollow in
+                return post.appUser[0].email.elementsEqual(userFollow.followee[0].email)
+            }) {
+                followedPosts.append(post)
+            } else {
+                rest.append(post)
+            }
+        }
+        
+        // Append the followed array with the rest
+        followedPosts.append(contentsOf: rest)
+        posts = followedPosts
+        
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
