@@ -31,11 +31,12 @@ class LoginViewController: UIViewController {
                 try await realmManager.initalize()
 
                 // Automatically log the user in if a login session already exists for the current device
-                if let _ = LoginSession.getLoginSession() {
+                if let loginSession = LoginSession.getLoginSession() {
+                    LoginSession.currentUser = loginSession.appUser[0]
                     pushToHomeViewController()
                 }
             }
-        }//if the initialization does not work paste the catch of realmManager HERE
+        }
     }
     
     
@@ -50,6 +51,7 @@ class LoginViewController: UIViewController {
             
             // Create new login session and add to Realm db
             _ = LoginSession(appUser: user)
+            LoginSession.currentUser = user
             
             // Push to Home Screen
             pushToHomeViewController()
@@ -57,7 +59,7 @@ class LoginViewController: UIViewController {
             print("Invalid login")
         }
     }
-    
+
     // Push To Tab Bar Which Pushes to Home Screen
     func pushToHomeViewController() {
         let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
