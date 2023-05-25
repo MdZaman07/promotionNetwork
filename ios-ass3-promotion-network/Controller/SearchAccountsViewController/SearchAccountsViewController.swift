@@ -78,7 +78,15 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
+        performSegue(withIdentifier: "viewProfileSegue", sender: userAccounts[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "viewProfileSegue") {
+            let userAccount = sender as! AppUser
+            let viewProfile = segue.destination as! ViewProfileViewController
+            viewProfile.userProfile = userAccount
+        }
     }
 
 
