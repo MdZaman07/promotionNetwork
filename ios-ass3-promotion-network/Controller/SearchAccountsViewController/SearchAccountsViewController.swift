@@ -55,7 +55,7 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tableViewCell = userAccountsTableView.dequeueReusableCell(withIdentifier: "UserAccountsCell") as! TableViewCellUserAccounts
         let userAccount = self.userAccounts[indexPath.row]
-        tableViewCell.profileNameLabel.text = userAccount.firstName + " " + userAccount.lastName
+        tableViewCell.profileNameLabel.text = userAccount.userName
         
         if !userAccount.profileImageKey.elementsEqual(""){
             AWSManager.shared.getOneImage(key: userAccount.profileImageKey){ [weak self] result in
