@@ -34,12 +34,9 @@ class ViewPostViewController: UIViewController {
             addressLabel.text = post.address
             descriptionField.text = post.text
             
-            getPostImage(key:post.imageKey)
+            getPostImage()
+            getProfileImage()
             
-            if let profileImage = post.appUser.first?.profileImageKey{
-                getProfileImage(key: profileImage)
-            }
-
             if let longitude =  Double(post.longitude), let latitude = Double(post.latitude){
                 setMapLayout(latitude: latitude, longitude: longitude)
             }
@@ -47,38 +44,49 @@ class ViewPostViewController: UIViewController {
             applyBorderStylingToTextViews(fields: [descriptionField])
         }
 
-        
         super.viewDidLoad()
         navigationItem.backButtonTitle = "Back"
-        // Do any additional setup after loading the view.
+
     }
     
-    func getPostImage(key:String){
-
-        AWSManager.shared.getOneImage(key:key){ [weak self] result in
-            switch result{
-            case .success (let image):
-                DispatchQueue.main.async {
-                    self?.postImage.image = image
+    func getPostImage(){
+        self.postImage.backgroundColor = .clear
+        if let post = post, !post.imageKey.elementsEqual(""){
+            AWSManager.shared.getOneImage(key:post.imageKey){ [weak self] result in
+                switch result{
+                case .success (let image):
+                    DispatchQueue.main.async {
+                        self?.postImage.image = image
+                    }
+                case .failure(let error):
+                    print(error)
                 }
-            case .failure(let error):
-                print(error)
             }
+        }
+        else{
+            self.postImage.image = UIImage(systemName: "camera.fill")
+            self.postImage.tintColor = .systemGray4
         }
     }
 
-    func getProfileImage(key:String){
-
-        AWSManager.shared.getOneImage(key:key){ [weak self] result in
-            switch result{
-            case .success (let image):
-                DispatchQueue.main.async {
-                    self?.profilePicture.image = image
+    func getProfileImage(){
+        self.profilePicture.backgroundColor = .clear
+        if let user = post?.appUser.first, !user.profileImageKey.elementsEqual(""){
+            AWSManager.shared.getOneImage(key:user.profileImageKey){ [weak self] result in
+                switch result{
+                case .success (let image):
+                    DispatchQueue.main.async {
+                        self?.profilePicture.image = image
+                    }
+                case .failure(let error):
+                    print(error)
                 }
-            case .failure(let error):
-                print(error)
             }
         }
+         else{
+             self.profilePicture.image = UIImage(systemName: "person.fill")
+             self.profilePicture.tintColor = .systemGray4
+         }
     }
     
     func setMapLayout(latitude: Double, longitude:Double){

@@ -75,7 +75,6 @@ class AWSManager {
     func getUniqueFileName(fileUrl: URL) -> String { //returns a unique filename (Haven't tried this really)
            let strExt: String = "." + (URL(fileURLWithPath: fileUrl.absoluteString).pathExtension)
            return (ProcessInfo.processInfo.globallyUniqueString + (strExt))
-        //return fileURL + UUID().uuidString + 'png'
        }
     
     //uploadImage given a UIImage =>STILL have to try when view controller is done but it looks like it should work

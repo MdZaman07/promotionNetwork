@@ -94,6 +94,15 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         self.navigationController?.pushViewController(vc, animated: true)
     }
  
+    func postSucessfullyCreated(_ response: Any?, _ error: Error?) ->Void{
+        if let _ = error {
+            createdPost?.imageKey = ""
+            print("An error occured uploading the image")
+            return
+        }
+        self.performSegue(withIdentifier: "postCreateSegue", sender: self)
+    }
+    
     @IBAction func createButtonPressed(_ sender: Any) {
         guard let chosenCategory = category else {return}
         guard var text = descriptionField.text  else {return}
@@ -105,20 +114,14 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         
         let newPost = Post(text: text, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!) //create new post
         
-        if(newPost.createPost(image:postImage.image)) {
-            createdPost = newPost
-            self.performSegue(withIdentifier: "postCreateSegue", sender: self)
-        }
-        else{
-            print("There was an error creating the post.")
-        }
+        _ = newPost.createPost(image:postImage.image, completion: postSucessfullyCreated)
+        
+        createdPost = newPost
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       
-        let image = postImage.image //image is not mandatory
-        
+            
         if (segue.identifier == "postCreateSegue") {
             let viewPost = segue.destination as! ViewPostViewController
             viewPost.post = createdPost ?? nil
