@@ -16,14 +16,23 @@ class TableViewCellPost: UITableViewCell {
     @IBOutlet weak var moneySavedLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageContainer: UIView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeCountLabel: UILabel!
+    
+    var post: Post?
     
     func populate(post: Post){
+        self.post = post
         let user = post.appUser.first
         guard let user = user else { return }
         profileNameLabel.text = user.firstName + " " + user.lastName
         categoryLabel.text = post.category.rawValue
         moneySavedLabel.text = "$" + String(round(post.moneySaved * 100) / 100)
         descriptionLabel.text = post.text
+        likeCountLabel.text = String(post.likes.count)
+        
+        likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
+        setLikes()
         
         selectionStyle = .none
 
@@ -112,5 +121,33 @@ class TableViewCellPost: UITableViewCell {
         element.bottomAnchor.constraint(equalTo: elementSuperview.bottomAnchor).isActive = true
         element.trailingAnchor.constraint(equalTo: elementSuperview.trailingAnchor).isActive = true
         element.leadingAnchor.constraint(equalTo: elementSuperview.leadingAnchor).isActive = true
+    }
+    
+    @objc func likeButtonPressed(_ sender: UIButton) {
+        // Like or unlike the post
+        guard let user = getCurrentUser() else { return }
+        guard let post = post else { return }
+        
+        if post.checkUserLike(appUser: user){ //user wants to unlike the picture
+            post.unlikePost(appUser: user)
+        }
+        else{ //user wants to like the picture
+            post.likePost(appUser: user)
+        }
+        
+        setLikes()
+    }
+    
+    func setLikes(){
+        guard let user = getCurrentUser() else { return }
+        guard let post = post else { return }
+        
+        if post.checkUserLike(appUser: user) {
+            likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
+        }
+        
+        likeCountLabel.text = String(post.likes.count)
     }
 }
