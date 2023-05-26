@@ -82,4 +82,29 @@ class Post: Object, Identifiable {
         
         return true
     }
+    
+    func checkUserLike(appUser:AppUser) -> Bool{
+        if likes.contains(where: {$0.appUser.first?._id == appUser._id}){
+            return true
+        }
+        return false
+    }
+    
+    func likePost(appUser:AppUser){
+        let like = LikedPost()
+        let realmManager = RealmManager.shared
+        
+        realmManager.addObjectToList(object: like, list:appUser.likes)
+        realmManager.addObjectToList(object: like, list: self.likes)
+    
+        return
+    }
+    
+    func unlikePost(appUser:AppUser){
+        guard let like = likes.first(where: {$0.appUser.first?._id == appUser._id}) else {return}
+            
+        let realmManager = RealmManager.shared
+        realmManager.removeObject(object: like)
+    }
+    
 }

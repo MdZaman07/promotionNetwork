@@ -37,19 +37,6 @@ class AWSManager {
         
     }
     
-     func  getAllImages(){ //prints keys of all images in the bucket
-        let listRequest: AWSS3ListObjectsRequest = AWSS3ListObjectsRequest()
-        listRequest.bucket = bucketName
-        var imagesArray: [AWSS3Object] = []
-        s3?.listObjects(listRequest).continueWith { (task) -> AnyObject? in
-             for object in (task.result?.contents)! {
-                 print("Object key = \(object.key!)")
-                imagesArray.append(object)
-             }
-             return nil
-         }
-    }
-    
 
     
     func getOneImage(key:String, completion: @escaping (Result<UIImage, Error>) -> Void){ //gets one image given the key of the image
@@ -151,6 +138,6 @@ class AWSManager {
             return nil
         }
     }
-    
+
 }
 
