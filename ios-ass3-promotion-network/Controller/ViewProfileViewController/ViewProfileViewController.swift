@@ -17,15 +17,20 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var userCityLabel: UILabel!
     @IBOutlet weak var profileBioLabel: UILabel!
     @IBOutlet weak var userPostsTableView: UITableView!
+    
+    @IBOutlet weak var editOrFollowButton: UIButton!
     var userProfile: AppUser?
     var loginSession: LoginSession?
     var posts: [Post] = []
     var realmManager = RealmManager.shared
+    var isLoggedInUser: Bool = false
+    var isFollowing: Bool = false
+    var userFollowing: UserFollow?
+    let loggedInUser = getCurrentUser()
     
     
     
     
-
     override func viewDidLoad() {
         // If there is no login session, push to login screen
         if !isLoginSessionExists() {
@@ -35,7 +40,7 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
             self.navigationController?.pushViewController(vc, animated: true)
         }
         if userProfile == nil{
-            userProfile = getCurrentUser()
+            userProfile = loggedInUser
         }
         if !userProfile!.profileImageKey.elementsEqual(""){
             AWSManager.shared.getOneImage(key: userProfile!.profileImageKey){ [weak self] result in
@@ -56,7 +61,7 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
         numberOfPostsLabel.text = "\(userProfile!.posts.count)"
         numberOfFollowersLabel.text = "\(userProfile!.followers.count)"
         numberOfFollowingLabel.text = "\(userProfile!.following.count)"
-        profileNameLabel.text = userProfile!.firstName + " " + userProfile!.lastName
+        profileNameLabel.text = userProfile!.firstName + " " + userProfile!.lastName + "|"
         userCityLabel.text = userProfile!.city
         profileBioLabel.text = userProfile!.bio
         
@@ -65,11 +70,70 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
 //        posts = Array(realm.objects(Post.self))
 
         // TODO: Order them to display post of followed users first
-        
+        checkUser()
+        setInitialButtonText()
+        checkFollowing()
         
         super.viewDidLoad()
         userPostsTableView.dataSource = self
         userPostsTableView.delegate = self
+    }
+    func checkUser(){
+        guard userProfile == loggedInUser else{
+            isLoggedInUser = false
+            return
+        }
+        isLoggedInUser = true
+    }
+    func setInitialButtonText(){
+        if(isLoggedInUser){
+            editOrFollowButton.setTitle("Edit Account", for: .normal)
+            editOrFollowButton.backgroundColor = .gray
+           // editOrFollowButton.layer.cornerRadius = 5
+            editOrFollowButton.tintColor = .black
+        }
+        else{
+          //  editOrFollowButton.setTitle("Follow", for: .normal)
+            editOrFollowButton.backgroundColor = .blue
+            editOrFollowButton.tintColor = .white
+        }
+    }
+    func checkFollowing(){
+        guard !isLoggedInUser else{return}
+        for loggedInUserFollow in loggedInUser!.following{
+            if(loggedInUserFollow.followee.first?.userName == userProfile?.userName){
+                isFollowing = true
+                userFollowing = loggedInUserFollow
+            }
+        }
+        guard userFollowing != nil else{
+            editOrFollowButton.setTitle("Follow", for: .normal)
+            return
+        }
+        editOrFollowButton.setTitle("Unfollow", for: .normal)
+    }
+    
+    @IBAction func handleButtonAction(_ sender: Any) {
+        guard !isLoggedInUser else{
+            //edit account functionality
+            return
+        }
+        guard let currentUserFollowing = userFollowing else{
+            let userFollow = UserFollow()
+            let realm = realmManager.realm
+            try!realm!.write {
+                realm!.add(userFollow)
+                userProfile!.followers.append(userFollow)
+                loggedInUser!.following.append(userFollow)
+            }
+            checkFollowing()
+            numberOfFollowersLabel.text = "\(userProfile!.followers.count)"
+            return
+        }
+        realmManager.removeObject(object: currentUserFollowing)
+        userFollowing = nil
+        numberOfFollowersLabel.text = "\(userProfile!.followers.count)"
+        checkFollowing()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

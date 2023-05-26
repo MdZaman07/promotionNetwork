@@ -925,11 +925,10 @@
                                     <constraint firstAttribute="height" constant="35" id="KFL-Nm-HWK"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Edit Account" cornerStyle="capsule">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                                    </backgroundConfiguration>
-                                </buttonConfiguration>
+                                <buttonConfiguration key="configuration" style="plain" title="Edit Account" cornerStyle="capsule"/>
+                                <connections>
+                                    <action selector="handleButtonAction:" destination="RtW-Zd-BJs" eventType="touchUpInside" id="ggw-B3-BhK"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="504" estimatedRowHeight="444" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XjX-6F-FZc">
                                 <rect key="frame" x="0.0" y="400" width="393" height="383"/>
@@ -1100,6 +1099,7 @@
                     <navigationItem key="navigationItem" id="cKu-9g-YFa"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="editOrFollowButton" destination="8Ok-mW-pZ0" id="dIa-KJ-zhs"/>
                         <outlet property="numberOfFollowersLabel" destination="I9E-Ng-A1O" id="dLE-8Q-8Bz"/>
                         <outlet property="numberOfFollowingLabel" destination="0vr-Af-4fX" id="dDW-fb-X4A"/>
                         <outlet property="numberOfPostsLabel" destination="n33-ey-Z6e" id="clH-RU-nGC"/>
@@ -1139,7 +1139,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdW-9Z-ddc">
-                                <rect key="frame" x="-3" y="59" width="393" height="44"/>
+                                <rect key="frame" x="-3" y="59" width="392" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
