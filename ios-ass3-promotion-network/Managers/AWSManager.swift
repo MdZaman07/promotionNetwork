@@ -37,19 +37,6 @@ class AWSManager {
         
     }
     
-     func  getAllImages(){ //prints keys of all images in the bucket
-        let listRequest: AWSS3ListObjectsRequest = AWSS3ListObjectsRequest()
-        listRequest.bucket = bucketName
-        var imagesArray: [AWSS3Object] = []
-        s3?.listObjects(listRequest).continueWith { (task) -> AnyObject? in
-             for object in (task.result?.contents)! {
-                 print("Object key = \(object.key!)")
-                imagesArray.append(object)
-             }
-             return nil
-         }
-    }
-    
 
     
     func getOneImage(key:String, completion: @escaping (Result<UIImage, Error>) -> Void){ //gets one image given the key of the image
@@ -75,7 +62,6 @@ class AWSManager {
     func getUniqueFileName(fileUrl: URL) -> String { //returns a unique filename (Haven't tried this really)
            let strExt: String = "." + (URL(fileURLWithPath: fileUrl.absoluteString).pathExtension)
            return (ProcessInfo.processInfo.globallyUniqueString + (strExt))
-        //return fileURL + UUID().uuidString + 'png'
        }
     
     //uploadImage given a UIImage =>STILL have to try when view controller is done but it looks like it should work
@@ -152,6 +138,6 @@ class AWSManager {
             return nil
         }
     }
-    
+
 }
 

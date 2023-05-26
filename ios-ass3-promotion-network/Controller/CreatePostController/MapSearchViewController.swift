@@ -33,6 +33,7 @@ class MapSearchViewController: UIViewController,UINavigationControllerDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationItem.backButtonTitle = "Back"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
