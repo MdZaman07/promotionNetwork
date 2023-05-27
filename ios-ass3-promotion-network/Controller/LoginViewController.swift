@@ -94,6 +94,9 @@ class LoginViewController: UIViewController {
         }
         
         let user = realmManager.getObject(type: AppUser.self, field: "userName", value: username) as? AppUser
+        if(username != user?.userName){
+            return nil
+        }
         return user
     }
     
@@ -105,6 +108,9 @@ class LoginViewController: UIViewController {
         }
         
         let user = realmManager.getObject(type: AppUser.self, field: "email", value: email) as? AppUser
+        if(email != user?.email){
+            return nil
+        }
         return user
     }
 }

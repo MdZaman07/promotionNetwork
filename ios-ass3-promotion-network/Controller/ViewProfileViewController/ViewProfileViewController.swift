@@ -117,6 +117,9 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     @IBAction func handleButtonAction(_ sender: Any) {
         guard !isLoggedInUser else{
             //edit account functionality
+            let vc = storyboard?.instantiateViewController(identifier: "CreateProfileViewController") as! CreateProfileViewController
+            vc.isEdit = true
+            self.navigationController?.pushViewController(vc, animated: true)
             return
         }
         guard let currentUserFollowing = userFollowing else{

@@ -84,7 +84,7 @@ class SettingsViewController: UIViewController {
     @objc func showProfileView() {
         // Push to profile view
         let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
-        // Access the desired view controller from the viewControllers array
+        // Access tab bar index view
         vc.selectedIndex = 4
         self.navigationController?.pushViewController(vc, animated: true)
     }

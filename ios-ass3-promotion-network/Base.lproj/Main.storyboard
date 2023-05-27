@@ -14,28 +14,13 @@
         <!--Create Profile-->
         <scene sceneID="K7H-eR-o2l">
             <objects>
-                <viewController id="M65-oq-gL3" customClass="CreateProfileViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateProfileViewController" id="M65-oq-gL3" customClass="CreateProfileViewController" customModule="ios_ass3_promotion_network" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7te-be-2QE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbo-KP-tRq">
-                                <rect key="frame" x="0.0" y="78" width="393" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <navigationItem title="Create Profile" id="nZs-Pc-cCG">
-                                        <barButtonItem key="leftBarButtonItem" largeContentSizeImage="GMSNavNightModeSprites-0-1x.png" systemItem="cancel" id="BTg-I9-SxY">
-                                            <color key="tintColor" systemColor="systemBlueColor"/>
-                                            <connections>
-                                                <segue destination="hx2-qZ-2bJ" kind="show" id="XJK-aN-P0h"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4VJ-Z2-ST5">
-                                <rect key="frame" x="154" y="140.33333333333334" width="80" height="86.333333333333314"/>
+                                <rect key="frame" x="154" y="67.333333333333343" width="80" height="86.333333333333314"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -48,7 +33,7 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eA2-OO-nVM">
-                                <rect key="frame" x="48.666666666666657" y="252.33333333333337" width="295.66666666666674" height="426"/>
+                                <rect key="frame" x="48.666666666666657" y="179.33333333333337" width="295.66666666666674" height="426"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l95-HS-FE2">
                                         <rect key="frame" x="0.0" y="0.0" width="295.66666666666669" height="43.666666666666664"/>
@@ -106,7 +91,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AmM-TX-wGJ">
-                                <rect key="frame" x="48.666666666666657" y="701" width="295.66666666666674" height="34.333333333333371"/>
+                                <rect key="frame" x="48.666666666666657" y="628" width="295.66666666666674" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Create">
                                     <backgroundConfiguration key="background" cornerRadius="10">
@@ -124,16 +109,13 @@
                         <constraints>
                             <constraint firstItem="4VJ-Z2-ST5" firstAttribute="centerX" secondItem="azR-dJ-eNJ" secondAttribute="centerX" id="2fr-pv-wRs"/>
                             <constraint firstItem="eA2-OO-nVM" firstAttribute="top" secondItem="4VJ-Z2-ST5" secondAttribute="bottom" constant="35.329999999999998" id="BcB-7D-qKc"/>
-                            <constraint firstItem="vbo-KP-tRq" firstAttribute="centerX" secondItem="azR-dJ-eNJ" secondAttribute="centerX" id="Dw4-Hn-FyO"/>
-                            <constraint firstItem="vbo-KP-tRq" firstAttribute="leading" secondItem="azR-dJ-eNJ" secondAttribute="leading" id="FmL-db-veK"/>
-                            <constraint firstItem="vbo-KP-tRq" firstAttribute="top" secondItem="azR-dJ-eNJ" secondAttribute="top" constant="19" id="GDb-kU-IF4"/>
                             <constraint firstItem="AmM-TX-wGJ" firstAttribute="centerX" secondItem="azR-dJ-eNJ" secondAttribute="centerX" id="Mk0-ae-jNM"/>
-                            <constraint firstItem="4VJ-Z2-ST5" firstAttribute="top" secondItem="vbo-KP-tRq" secondAttribute="bottom" constant="20" id="OWb-7Z-33Z"/>
                             <constraint firstItem="eA2-OO-nVM" firstAttribute="centerX" secondItem="azR-dJ-eNJ" secondAttribute="centerX" id="Waz-jE-3gA"/>
                             <constraint firstItem="eA2-OO-nVM" firstAttribute="height" secondItem="7te-be-2QE" secondAttribute="height" multiplier="0.5" id="XlW-hD-1JM"/>
                             <constraint firstItem="AmM-TX-wGJ" firstAttribute="top" secondItem="eA2-OO-nVM" secondAttribute="bottom" constant="22.670000000000002" id="b7P-pj-2lQ"/>
                             <constraint firstItem="AmM-TX-wGJ" firstAttribute="width" secondItem="eA2-OO-nVM" secondAttribute="width" id="bkd-2n-9Pb"/>
                             <constraint firstItem="eA2-OO-nVM" firstAttribute="width" secondItem="7te-be-2QE" secondAttribute="width" multiplier="0.75" constant="1" id="qE3-Rd-Esj"/>
+                            <constraint firstItem="4VJ-Z2-ST5" firstAttribute="top" secondItem="azR-dJ-eNJ" secondAttribute="top" constant="10" id="yjj-tZ-AdJ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Create Profile" id="lN8-Ep-JaV"/>
@@ -1812,12 +1794,12 @@ coffeeholics</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="go9-R3-Peg"/>
         <segue reference="Yec-Pn-lCj"/>
         <segue reference="I6L-rV-rB2"/>
         <segue reference="HPU-Nz-NJu"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="GMSNavNightModeSprites-0-1x.png" width="128" height="142"/>
         <image name="camera.viewfinder" catalog="system" width="128" height="115"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="creditcard" catalog="system" width="128" height="88"/>
@@ -1852,9 +1834,6 @@ coffeeholics</string>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
