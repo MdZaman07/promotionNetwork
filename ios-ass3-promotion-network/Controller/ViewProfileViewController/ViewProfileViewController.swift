@@ -61,7 +61,7 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
         numberOfPostsLabel.text = "\(userProfile!.posts.count)"
         numberOfFollowersLabel.text = "\(userProfile!.followers.count)"
         numberOfFollowingLabel.text = "\(userProfile!.following.count)"
-        profileNameLabel.text = userProfile!.firstName + " " + userProfile!.lastName + "|"
+        profileNameLabel.text = userProfile!.firstName + " " + userProfile!.lastName + " |"
         userCityLabel.text = userProfile!.city
         profileBioLabel.text = userProfile!.bio
         
