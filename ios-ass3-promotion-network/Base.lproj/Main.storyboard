@@ -1511,6 +1511,7 @@ coffeeholics</string>
                                                     <rect key="frame" x="5" y="11.666666666666664" width="80" height="66.333333333333329"/>
                                                     <color key="tintColor" red="0.59215688710000003" green="0.59215688710000003" blue="0.60000002379999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="80" id="6AK-xd-gZL"/>
                                                         <constraint firstAttribute="width" constant="80" id="bMD-Al-Rf9"/>
                                                     </constraints>
                                                 </imageView>
