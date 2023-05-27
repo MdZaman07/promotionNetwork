@@ -12,6 +12,8 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var lastNameField: UITextField!
     @IBOutlet weak var firstNameField: UITextField!
+    var isEdit: Bool = false
+    var newPictureSelected: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +34,64 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         // Do any additional setup after loading the view.
         applyBorderStylingToTextFields(fields: [descriptionField, confirmPasswordField,
                                           passwordField, cityField, emailField, usernameField, lastNameField, firstNameField])
+        
+        if(isEdit) {
+            populateEditFields()
+            passwordField.placeholder = "New password (leave empty if not changing)"
+            createButton.setTitle("Update", for: .normal)
+        }
     }
     
-    @IBAction func createProfile(_ sender: Any) {
+    func populateEditFields() {
+        guard let currentUser = getCurrentUser() else {return}
+        usernameField.text = currentUser.userName
+        firstNameField.text = currentUser.firstName
+        lastNameField.text = currentUser.lastName
+        emailField.text = currentUser.email
+        cityField.text = currentUser.city
+        descriptionField.text = currentUser.bio
+        
+        // Get image from S3 and populate image field
+        if !currentUser.profileImageKey.elementsEqual("") {
+            AWSManager.shared.getOneImage(key: currentUser.profileImageKey){ [weak self] result in
+                switch result{
+                case .success (let image):
+                    DispatchQueue.main.async {
+                        self?.profilePictureField.contentMode = .scaleAspectFit
+                        self?.profilePictureField.image = image
+                    }
+                case .failure(let error):
+                    self?.profilePictureField.image = UIImage(systemName: "person.fill")
+                    print(error)
+                }
+            }
+        } else {
+            profilePictureField.image = UIImage(systemName: "person.fill")
+        }
+        
+        //passwordField.text = currentUser.password
+    }
+    
+    func validateEmptyFields() -> Bool {
         // Unwrap optionals
-        guard let username = usernameField.text, !username.isEmpty else { textFieldErrorAction(field: usernameField, msg: "Username can't be empty"); return }
-        guard let firstName = firstNameField.text, !firstName.isEmpty else { textFieldErrorAction(field: firstNameField, msg: "Name can't be empty"); return }
-        guard let lastName = lastNameField.text, !lastName.isEmpty else { textFieldErrorAction(field: lastNameField, msg: "Name can't be empty"); return }
-        guard let email = emailField.text, !email.isEmpty else { textFieldErrorAction(field: emailField, msg: "Email can't be empty"); return }
-        guard let city = cityField.text, !city.isEmpty else { textFieldErrorAction(field: cityField, msg: "City can't be empty"); return }
-        guard let password = passwordField.text, !password.isEmpty else { textFieldErrorAction(field: passwordField, msg: "Password an't be empty"); return }
-        guard let description = descriptionField.text, !description.isEmpty else { textFieldErrorAction(field: descriptionField, msg: "Description can't be empty"); return }
+        guard let username = usernameField.text, !username.isEmpty else { textFieldErrorAction(field: usernameField, msg: "Username can't be empty"); return false }
+        guard let firstName = firstNameField.text, !firstName.isEmpty else { textFieldErrorAction(field: firstNameField, msg: "Name can't be empty"); return false }
+        guard let lastName = lastNameField.text, !lastName.isEmpty else { textFieldErrorAction(field: lastNameField, msg: "Name can't be empty"); return false }
+        guard let email = emailField.text, !email.isEmpty else { textFieldErrorAction(field: emailField, msg: "Email can't be empty"); return false }
+        guard let city = cityField.text, !city.isEmpty else { textFieldErrorAction(field: cityField, msg: "City can't be empty"); return false }
+        guard let description = descriptionField.text, !description.isEmpty else { textFieldErrorAction(field: descriptionField, msg: "Description can't be empty"); return false }
+        if(!isEdit) {
+            guard let password = passwordField.text, !password.isEmpty else { textFieldErrorAction(field: passwordField, msg: "Password an't be empty"); return false }
+        }
+        
+        return true
+    }
+    
+    
+    @IBAction func createProfile(_ sender: Any) {
+        if(!validateEmptyFields()) {
+            return
+        }
 
         
         // Validate text fields after checking mandatory fields
@@ -50,27 +99,62 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
             return
         }
         
-        var uploadProfilePicture: UIImage?
-        
-        // Check if profile picture is placeholder symbol image, if not, upload to S3
-        if(profilePictureField.image!.isSymbolImage) {
-            uploadProfilePicture = nil
+        if(!isEdit) {
+            var uploadProfilePicture: UIImage?
+            
+            // Check if profile picture is placeholder symbol image, if not, upload to S3
+            if(profilePictureField.image!.isSymbolImage) {
+                uploadProfilePicture = nil
+            } else {
+                uploadProfilePicture = profilePictureField.image
+            }
+
+            // Create new user instance
+            let newUser = AppUser(userName: usernameField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, email: emailField.text!, password: passwordField.text!, city: cityField.text!, bio: descriptionField.text!)
+            
+            // Add user to realm db, if result is false, don't push to login screen
+            if(!newUser.createUser(profilePicture: uploadProfilePicture)) {
+                print("Error creating user")
+                return
+            }
         } else {
-            uploadProfilePicture = profilePictureField.image
+            let currentUser = getCurrentUser()!
+            
+            var uploadProfilePicture: UIImage? = nil
+            
+            // Check if new profile picture has been selected, upload to S3 if that's the case
+            if(newPictureSelected) {
+                uploadProfilePicture = profilePictureField.image
+            }
+            
+            let fieldValues = [
+                "firstName": firstNameField.text!,
+                "lastName": lastNameField.text!,
+                "userName": usernameField.text!,
+                "email": emailField.text!,
+                "password": passwordField.text!,
+                "city": cityField.text!,
+                "bio": descriptionField.text!
+            ]
+            
+            if(!currentUser.updateAccount(profilePicture: uploadProfilePicture, fieldValues: fieldValues)) {
+                return
+            }
+        }
+        
+        
+        // Push to login screen if creating a new account. Push to profile screen if editing
+        if(!isEdit) {
+            let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            // Push to profile view
+            let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
+            // Access tab bar index view
+            vc.selectedIndex = 4
+            self.navigationController?.pushViewController(vc, animated: true)
         }
 
-        // Create new user instance
-        let newUser = AppUser(userName: username, firstName: firstName, lastName: lastName, email: email, password: password, city: city, bio: description)
-        
-        // Add user to realm db, if result is false, don't push to login screen
-        if(!newUser.createUser(profilePicture: uploadProfilePicture)) {
-            print("Error creating user")
-            return
-        }
-        
-        // Push Login Screen
-        let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
-        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // When picture is pressed, show image picker
@@ -88,6 +172,7 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         guard let image = info[.editedImage] as? UIImage else {return}
         profilePictureField.image = image
         dismiss(animated: true)
+        newPictureSelected = true
         
         // Fit image in container
         profilePictureField.contentMode = .scaleAspectFit
@@ -135,6 +220,25 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
     func regularExpressionValidator(regex: String, compareString: String) -> Bool {
         let comparisonPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return comparisonPredicate.evaluate(with: compareString)
+    }
+    
+    // Set up nav bar
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let navigationController = self.navigationController {
+            let controllers = navigationController.viewControllers
+            
+            navigationController.topViewController?.navigationItem.title = isEdit ? "Edit Account" : "Create Account"
+            navigationController.viewControllers = controllers
+            navigationController.setNavigationBarHidden(false, animated: animated)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.topViewController?.navigationItem.title = "Back"
+        navigationController?.topViewController?.navigationItem.hidesBackButton = true
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
 }
