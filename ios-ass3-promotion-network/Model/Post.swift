@@ -44,11 +44,11 @@ class Post: Object, Identifiable {
         self.date = Date.now
     }
     
-    func createPost(image:UIImage?) -> Bool {
+    func createPost(image:UIImage?, completion:@escaping completionBlock) -> Bool {
         guard let appUser = getCurrentUser() else {return false}
                 
         if let image = image{
-            guard uploadPostImage(appUser:appUser, image:image) else { return false}
+            guard uploadPostImage(appUser:appUser, image:image, completion:completion) else { return false}
         }
         
         let realmManager = RealmManager.shared
@@ -64,7 +64,8 @@ class Post: Object, Identifiable {
         return "\(appUser.userName)/post/\(dateString)"
     }
     
-    func uploadPostImage(appUser:AppUser, image:UIImage) -> Bool{
+    
+    func uploadPostImage(appUser:AppUser, image:UIImage, completion:@escaping completionBlock) -> Bool{
         
         let awsManager = AWSManager.shared
         
@@ -73,7 +74,7 @@ class Post: Object, Identifiable {
         
         let pathAndFileName = getPostImageName(appUser:appUser)
         
-        if( !awsManager.uploadImage(image: uploadImage, progress: nil , completion: nil, pathAndFileName: pathAndFileName) ) {
+        if( !awsManager.uploadImage(image: uploadImage, progress: nil , completion: completion , pathAndFileName: pathAndFileName) ) {
             return false
         }
  
@@ -81,4 +82,29 @@ class Post: Object, Identifiable {
         
         return true
     }
+    
+    func checkUserLike(appUser:AppUser) -> Bool{
+        if likes.contains(where: {$0.appUser.first?._id == appUser._id}){
+            return true
+        }
+        return false
+    }
+    
+    func likePost(appUser:AppUser){
+        let like = LikedPost()
+        let realmManager = RealmManager.shared
+        
+        realmManager.addObjectToList(object: like, list:appUser.likes)
+        realmManager.addObjectToList(object: like, list: self.likes)
+    
+        return
+    }
+    
+    func unlikePost(appUser:AppUser){
+        guard let like = likes.first(where: {$0.appUser.first?._id == appUser._id}) else {return}
+            
+        let realmManager = RealmManager.shared
+        realmManager.removeObject(object: like)
+    }
+    
 }
