@@ -9,6 +9,7 @@ import UIKit
 
 class ViewProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
+    @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var numberOfPostsLabel: UILabel!
     @IBOutlet weak var numberOfFollowersLabel: UILabel!
@@ -149,5 +150,7 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
 
+    @IBAction func settingsButtonHandler(_ sender: Any) {
+    }
 }
 
