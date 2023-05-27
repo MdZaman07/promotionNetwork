@@ -30,7 +30,7 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     let loggedInUser = getCurrentUser()
     
     
-    
+
     
     override func viewDidLoad() {
         // If there is no login session, push to login screen
@@ -150,7 +150,39 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
 
-    @IBAction func settingsButtonHandler(_ sender: Any) {
+    // Set navigation bar
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let navigationController = self.navigationController {
+            var controllers = navigationController.viewControllers
+            
+            controllers = controllers.filter { controller in
+                return !(controller is LoginViewController)
+            }
+            
+            navigationController.topViewController?.navigationItem.title = "View Profile"
+            navigationController.viewControllers = controllers
+            navigationController.setNavigationBarHidden(false, animated: animated)
+            
+            // If is the current logged in user, show the settings button
+            if(isLoggedInUser) {
+                let gearButton = UIBarButtonItem(image: UIImage(named: "gearshape.fill"), style: .plain, target: self, action: #selector(self.settingsButtonHandler))
+                gearButton.title = "Settings"
+                navigationController.navigationBar.topItem?.rightBarButtonItem = gearButton
+            }
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.topViewController?.navigationItem.title = "Back"
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    @objc func settingsButtonHandler() {
+        let vc = storyboard?.instantiateViewController(identifier: "SettingsViewController") as! SettingsViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
