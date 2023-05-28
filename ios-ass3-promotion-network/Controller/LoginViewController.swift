@@ -31,11 +31,12 @@ class LoginViewController: UIViewController {
                 try await realmManager.initalize()
 
                 // Automatically log the user in if a login session already exists for the current device
-                if let _ = LoginSession.getLoginSession() {
+                if let loginSession = LoginSession.getLoginSession() {
+                    LoginSession.currentUser = loginSession.appUser[0]
                     pushToHomeViewController()
                 }
             }
-        }//if the initialization does not work paste the catch of realmManager HERE
+        }
     }
     
     
@@ -50,6 +51,7 @@ class LoginViewController: UIViewController {
             
             // Create new login session and add to Realm db
             _ = LoginSession(appUser: user)
+            LoginSession.currentUser = user
             
             // Push to Home Screen
             pushToHomeViewController()
@@ -57,10 +59,12 @@ class LoginViewController: UIViewController {
             print("Invalid login")
         }
     }
-    
+
     // Push To Tab Bar Which Pushes to Home Screen
     func pushToHomeViewController() {
         let vc = storyboard?.instantiateViewController(identifier: "UITabBarController") as! UITabBarController
+        vc.navigationController?.navigationItem.title = "Back"
+        vc.navigationController?.navigationBar.topItem?.backButtonTitle = "Back"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -90,6 +94,9 @@ class LoginViewController: UIViewController {
         }
         
         let user = realmManager.getObject(type: AppUser.self, field: "userName", value: username) as? AppUser
+        if(username != user?.userName){
+            return nil
+        }
         return user
     }
     
@@ -101,6 +108,9 @@ class LoginViewController: UIViewController {
         }
         
         let user = realmManager.getObject(type: AppUser.self, field: "email", value: email) as? AppUser
+        if(email != user?.email){
+            return nil
+        }
         return user
     }
 }

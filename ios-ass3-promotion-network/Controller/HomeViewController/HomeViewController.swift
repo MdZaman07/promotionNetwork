@@ -7,11 +7,13 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
-    @IBOutlet weak var postsTableView: UITableView!
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+  
+    @IBOutlet weak var tableView: UITableView!
     
     var loginSession: LoginSession?
     var posts: [Post] = []
+    var realmManager = RealmManager.shared
     
     override func viewDidLoad() {
         // If there is no login session, push to login screen
@@ -21,68 +23,67 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let vc = storyboard?.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-//        let dummyDataReader = JSONDummyDataReader()
-//        self.posts = dummyDataReader.posts
-        self.posts = [Post]()
-        print("TOAN")
-        print(self.posts)
-        print("TOAN")
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
-    // Amount of rows to render
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.posts.count
-    }
-    
-    // Rendering each cell
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Style the posts
-        let tableViewCell = postsTableView.dequeueReusableCell(withIdentifier: "homeTableViewCell") as! TableViewCellPosts
-        tableViewCell.postContainer.layer.borderWidth = 1
-        tableViewCell.postContainer.layer.cornerRadius = 10
-        tableViewCell.postContainer.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
-
-        tableViewCell.profileName.text = self.posts[indexPath.row].appUser.first?.firstName ?? ""
-        //tableViewCell.profileImage
-        tableViewCell.locationField.text = self.posts[indexPath.row].address // Change this later to suburb/city
-        tableViewCell.categoryLabel.text = self.posts[indexPath.row].category.rawValue
-        tableViewCell.descriptionLabel.text = self.posts[indexPath.row].text
-        //tableViewCell.likesLabel
-        tableViewCell.moneySavedLabel.text = "$\(self.posts[indexPath.row].moneySaved)"
-        tableViewCell.addressLabel.text = self.posts[indexPath.row].address
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        if let imageData = posts[indexPath.row].image {
-            let image = UIImage(data: imageData)
-            tableViewCell.postImage.image = image
+        // Retrieve list of posts
+        guard let realm = realmManager.realm else { return }
+        var allPosts = Array(realm.objects(Post.self))
+        
+        guard let user = LoginSession.currentUser else {
+            posts = allPosts
+            print("No logged in user")
+            return
+        }
+
+        // Order by date
+        allPosts.sort {
+            $0.date > $1.date
         }
         
+        // Create two arrays, one for storing followed accounts' posts, one for the rest
+        var followedPosts: [Post] = []
+        var rest: [Post] = []
         
-        return tableViewCell
+        for post in allPosts {
+            if user.following.contains(where: { userFollow in
+                return post.appUser[0].email.elementsEqual(userFollow.followee[0].email)
+            }) {
+                followedPosts.append(post)
+            } else {
+                rest.append(post)
+            }
+        }
+        
+        // Append the followed array with the rest
+        followedPosts.append(contentsOf: rest)
+        posts = followedPosts
+        
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let postCell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! TableViewCellPost
+        postCell.populate(post: posts[indexPath.row])
+        return postCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "postSegue", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "postSegue") {
-            let indexPath = self.postsTableView.indexPathForSelectedRow!
-            
-            let post = posts[indexPath.row]
-            let viewPost = segue.destination as! ViewPostViewController
-            viewPost.name = post.appUser.first?.firstName
-            viewPost.location = post.address
-            viewPost.category = post.category.rawValue
-            viewPost.desc = post.text
-            viewPost.price = String(post.moneySaved)
-            viewPost.address = post.address
-            
-            self.postsTableView.deselectRow(at: indexPath, animated: true)
+        let viewPostViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewPostViewController") as! ViewPostViewController
+        viewPostViewController.post = posts[indexPath.row]
+        
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(viewPostViewController, animated: true)
         }
     }
-    
 }
 

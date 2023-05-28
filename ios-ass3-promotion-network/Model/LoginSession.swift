@@ -17,10 +17,11 @@ class LoginSession: Object, Identifiable {
     var loggedInUser: AppUser!
     private var realmManager = RealmManager.shared
     
+    static var currentUser: AppUser?
+    
     required convenience init(appUser: AppUser) {
         self.init()
         loggedInUser = appUser
-        
         // Get current device id (used for auto-login to check if device has already logged in previously)
         deviceId = UIDevice.current.identifierForVendor!.uuidString
         saveLoginSession()
