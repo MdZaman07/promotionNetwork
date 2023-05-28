@@ -18,7 +18,7 @@ workflows:
           include: true
           source: true
     scripts:
-      -name Install cocoapods
+      - name: Install cocoapods
         script: |
           pod install
       - name: Build for PromNet
