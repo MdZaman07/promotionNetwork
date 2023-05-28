@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0603FB0D2A1F23B2004FD832 /* TableViewCellUserPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603FB0C2A1F23B2004FD832 /* TableViewCellUserPost.swift */; };
 		06EBB0A22A1DF7C00066C06C /* TableViewCellUserAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBB0A12A1DF7C00066C06C /* TableViewCellUserAccounts.swift */; };
+		818258282A233EDF0026A211 /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 818258272A233EDF0026A211 /* codemagic.yaml */; };
 		BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */; };
 		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
 		E88AFDAE2A13D7470087024A /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AFDAD2A13D7470087024A /* Functions.swift */; };
@@ -48,6 +49,7 @@
 		06EBB0A12A1DF7C00066C06C /* TableViewCellUserAccounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellUserAccounts.swift; sourceTree = "<group>"; };
 		0EE2948C5A3404688EBC2388 /* Pods-ios-ass3-promotion-network.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.debug.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.debug.xcconfig"; sourceTree = "<group>"; };
 		54DA7B9E4A6CD99B3E119824 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
+		818258272A233EDF0026A211 /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
 		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E81746A12A0A34F1002851A7 /* Test.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Test.rtf; sourceTree = "<group>"; };
 		E88AFDAD2A13D7470087024A /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		F1A579A02A00F407001F803F = {
 			isa = PBXGroup;
 			children = (
+				818258272A233EDF0026A211 /* codemagic.yaml */,
 				F1A579AB2A00F407001F803F /* ios-ass3-promotion-network */,
 				F1A579AA2A00F407001F803F /* Products */,
 				B56BF47F2E8BB08145412823 /* Pods */,
@@ -297,6 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				818258282A233EDF0026A211 /* codemagic.yaml in Resources */,
 				F1A579BC2A00F40B001F803F /* LaunchScreen.storyboard in Resources */,
 				F1A579B92A00F40B001F803F /* Assets.xcassets in Resources */,
 				E81746A22A0A34F1002851A7 /* Test.rtf in Resources */,

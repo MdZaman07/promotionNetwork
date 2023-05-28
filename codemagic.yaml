@@ -1,0 +1,43 @@
+workflows:
+  ios-assignment:
+    name: PromNet
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        XCODE_WORKSPACE: "ios-ass3-promotion-network.xcworkspace"
+        XCODE_SCHEME: "ios-ass3-promotion-network"
+        BUNDLE_ID: "ios.ass3.promotion-network"
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+          source: true
+    scripts:
+      -name Install cocoapods
+        script: |
+          pod install
+      - name: Build for PromNet
+        scipt: |
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/**/output/bundle/**/*.aab
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.logs
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      email:
+        recipients:
+          - rainh2001@gmail.com
+        notify:
+          success: true
+          failure: true
+        
+            
