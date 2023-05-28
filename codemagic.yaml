@@ -7,7 +7,7 @@ workflows:
       vars:
         XCODE_WORKSPACE: "ios-ass3-promotion-network.xcworkspace"
         XCODE_SCHEME: "ios-ass3-promotion-network"
-        BUNDLE_ID: "ios.ass3.promotion-network"
+        BUNDLE_ID: "au.edu.uts.ios-ass3-promotion-network"
       xcode: latest
       cocoapods: default
     triggering:
