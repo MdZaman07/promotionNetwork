@@ -18,6 +18,9 @@ workflows:
           include: true
           source: true
     scripts:
+      - name: Update cocoapods repo
+        script: |
+          pod repo update
       - name: Install cocoapods
         script: |
           pod install
