@@ -22,7 +22,7 @@ workflows:
         script: |
           pod install
       - name: Build for PromNet
-        scipt: |
+        script: |
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME"
