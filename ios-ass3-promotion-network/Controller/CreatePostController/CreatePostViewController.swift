@@ -8,10 +8,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var moneySavedField: UITextField!
     @IBOutlet weak var createButton: UIButton!
-    
-
     @IBOutlet weak var descriptionField: UITextView!
-    
     @IBOutlet weak var addressField: UITextField!
     var category: String!
     
@@ -70,6 +67,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         dismiss(animated: true)
     }
     
+    //function for the text view
     internal func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.darkGray {
             textView.text = nil
@@ -77,54 +75,11 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
+    //function for the to display placeholder if nothing is in the text view
     internal func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = textViewPlaceholder
             textView.textColor = UIColor.darkGray
-        }
-    }
-
-    @IBAction func selectAddressPressed(_ sender: Any) {
-        pushToMapSearchViewController()
-    }
-    
-    func pushToMapSearchViewController(){
-        let vc = storyboard?.instantiateViewController(identifier: "MapSearchViewController") as! MapSearchViewController
-        vc.vc = self
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
- 
-    func postSucessfullyCreated(_ response: Any?, _ error: Error?) ->Void{
-        if let _ = error {
-            createdPost?.imageKey = ""
-            print("An error occured uploading the image")
-            return
-        }
-        self.performSegue(withIdentifier: "postCreateSegue", sender: self)
-    }
-    
-    @IBAction func createButtonPressed(_ sender: Any) {
-        guard let chosenCategory = category else {return}
-        guard var text = descriptionField.text  else {return}
-        if descriptionField.textColor == UIColor.darkGray{ text = ""} //placeholder
-        guard let address = address else {textFieldErrorAction(field: addressField, msg: "Address can't be empty"); return}
-        
-        guard let moneySaved = moneySavedField.text  else { return}
-
-        
-        let newPost = Post(text: text, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!) //create new post
-        
-        _ = newPost.createPost(image:postImage.image, completion: postSucessfullyCreated)
-        
-        createdPost = newPost
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            
-        if (segue.identifier == "postCreateSegue") {
-            let viewPost = segue.destination as! ViewPostViewController
-            viewPost.post = createdPost ?? nil
         }
     }
     
@@ -134,5 +89,51 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         let characterSet = CharacterSet(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)
     }
+    
+    //select an address
+    @IBAction func selectAddressPressed(_ sender: Any) {
+        pushToMapSearchViewController()
+    }
+    
+    //go to map search view controller
+    func pushToMapSearchViewController(){
+        let vc = storyboard?.instantiateViewController(identifier: "MapSearchViewController") as! MapSearchViewController
+        vc.vc = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //create the post
+    @IBAction func createButtonPressed(_ sender: Any) {
+        //assign the fields
+        guard let chosenCategory = category else {return}
+        guard var text = descriptionField.text  else {return}
+        if descriptionField.textColor == UIColor.darkGray{ text = ""} //placeholder
+        guard let address = address else {textFieldErrorAction(field: addressField, msg: "Address can't be empty"); return}
+        guard let moneySaved = moneySavedField.text  else { return}
+
+        let newPost = Post(text: text, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue:chosenCategory)!) //create new post
+        
+        _ = newPost.createPost(image:postImage.image, completion: postSucessfullyCreated) //saves it to the database
+        
+        createdPost = newPost
+    }
+    
+    //once the post is created push to the post view controller
+    func postSucessfullyCreated(_ response: Any?, _ error: Error?) ->Void{
+        if let _ = error {
+            createdPost?.imageKey = ""
+            print("An error occured uploading the image")
+            return
+        }
+        self.performSegue(withIdentifier: "postCreateSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "postCreateSegue") {
+            let viewPost = segue.destination as! ViewPostViewController
+            viewPost.post = createdPost ?? nil //send the post as a variable in the viewpost controller
+        }
+    }
+    
 }
 
