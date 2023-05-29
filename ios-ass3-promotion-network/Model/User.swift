@@ -79,13 +79,13 @@ class AppUser:Object, Identifiable {
     }
     
     func uploadProfilePictureToS3(_ profilePicture: UIImage) -> Bool {
+        guard let realm = realmManager.realm else {return false}
         let awsManager = AWSManager()
-        
-        if( !awsManager.uploadImage(image: profilePicture, progress: nil , completion: nil, pathAndFileName: self.profileImageKey) ) {
-            return false
-        }
-                
-        return true
+
+        realm.beginWrite()
+        self.profileImageKey = "\(userName)/profilePicture"
+        try! realm.commitWrite()
+        return awsManager.uploadImage(image: profilePicture, progress: nil , completion: nil, pathAndFileName: self.profileImageKey)
     }
     
     func updateAccount(profilePicture: UIImage?, fieldValues: Dictionary<String, String>) -> Bool {
@@ -93,7 +93,7 @@ class AppUser:Object, Identifiable {
         
         // Update profile picture if it isn't nil
         if let profilePicture = profilePicture {
-            if(uploadProfilePictureToS3(profilePicture)) {
+            if(!uploadProfilePictureToS3(profilePicture)) {
                 print("Error uploading picture")
             }
         }
