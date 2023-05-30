@@ -36,6 +36,7 @@ class TableViewCellPost: UITableViewCell {
         
         selectionStyle = .none
 
+        // Pull user profile image from AWS S3 bucket
         if !user.profileImageKey.elementsEqual("") {
             AWSManager.shared.getOneImage(key: user.profileImageKey){ [weak self] result in
                 switch result{
@@ -86,7 +87,7 @@ class TableViewCellPost: UITableViewCell {
             
             addConstraintsForSuperview(element: mapView)
         } else {
-            // Pull image from AWS S3 bucket
+            // Pull post image from AWS S3 bucket
             AWSManager.shared.getOneImage(key: post.imageKey){ [weak self] result in
                 switch result{
                 case .success (let image):
@@ -117,6 +118,7 @@ class TableViewCellPost: UITableViewCell {
     func addConstraintsForSuperview(element: UIView){
         guard let elementSuperview = element.superview else { return }
         
+        // Add constraints for an element to exhibit the same size as its parent (superview)
         element.topAnchor.constraint(equalTo: elementSuperview.topAnchor).isActive = true
         element.bottomAnchor.constraint(equalTo: elementSuperview.bottomAnchor).isActive = true
         element.trailingAnchor.constraint(equalTo: elementSuperview.trailingAnchor).isActive = true
@@ -142,12 +144,14 @@ class TableViewCellPost: UITableViewCell {
         guard let user = getCurrentUser() else { return }
         guard let post = post else { return }
         
+        // Change button image based on the post's like status
         if post.checkUserLike(appUser: user) {
             likeButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
         } else {
             likeButton.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
         }
         
+        // Set like count in UI
         likeCountLabel.text = String(post.likes.count)
     }
 }
