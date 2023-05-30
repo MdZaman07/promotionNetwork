@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  ios-ass3-promotion-network
 //
-//  Created by Malena Diaz Rio on 2/5/23.
+//  Created by Pulok Uz Zaman on 2/5/23.
 //
 
 import UIKit
@@ -10,11 +10,11 @@ import UIKit
 class SearchAccountsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var userAccountsTableView: UITableView!
-    
     var loginSession: LoginSession?
     var userAccounts: [AppUser] = []
     var userNames: [String] = []
     var realmManager = RealmManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // If there is no login session, push to login screen
@@ -47,8 +47,7 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
                 return (searchedText.elementsEqual("") || $0.userName.lowercased().contains(searchedText.lowercased())) && !$0.userName.elementsEqual(username!)
             })
         }
-        userAccountsTableView.reloadData()
-                                                                  
+        userAccountsTableView.reloadData() //reload tableView with the matched userAccounts
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,22 +75,21 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
         } else {
             tableViewCell.profileImageView.image = UIImage(systemName: "person.fill")
         }
-        
         return tableViewCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        performSegue(withIdentifier: "viewProfileSegue", sender: userAccounts[indexPath.row])
+        performSegue(withIdentifier: "viewProfileSegue", sender: userAccounts[indexPath.row]) // show the profile of the selected user
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "viewProfileSegue") {
             let userAccount = sender as! AppUser
             let viewProfile = segue.destination as! ViewProfileViewController
+            //assign the selected userAccount to the userProfile variable in viewProfile
             viewProfile.userProfile = userAccount
         }
     }
-
 
 }
 
