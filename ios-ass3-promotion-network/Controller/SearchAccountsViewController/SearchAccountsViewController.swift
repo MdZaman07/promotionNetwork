@@ -42,7 +42,7 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
                 return
             }
 
-            userAccounts = Array(realmManager.realm!.objects(AppUser.self).filter { $0.userName.lowercased().contains(searchedText.lowercased()) })
+            userAccounts = Array(realmManager.realm!.objects(AppUser.self).filter { $0.userName.lowercased().contains(searchedText.lowercased()) && $0.userName != getCurrentUser()?.userName})
         }
         userAccountsTableView.reloadData()
                                                                   
