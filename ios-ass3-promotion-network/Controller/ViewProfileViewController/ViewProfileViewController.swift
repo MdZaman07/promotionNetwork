@@ -43,6 +43,18 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
         if userProfile == nil{
             userProfile = loggedInUser
         }
+        
+        checkUser()
+        setInitialButtonText()
+        checkFollowing()
+        
+        super.viewDidLoad()
+        userPostsTableView.dataSource = self
+        userPostsTableView.delegate = self
+    }
+    
+    func setUserInfo(){
+
         if !userProfile!.profileImageKey.elementsEqual(""){
             AWSManager.shared.getOneImage(key: userProfile!.profileImageKey){ [weak self] result in
                 switch result{
@@ -65,20 +77,8 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
         profileNameLabel.text = userProfile!.firstName + " " + userProfile!.lastName + " |"
         userCityLabel.text = userProfile!.city
         profileBioLabel.text = userProfile!.bio
-        
-        // Retrieve list of posts
-//        guard let realm = realmManager.realm else { return }
-//        posts = Array(realm.objects(Post.self))
-
-        // TODO: Order them to display post of followed users first
-        checkUser()
-        setInitialButtonText()
-        checkFollowing()
-        
-        super.viewDidLoad()
-        userPostsTableView.dataSource = self
-        userPostsTableView.delegate = self
     }
+    
     func checkUser(){
         guard userProfile == loggedInUser else{
             isLoggedInUser = false
@@ -156,6 +156,8 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     // Set navigation bar
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setUserInfo()
+
         if let navigationController = self.navigationController {
             var controllers = navigationController.viewControllers
             
@@ -174,7 +176,6 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 navigationController.navigationBar.topItem?.rightBarButtonItem = gearButton
             }
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

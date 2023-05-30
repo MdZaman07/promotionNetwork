@@ -75,7 +75,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
 
-    //function for the to display placeholder if nothing is in the text view
+    //function to display placeholder if nothing is in the text view
     internal func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = textViewPlaceholder
@@ -112,10 +112,15 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         guard let moneySaved = moneySavedField.text else { return }
 
         let newPost = Post(text: text, address: address, latitude: latitude, longitude: longitude, moneySaved: Double(moneySaved) ?? 0, category: Category(rawValue: chosenCategory)!) //create new post
-
-        _ = newPost.createPost(image: postImage.image, completion: postSucessfullyCreated) //saves it to the database
-
+    
+        _ = newPost.createPost(image: postImage.image, completion: postSucessfullyCreated) //saves the info to the db and the image to awss3. Goes to view post when completed.
+    
         createdPost = newPost
+        
+        guard let _ = postImage.image else { // if no image was available go to the view post page.
+            self.performSegue(withIdentifier: "postCreateSegue", sender: self)
+            return
+        }
     }
 
     //once the post is created push to the post view controller
@@ -132,7 +137,16 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         if (segue.identifier == "postCreateSegue") {
             let viewPost = segue.destination as! ViewPostViewController
             viewPost.post = createdPost ?? nil //send the post as a variable in the viewpost controller
+            resetPost()
         }
+    }
+    
+    func resetPost(){
+        createdPost = nil
+        postImage.image = nil
+        moneySavedField.text = ""
+        descriptionField.text = ""
+        address = ""
     }
 
 }
