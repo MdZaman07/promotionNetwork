@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  ios-ass3-promotion-network
 //
-//  Created by Malena Diaz Rio on 2/5/23.
+//  Created by Pulok Uz Zaman on 2/5/23.
 //
 
 import UIKit
@@ -18,14 +18,11 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var userCityLabel: UILabel!
     @IBOutlet weak var profileBioLabel: UILabel!
     @IBOutlet weak var userPostsTableView: UITableView!
-    
     @IBOutlet weak var editOrFollowButton: UIButton!
     var userProfile: AppUser?
     var loginSession: LoginSession?
-    var posts: [Post] = []
     var realmManager = RealmManager.shared
     var isLoggedInUser: Bool = false
-    var isFollowing: Bool = false
     var userFollowing: UserFollow?
     let loggedInUser = getCurrentUser()
     
@@ -90,7 +87,6 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
         if(isLoggedInUser){
             editOrFollowButton.setTitle("Edit Account", for: .normal)
             editOrFollowButton.backgroundColor = .gray
-           // editOrFollowButton.layer.cornerRadius = 5
             editOrFollowButton.tintColor = .black
         }
         else{
@@ -103,11 +99,10 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
         guard !isLoggedInUser else{return}
         for loggedInUserFollow in loggedInUser!.following{
             if(loggedInUserFollow.followee.first?.userName == userProfile?.userName){
-                isFollowing = true
                 userFollowing = loggedInUserFollow
             }
         }
-        guard userFollowing != nil else{
+        guard userFollowing != nil else{ //if profile is not followed by loggedInUser
             editOrFollowButton.setTitle("Follow", for: .normal)
             return
         }
@@ -122,7 +117,7 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
             self.navigationController?.pushViewController(vc, animated: true)
             return
         }
-        guard let currentUserFollowing = userFollowing else{
+        guard let currentUserFollowing = userFollowing else{ //if user pressed Follow button, add userFollow instance to database
             let userFollow = UserFollow()
             let realm = realmManager.realm
             try!realm!.write {
@@ -130,14 +125,15 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 userProfile!.followers.append(userFollow)
                 loggedInUser!.following.append(userFollow)
             }
-            checkFollowing()
+            checkFollowing()//Update button text to Unfollow
             numberOfFollowersLabel.text = "\(userProfile!.followers.count)"
             return
         }
+        //if user presses unfollow button, remove userFollow instance from database
         realmManager.removeObject(object: currentUserFollowing)
         userFollowing = nil
         numberOfFollowersLabel.text = "\(userProfile!.followers.count)"
-        checkFollowing()
+        checkFollowing() //Update button text to Follow
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -147,6 +143,7 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let userPostCell = tableView.dequeueReusableCell(withIdentifier: "userPostCell", for: indexPath) as! TableViewCellUserPost
+        //populate posts in the userProfile
         userPostCell.populate(post: (userProfile?.posts[indexPath.row])!)
         return userPostCell
         
