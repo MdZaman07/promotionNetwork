@@ -25,7 +25,12 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
             self.navigationController?.pushViewController(vc, animated: true)
         }
         guard let realm = realmManager.realm else { return }
-        userAccounts = Array(realm.objects(AppUser.self))
+        
+        let username = getCurrentUser()?.userName
+        userAccounts = Array(realm.objects(AppUser.self)).filter {
+            return !$0.userName.elementsEqual(username!)
+        }
+        
         for userProfile in userAccounts{
             userNames.append(userProfile.userName)
         }
@@ -35,14 +40,12 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
     
     
     @IBAction func handleSearch(_ sender: UITextField) {
-        if let searchedText = sender.text{
-            guard !searchedText.isEmpty else{
-                userAccounts = Array(realmManager.realm!.objects(AppUser.self))
-                userAccountsTableView.reloadData()
-                return
-            }
+        if let searchedText = sender.text {
+            let username = getCurrentUser()?.userName
 
-            userAccounts = Array(realmManager.realm!.objects(AppUser.self).filter { $0.userName.lowercased().contains(searchedText.lowercased()) && $0.userName != getCurrentUser()?.userName})
+            userAccounts = Array(realmManager.realm!.objects(AppUser.self).filter {
+                return (searchedText.elementsEqual("") || $0.userName.lowercased().contains(searchedText.lowercased())) && !$0.userName.elementsEqual(username!)
+            })
         }
         userAccountsTableView.reloadData()
                                                                   
