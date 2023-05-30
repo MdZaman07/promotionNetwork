@@ -25,25 +25,27 @@ class SearchAccountsViewController: UIViewController, UITableViewDataSource, UIT
             self.navigationController?.pushViewController(vc, animated: true)
         }
         guard let realm = realmManager.realm else { return }
-        //get all the users from the database
-        userAccounts = Array(realm.objects(AppUser.self))
-        for userProfile in userAccounts{ //add all the users' username tp the userNames variable
+        
+        let username = getCurrentUser()?.userName
+        userAccounts = Array(realm.objects(AppUser.self)).filter {
+            return !$0.userName.elementsEqual(username!)
+        }
+        
+        for userProfile in userAccounts{
             userNames.append(userProfile.userName)
         }
         userAccountsTableView.dataSource = self
         userAccountsTableView.delegate = self
     }
     
-    @IBAction func handleSearch(_ sender: UITextField) { //handles search everytime the textField is edited
-        guard let realm = realmManager.realm else { return }
-        if let searchedText = sender.text{
-            guard !searchedText.isEmpty else{ //if searchedTet is empty, assign all the users in the database to userAccounts
-                userAccounts = Array(realm.objects(AppUser.self))
-                userAccountsTableView.reloadData()
-                return
-            }
-            //search filter is case insensitive
-            userAccounts = Array(realm.objects(AppUser.self).filter { $0.userName.lowercased().contains(searchedText.lowercased()) })
+    
+    @IBAction func handleSearch(_ sender: UITextField) {
+        if let searchedText = sender.text {
+            let username = getCurrentUser()?.userName
+
+            userAccounts = Array(realmManager.realm!.objects(AppUser.self).filter {
+                return (searchedText.elementsEqual("") || $0.userName.lowercased().contains(searchedText.lowercased())) && !$0.userName.elementsEqual(username!)
+            })
         }
         userAccountsTableView.reloadData() //reload tableView with the matched userAccounts
     }
