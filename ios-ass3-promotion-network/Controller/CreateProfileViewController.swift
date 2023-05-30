@@ -1,10 +1,10 @@
 import UIKit
 
-class CreateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class CreateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var profilePictureField: UIImageView!
 
     @IBOutlet weak var createButton: UIButton!
-    @IBOutlet weak var descriptionField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var confirmPasswordField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var cityField: UITextField!
@@ -32,13 +32,31 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         confirmPasswordField.isSecureTextEntry = true
         
         // Do any additional setup after loading the view.
-        applyBorderStylingToTextFields(fields: [descriptionField, confirmPasswordField,
+        applyBorderStylingToTextFields(fields: [confirmPasswordField,
                                           passwordField, cityField, emailField, usernameField, lastNameField, firstNameField])
-        
+        applyBorderStylingToTextViews(fields: [descriptionTextView])
+        descriptionTextView.delegate = self
+
         if(isEdit) {
             populateEditFields()
             passwordField.placeholder = "New password (leave empty if not changing)"
             createButton.setTitle("Update", for: .normal)
+        }
+    }
+    
+    //function for the text view
+    internal func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.placeholderText {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+
+    //function to display placeholder if nothing is in the text view
+    internal func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Description"
+            textView.textColor = UIColor.placeholderText
         }
     }
     
@@ -49,8 +67,10 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         lastNameField.text = currentUser.lastName
         emailField.text = currentUser.email
         cityField.text = currentUser.city
-        descriptionField.text = currentUser.bio
-        
+        descriptionTextView.text = currentUser.bio
+        if let description = descriptionTextView.text, !description.isEmpty {
+            descriptionTextView.textColor = UIColor.black
+        }
         // Get image from S3 and populate image field
         if !currentUser.profileImageKey.elementsEqual("") {
             AWSManager.shared.getOneImage(key: currentUser.profileImageKey){ [weak self] result in
@@ -79,7 +99,7 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         guard let lastName = lastNameField.text, !lastName.isEmpty else { textFieldErrorAction(field: lastNameField, msg: "Name can't be empty"); return false }
         guard let email = emailField.text, !email.isEmpty else { textFieldErrorAction(field: emailField, msg: "Email can't be empty"); return false }
         guard let city = cityField.text, !city.isEmpty else { textFieldErrorAction(field: cityField, msg: "City can't be empty"); return false }
-        guard let description = descriptionField.text, !description.isEmpty else { textFieldErrorAction(field: descriptionField, msg: "Description can't be empty"); return false }
+        guard descriptionTextView.textColor != UIColor.placeholderText, let description = descriptionTextView.text, !description.isEmpty else { textViewErrorAction(field: descriptionTextView, msg: "Description can't be empty"); return false }
         if(!isEdit) {
             guard let password = passwordField.text, !password.isEmpty else { textFieldErrorAction(field: passwordField, msg: "Password an't be empty"); return false }
         }
@@ -110,7 +130,7 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
             }
 
             // Create new user instance
-            let newUser = AppUser(userName: usernameField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, email: emailField.text!, password: passwordField.text!, city: cityField.text!, bio: descriptionField.text!)
+            let newUser = AppUser(userName: usernameField.text!, firstName: firstNameField.text!, lastName: lastNameField.text!, email: emailField.text!, password: passwordField.text!, city: cityField.text!, bio: descriptionTextView.text!)
             
             // Add user to realm db, if result is false, don't push to login screen
             if(!newUser.createUser(profilePicture: uploadProfilePicture)) {
@@ -134,7 +154,7 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
                 "email": emailField.text!,
                 "password": passwordField.text!,
                 "city": cityField.text!,
-                "bio": descriptionField.text!
+                "bio": descriptionTextView.text!
             ]
             
             if(!currentUser.updateAccount(profilePicture: uploadProfilePicture, fieldValues: fieldValues)) {
@@ -204,7 +224,7 @@ class CreateProfileViewController: UIViewController, UIImagePickerControllerDele
         }
         
         // Check if city has numbers
-        guard let city = cityField.text, regularExpressionValidator(regex: "^[a-zA-Z]+$", compareString: city) else {
+        guard let city = cityField.text, regularExpressionValidator(regex: "^[a-zA-Z\\s]+$", compareString: city) else {
             textFieldErrorAction(field: cityField, msg: "City can only consist of letters")
             return false
         }

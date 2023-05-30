@@ -38,7 +38,7 @@
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l95-HS-FE2">
                                         <rect key="frame" x="0.0" y="0.0" width="295.66666666666669" height="43.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" smartDashesType="no" smartInsertDeleteType="no"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="GhQ-uz-SMq">
                                         <rect key="frame" x="0.0" y="53.666666666666657" width="295.66666666666669" height="42.666666666666657"/>
@@ -58,12 +58,12 @@
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bif-WK-tdq">
                                         <rect key="frame" x="0.0" y="106.33333333333334" width="295.66666666666669" height="42.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" spellCheckingType="no" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bL6-tG-ZV5">
                                         <rect key="frame" x="0.0" y="158.66666666666666" width="295.66666666666669" height="42.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" textContentType="address-level2"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w1v-Rr-SJY">
                                         <rect key="frame" x="0.0" y="211.33333333333334" width="295.66666666666669" height="42.666666666666657"/>
@@ -75,11 +75,13 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="line" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2iW-9n-k4H">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="03D-p2-6eD" userLabel="Description Text View">
                                         <rect key="frame" x="0.0" y="316.66666666666663" width="295.66666666666669" height="109.33333333333331"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="placeholderTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="l95-HS-FE2" firstAttribute="height" secondItem="eA2-OO-nVM" secondAttribute="height" multiplier="0.1" constant="1" id="3gv-Bc-Cdy"/>
@@ -123,7 +125,7 @@
                         <outlet property="cityField" destination="bL6-tG-ZV5" id="fuf-Sg-F3b"/>
                         <outlet property="confirmPasswordField" destination="gxF-9R-LZ7" id="72u-Z4-nEO"/>
                         <outlet property="createButton" destination="AmM-TX-wGJ" id="g7R-Om-sav"/>
-                        <outlet property="descriptionField" destination="2iW-9n-k4H" id="d2C-pI-qKH"/>
+                        <outlet property="descriptionTextView" destination="03D-p2-6eD" id="t8d-vS-Zfu"/>
                         <outlet property="emailField" destination="Bif-WK-tdq" id="O4L-LI-8bR"/>
                         <outlet property="firstNameField" destination="Y6t-Kt-A7u" id="d2j-E0-M5e"/>
                         <outlet property="lastNameField" destination="BJx-de-94L" id="bte-gY-4WJ"/>
@@ -350,9 +352,6 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jDf-J3-4Ur">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="jDf-J3-4Ur" secondAttribute="height" multiplier="1:1" id="zPS-BA-gYB"/>
-                                                        </constraints>
                                                         <imageReference key="highlightedImage" image="camera.viewfinder" catalog="system" symbolScale="medium"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6DS-5M-iWK">
@@ -1129,7 +1128,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdW-9Z-ddc">
-                                <rect key="frame" x="-3" y="59" width="390" height="44"/>
+                                <rect key="frame" x="-3" y="59" width="389" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1794,10 +1793,8 @@ coffeeholics</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="go9-R3-Peg"/>
         <segue reference="Yec-Pn-lCj"/>
-        <segue reference="I6L-rV-rB2"/>
-        <segue reference="HPU-Nz-NJu"/>
+        <segue reference="4tN-WU-8Xg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera.viewfinder" catalog="system" width="128" height="115"/>

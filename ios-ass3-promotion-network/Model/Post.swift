@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import RealmSwift
 
-enum Category: String, PersistableEnum, CaseIterable{
+enum Category: String, PersistableEnum, CaseIterable {
     case foodDrinks = "Food and drinks"
     case homewear = "Homewear"
     case personalCare = "Cosmetic/Personal Care"
@@ -18,7 +18,7 @@ enum Category: String, PersistableEnum, CaseIterable{
 }
 
 class Post: Object, Identifiable {
-    
+
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var text: String
     @Persisted var image: Data?
@@ -33,7 +33,6 @@ class Post: Object, Identifiable {
     @Persisted var likes: List<LikedPost>
 
     required convenience init(text: String, address: String, latitude: String, longitude: String, moneySaved: Double, category: Category) {
-
         self.init()
         self.text = text
         self.address = address
@@ -43,68 +42,70 @@ class Post: Object, Identifiable {
         self.category = category
         self.date = Date.now
     }
-    
-    func createPost(image:UIImage?, completion:@escaping completionBlock) -> Bool {
-        guard let appUser = getCurrentUser() else {return false}
-                
-        if let image = image{
-            guard uploadPostImage(appUser:appUser, image:image, completion:completion) else { return false}
+
+    //creates the post in the database
+    func createPost(image: UIImage?, completion: @escaping completionBlock) -> Bool {
+        guard let appUser = getCurrentUser() else { return false }
+
+        if let image = image { //uploads an image
+            guard uploadPostImage(appUser: appUser, image: image, completion: completion) else { return false }
         }
-        
-        let realmManager = RealmManager.shared
+
+        let realmManager = RealmManager.shared //uploads the data to realm manager
         realmManager.addObjectToList(object: self, list: appUser.posts)
 
         return true
     }
-    
-    func getPostImageName(appUser:AppUser) ->String{
+
+    //sets the image name of each post to username/post/date
+    func getPostImageName(appUser: AppUser) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YY_M_d_HH:mm:ss"
-        let dateString = dateFormatter.string(from:date)
+        let dateString = dateFormatter.string(from: date)
         return "\(appUser.userName)/post/\(dateString)"
     }
-    
-    
-    func uploadPostImage(appUser:AppUser, image:UIImage, completion:@escaping completionBlock) -> Bool{
-        
+
+    //uploads the image to AWSS3
+    func uploadPostImage(appUser: AppUser, image: UIImage, completion: @escaping completionBlock) -> Bool {
+
         let awsManager = AWSManager.shared
-        
-        guard let imageData = image.pngData() else {return false}
-        guard let uploadImage = UIImage(data: imageData) else {return false}
-        
-        let pathAndFileName = getPostImageName(appUser:appUser)
-        
-        if( !awsManager.uploadImage(image: uploadImage, progress: nil , completion: completion , pathAndFileName: pathAndFileName) ) {
+
+        let pathAndFileName = getPostImageName(appUser: appUser)
+
+        if(!awsManager.uploadImage(image: image, progress: nil, completion: completion, pathAndFileName: pathAndFileName)) {
             return false
         }
- 
-        self.imageKey = pathAndFileName
-        
+
+        self.imageKey = pathAndFileName //asigns the image key
+
         return true
     }
-    
-    func checkUserLike(appUser:AppUser) -> Bool{
-        if likes.contains(where: {$0.appUser.first?._id == appUser._id}){
+
+    //checks if the user has liked the post
+    func checkUserLike(appUser: AppUser) -> Bool {
+        if likes.contains(where: { $0.appUser.first?._id == appUser._id }) {
             return true
         }
         return false
     }
-    
-    func likePost(appUser:AppUser){
+
+    //makes the user like the post and updates information in realm
+    func likePost(appUser: AppUser) {
         let like = LikedPost()
         let realmManager = RealmManager.shared
-        
-        realmManager.addObjectToList(object: like, list:appUser.likes)
+
+        realmManager.addObjectToList(object: like, list: appUser.likes)
         realmManager.addObjectToList(object: like, list: self.likes)
-    
+
         return
     }
-    
-    func unlikePost(appUser:AppUser){
-        guard let like = likes.first(where: {$0.appUser.first?._id == appUser._id}) else {return}
-            
+
+    //makes the user unlike the post and updates information in realm
+    func unlikePost(appUser: AppUser) {
+        guard let like = likes.first(where: { $0.appUser.first?._id == appUser._id }) else { return }
+
         let realmManager = RealmManager.shared
         realmManager.removeObject(object: like)
     }
-    
+
 }
