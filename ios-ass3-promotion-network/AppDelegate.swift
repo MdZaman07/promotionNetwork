@@ -15,8 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        GMSServices.provideAPIKey(ProcessInfo.processInfo.environment["GOOGLE_MAPS_KEY"] ?? "")
-        GMSPlacesClient.provideAPIKey( ProcessInfo.processInfo.environment["GOOGLE_PLACES_KEY"] ?? "")
+        GMSServices.provideAPIKey("AIzaSyA92O63XzsOFjF-QyhAowmLHJ5AmVJGZUI")
+        GMSPlacesClient.provideAPIKey("AIzaSyCRBmx90POkN1orPlaheyv5CnTn6r0FgCE")
 
         // Override point for customization after application launch.
         return true

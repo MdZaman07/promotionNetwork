@@ -11,6 +11,7 @@
 		06EBB0A22A1DF7C00066C06C /* TableViewCellUserAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EBB0A12A1DF7C00066C06C /* TableViewCellUserAccounts.swift */; };
 		818258282A233EDF0026A211 /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 818258272A233EDF0026A211 /* codemagic.yaml */; };
 		8182582A2A2352550026A211 /* export_options.plist in Resources */ = {isa = PBXBuildFile; fileRef = 818258292A2352550026A211 /* export_options.plist */; };
+		81FEC14E2A260AF300D9AC0C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 81FEC14D2A260AF300D9AC0C /* README.md */; };
 		BFB09EF5D7CA2005DD9DBF45 /* Pods_ios_ass3_promotion_network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */; };
 		E81746A22A0A34F1002851A7 /* Test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E81746A12A0A34F1002851A7 /* Test.rtf */; };
 		E88AFDAE2A13D7470087024A /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88AFDAD2A13D7470087024A /* Functions.swift */; };
@@ -52,6 +53,7 @@
 		54DA7B9E4A6CD99B3E119824 /* Pods-ios-ass3-promotion-network.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-ass3-promotion-network.release.xcconfig"; path = "Target Support Files/Pods-ios-ass3-promotion-network/Pods-ios-ass3-promotion-network.release.xcconfig"; sourceTree = "<group>"; };
 		818258272A233EDF0026A211 /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
 		818258292A2352550026A211 /* export_options.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = export_options.plist; sourceTree = "<group>"; };
+		81FEC14D2A260AF300D9AC0C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B4C515E464284B968FF842F4 /* Pods_ios_ass3_promotion_network.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_ass3_promotion_network.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E81746A12A0A34F1002851A7 /* Test.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Test.rtf; sourceTree = "<group>"; };
 		E88AFDAD2A13D7470087024A /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 		F1A579A02A00F407001F803F = {
 			isa = PBXGroup;
 			children = (
+				81FEC14D2A260AF300D9AC0C /* README.md */,
 				818258292A2352550026A211 /* export_options.plist */,
 				818258272A233EDF0026A211 /* codemagic.yaml */,
 				F1A579AB2A00F407001F803F /* ios-ass3-promotion-network */,
@@ -306,6 +309,7 @@
 				818258282A233EDF0026A211 /* codemagic.yaml in Resources */,
 				F1A579BC2A00F40B001F803F /* LaunchScreen.storyboard in Resources */,
 				F1A579B92A00F40B001F803F /* Assets.xcassets in Resources */,
+				81FEC14E2A260AF300D9AC0C /* README.md in Resources */,
 				8182582A2A2352550026A211 /* export_options.plist in Resources */,
 				E81746A22A0A34F1002851A7 /* Test.rtf in Resources */,
 				F1A579B42A00F407001F803F /* Main.storyboard in Resources */,
