@@ -90,7 +90,6 @@ class ViewProfileViewController: UIViewController, UITableViewDataSource, UITabl
             editOrFollowButton.tintColor = .black
         }
         else{
-          //  editOrFollowButton.setTitle("Follow", for: .normal)
             editOrFollowButton.backgroundColor = .blue
             editOrFollowButton.tintColor = .white
         }
