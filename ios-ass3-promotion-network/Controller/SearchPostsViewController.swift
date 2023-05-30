@@ -20,11 +20,13 @@ class SearchPostsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Add event listener to the category popup button
         let popUpButtonClosure = { (action: UIAction) in
             self.categoryText = action.title
             self.search()
         }
-                
+            
+        // Assign all categories available to search to the popup button
         categoryPopupButton.menu = UIMenu(children: [
             UIAction(title: "All", handler: popUpButtonClosure),
             UIAction(title: Category.foodDrinks.rawValue, handler: popUpButtonClosure),
@@ -39,6 +41,7 @@ class SearchPostsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.dataSource = self
         tableView.delegate = self
         
+        // Assign event listener to the search button
         searchButton.addTarget(self, action: #selector(searchButtonClicked), for: .touchUpInside)
     }
     
@@ -66,11 +69,12 @@ class SearchPostsViewController: UIViewController, UITableViewDataSource, UITabl
             return true
         }
         
-        // Order by date
+        // Order by date to ensure newest posts are rendered at the top of the table
         searchPosts.sort {
             $0.date > $1.date
         }
         
+        // Reload table data with new posts retrieved from the search query
         posts = searchPosts
         tableView.reloadData()
     }
@@ -80,12 +84,14 @@ class SearchPostsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Populate each cell with its corresponding post data
         let postCell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! TableViewCellPost
         postCell.populate(post: posts[indexPath.row])
         return postCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Generate a new instance of the view post controller and navigate to it
         let viewPostViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewPostViewController") as! ViewPostViewController
         viewPostViewController.post = posts[indexPath.row]
         

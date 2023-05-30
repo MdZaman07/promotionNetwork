@@ -41,7 +41,7 @@ class LoginSession: Object, Identifiable {
     // Static function to query Realm for a login session of the current device if it exists
     static func getLoginSession() -> LoginSession? {
         let realmManager = RealmManager.shared
-        guard let realm = realmManager.realm else {return nil}
+        guard let _ = realmManager.realm else {return nil}
         let deviceId = UIDevice.current.identifierForVendor!.uuidString
 
         let loginSession = realmManager.getObject(type: LoginSession.self, field: "deviceId", value: deviceId) as? LoginSession
